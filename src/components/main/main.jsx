@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 // eslint-disable-next-line react/prop-types
 const Main = ({movieTitle, movieGenre, movieYear}) => {
   return (
-    <React.Fragment>
+    <Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -38,13 +38,13 @@ const Main = ({movieTitle, movieGenre, movieYear}) => {
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                    <use xlinkHref="#play-s"/>
                   </svg>
                   <span>Play</span>
                 </button>
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref="#add"/>
                   </svg>
                   <span>My list</span>
                 </button>
@@ -270,7 +270,7 @@ const Main = ({movieTitle, movieGenre, movieYear}) => {
           </div>
         </footer>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
