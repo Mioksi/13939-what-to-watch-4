@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 // eslint-disable-next-line react/prop-types
 const Main = ({movieTitle, movieGenre, movieYear}) => {
   return (
-    <Fragment>
+    <>
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -270,7 +270,7 @@ const Main = ({movieTitle, movieGenre, movieYear}) => {
           </div>
         </footer>
       </div>
-    </Fragment>
+    </>
   );
 };
 
