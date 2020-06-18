@@ -5,13 +5,13 @@ import Main from '../main/main.jsx';
 
 const cardTitleHandler = () => {};
 
-const App = ({movieTitle, movieGenre, movieYear, cardTitles}) => {
+const App = ({movieTitle, movieGenre, movieYear, movies}) => {
   return (
     <Main
       movieTitle={movieTitle}
       movieGenre={movieGenre}
       movieYear={movieYear}
-      cardTitles={cardTitles}
+      movies={movies}
       onCardTitleClick={cardTitleHandler}
     />
   );
@@ -21,7 +21,13 @@ App.propTypes = {
   movieTitle: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieYear: PropTypes.number.isRequired,
-  cardTitles: PropTypes.arrayOf(PropTypes.string.isRequired),
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
 };
 
 export default App;
