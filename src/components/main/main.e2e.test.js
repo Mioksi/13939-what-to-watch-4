@@ -3,7 +3,7 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 import Main from './main';
-import {Movie, MOVIE_TITLES} from '../../common/consts';
+import {Movie, MOVIES} from '../../common/consts';
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -17,14 +17,14 @@ it(`Should card title be pressed`, () => {
         movieTitle={Movie.TITLE}
         movieGenre={Movie.GENRE}
         movieYear={Movie.YEAR}
-        cardTitles={MOVIE_TITLES}
+        movies={MOVIES}
         onCardTitleClick={onCardTitleClick}
       />
   );
 
   const movieTitles = main.find(`small-movie-card__link`);
 
-  movieTitles.forEach((title) => title.props().onClick());
+  movieTitles.forEach((title) => title.simulate(`click`));
 
-  expect(onCardTitleClick.mock.calls.length).toBe(movieTitles.length);
+  expect(onCardTitleClick).toHaveBeenCalledTimes(movieTitles.length);
 });
