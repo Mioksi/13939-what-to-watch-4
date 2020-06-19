@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import Main from './main';
-import {Movie, MOVIE_TITLES} from '../../common/consts';
+import {Movie, MOVIES} from '../../common/consts';
 
 it(`Should Main render correctly`, () => {
   const tree = renderer
@@ -10,7 +10,7 @@ it(`Should Main render correctly`, () => {
       movieTitle={Movie.TITLE}
       movieGenre={Movie.GENRE}
       movieYear={Movie.YEAR}
-      cardTitles={MOVIE_TITLES}
+      movies={MOVIES}
       onCardTitleClick={() => {}}
     />)
     .toJSON();
