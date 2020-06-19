@@ -27,20 +27,28 @@ class MoviesList extends PureComponent {
     });
   }
 
-  render() {
+  _getMovie(movie, index, onCardTitleClick) {
+    return (
+      <MovieCard
+        key={`${movie.title}-${index}`}
+        movie={movie}
+        onCardTitleClick={onCardTitleClick}
+        onCardMouseEnter={this._onCardMouseEnter}
+        onCardMouseLeave={this._onCardMouseLeave}
+      />
+    );
+  }
+
+  _getMovies() {
     const {movies, onCardTitleClick} = this.props;
 
+    return movies.map((movie, index) => this._getMovie(movie, index, onCardTitleClick));
+  }
+
+  render() {
     return (
       <div className="catalog__movies-list">
-        {movies.map((movie, index) =>
-          <MovieCard
-            key={`${movie.title}-${index}`}
-            movie={movie}
-            onCardTitleClick={onCardTitleClick}
-            onCardMouseEnter={this._onCardMouseEnter}
-            onCardMouseLeave={this._onCardMouseLeave}
-          />
-        )}
+        {this._getMovies()}
       </div>
     );
   }

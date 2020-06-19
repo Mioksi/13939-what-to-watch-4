@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 const MovieCard = ({movie, onCardTitleClick, onCardMouseEnter, onCardMouseLeave}) => {
   const {id, title, image} = movie;
 
+  const handleMouseEnter = () => onCardMouseEnter(id);
+
   return (
     <article
       className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => {
-        onCardMouseEnter(id);
-      }}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={onCardMouseLeave}
     >
       <div className="small-movie-card__image">
