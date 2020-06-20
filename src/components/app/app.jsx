@@ -25,7 +25,15 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    return <MoviePage />;
+    const {movies, film} = this.props;
+
+    return (
+      <MoviePage
+        film={film}
+        movies={movies}
+        onCardTitleClick={() => {}}
+      />
+    );
   }
 
   render() {
@@ -55,6 +63,18 @@ App.propTypes = {
         image: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
+  film: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    backgroundPoster: PropTypes.string.isRequired,
+    filmPoster: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default App;
