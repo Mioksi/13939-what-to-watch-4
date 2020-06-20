@@ -8,6 +8,7 @@ it(`Should MoviesList render correctly`, () => {
   const tree = renderer
     .create(<MoviesList
       movies={MOVIES}
+      onCardClick={() => {}}
       onCardTitleClick={() => {}}
     />)
     .toJSON();
