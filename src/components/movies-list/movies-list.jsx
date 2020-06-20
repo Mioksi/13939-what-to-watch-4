@@ -27,11 +27,12 @@ class MoviesList extends PureComponent {
     });
   }
 
-  _getMovie(movie, index, onCardTitleClick) {
+  _getMovie(movie, index, onCardTitleClick, onCardClick) {
     return (
       <MovieCard
         key={`${movie.title}-${index}`}
         movie={movie}
+        onCardClick={onCardClick}
         onCardTitleClick={onCardTitleClick}
         onCardMouseEnter={this._onCardMouseEnter}
         onCardMouseLeave={this._onCardMouseLeave}
@@ -40,9 +41,9 @@ class MoviesList extends PureComponent {
   }
 
   _getMovies() {
-    const {movies, onCardTitleClick} = this.props;
+    const {movies, onCardTitleClick, onCardClick} = this.props;
 
-    return movies.map((movie, index) => this._getMovie(movie, index, onCardTitleClick));
+    return movies.map((movie, index) => this._getMovie(movie, index, onCardTitleClick, onCardClick));
   }
 
   render() {
@@ -63,6 +64,7 @@ MoviesList.propTypes = {
       }).isRequired
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };
 
 export default MoviesList;

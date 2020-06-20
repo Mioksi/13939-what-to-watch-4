@@ -8,9 +8,21 @@ import MoviePage from '../movie-page/movie-page.jsx';
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      activeCard: null
+    };
+
+    this._handleMovieCardClick = this._handleMovieCardClick.bind(this);
   }
 
-  _renderApp() {
+  _handleMovieCardClick(id) {
+    this.setState({
+      activeCard: id,
+    });
+  }
+
+  _renderMain() {
     const {movieTitle, movieGenre, movieYear, movies} = this.props;
 
     return (
@@ -19,7 +31,8 @@ class App extends PureComponent {
         movieGenre={movieGenre}
         movieYear={movieYear}
         movies={movies}
-        onCardTitleClick={() => {}}
+        onCardTitleClick={this._handleMovieCardClick}
+        onCardClick={this._handleMovieCardClick}
       />
     );
   }
@@ -31,9 +44,20 @@ class App extends PureComponent {
       <MoviePage
         film={film}
         movies={movies}
-        onCardTitleClick={() => {}}
+        onCardClick={this._handleMovieCardClick}
+        onCardTitleClick={this._handleMovieCardClick}
       />
     );
+  }
+
+  _renderApp() {
+    const {activeCard} = this.state;
+
+    if (activeCard) {
+      return this._renderMoviePage();
+    }
+
+    return this._renderMain();
   }
 
   render() {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import {formatRating, getTextRating} from './helpers/utils';
 
-const MoviePage = ({film, movies, onCardTitleClick}) => {
+const MoviePage = ({film, movies, onCardClick, onCardTitleClick}) => {
   const {title, genre, year, backgroundPoster, filmPoster, rating, ratingCount, description, director, starring} = film;
 
   return (
@@ -95,6 +95,7 @@ const MoviePage = ({film, movies, onCardTitleClick}) => {
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
             movies={movies}
+            onCardClick={onCardClick}
             onCardTitleClick={onCardTitleClick}
           />
         </section>
@@ -136,6 +137,7 @@ MoviePage.propTypes = {
       }).isRequired
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };
 
 export default MoviePage;
