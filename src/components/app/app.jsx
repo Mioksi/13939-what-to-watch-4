@@ -1,21 +1,48 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
+import {Switch, Route, BrowserRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Main from '../main/main.jsx';
+import MoviePage from '../movie-page/movie-page.jsx';
 
-const cardTitleHandler = () => {};
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-const App = ({movieTitle, movieGenre, movieYear, movies}) => {
-  return (
-    <Main
-      movieTitle={movieTitle}
-      movieGenre={movieGenre}
-      movieYear={movieYear}
-      movies={movies}
-      onCardTitleClick={cardTitleHandler}
-    />
-  );
-};
+  _renderApp() {
+    const {movieTitle, movieGenre, movieYear, movies} = this.props;
+
+    return (
+      <Main
+        movieTitle={movieTitle}
+        movieGenre={movieGenre}
+        movieYear={movieYear}
+        movies={movies}
+        onCardTitleClick={() => {}}
+      />
+    );
+  }
+
+  _renderMoviePage() {
+    return <MoviePage />;
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-film">
+            {this._renderMoviePage()}
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}
 
 App.propTypes = {
   movieTitle: PropTypes.string.isRequired,
