@@ -37,6 +37,25 @@ it(`Should card title be pressed`, () => {
   expect(onCardTitleClick).toHaveBeenCalledTimes(1);
 });
 
+it(`Should movie card click`, () => {
+  const onCardClick = jest.fn();
+
+  const movieCard = shallow(
+      <MovieCard
+        movie={movie}
+        onCardClick={onCardClick}
+        onCardTitleClick={() => {}}
+        onCardMouseEnter={() => {}}
+        onCardMouseLeave={() => {}}
+      />
+  );
+
+  const movieTitle = movieCard.find(`.small-movie-card`);
+  movieTitle.simulate(`click`);
+
+  expect(onCardClick).toHaveBeenCalledTimes(1);
+});
+
 it(`Should movie card be hover`, () => {
   const onCardMouseEnter = jest.fn();
   const onCardMouseLeave = jest.fn();
