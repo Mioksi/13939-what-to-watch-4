@@ -16,3 +16,19 @@ export const MOVIES = [
     image: `img/bohemian-rhapsody.jpg`,
   },
 ];
+
+export const MovieRating = {
+  BAD: 0,
+  NORMAL: 3,
+  GOOD: 5,
+  VERY_GOOD: 8,
+  AWESOME: 10
+};
+
+export const RatingType = {
+  BAD: `Bad`,
+  NORMAL: `Normal`,
+  GOOD: `Good`,
+  VERY_GOOD: `Very good`,
+  AWESOME: `Awesome`,
+};

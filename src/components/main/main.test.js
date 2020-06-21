@@ -11,6 +11,7 @@ it(`Should Main render correctly`, () => {
       movieGenre={Movie.GENRE}
       movieYear={Movie.YEAR}
       movies={MOVIES}
+      onCardClick={() => {}}
       onCardTitleClick={() => {}}
     />)
     .toJSON();

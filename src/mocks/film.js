@@ -1,10 +1,4 @@
-import React from "react";
-import renderer from "react-test-renderer";
-
-import App from "./app.jsx";
-import {Movie, MOVIES} from '../../common/consts';
-
-const film = {
+export default {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
   year: 2014,
@@ -16,17 +10,3 @@ const film = {
   director: `Wes Andreson`,
   starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`
 };
-
-it(`Render App`, () => {
-  const tree = renderer
-    .create(<App
-      movieTitle={Movie.TITLE}
-      movieGenre={Movie.GENRE}
-      movieYear={Movie.YEAR}
-      movies={MOVIES}
-      film={film}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});

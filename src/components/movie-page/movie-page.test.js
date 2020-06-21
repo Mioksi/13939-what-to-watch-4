@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import App from "./app.jsx";
-import {Movie, MOVIES} from '../../common/consts';
+import MoviePage from './movie-page';
+import {MOVIES} from '../../common/consts';
 
 const film = {
   title: `The Grand Budapest Hotel`,
@@ -17,14 +17,13 @@ const film = {
   starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`
 };
 
-it(`Render App`, () => {
+it(`Should MovieCard render correctly`, () => {
   const tree = renderer
-    .create(<App
-      movieTitle={Movie.TITLE}
-      movieGenre={Movie.GENRE}
-      movieYear={Movie.YEAR}
-      movies={MOVIES}
+    .create(<MoviePage
       film={film}
+      movies={MOVIES}
+      onCardClick={() => {}}
+      onCardTitleClick={() => {}}
     />)
     .toJSON();
 

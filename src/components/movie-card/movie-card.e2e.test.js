@@ -17,9 +17,14 @@ Enzyme.configure({
 it(`Should card title be pressed`, () => {
   const onCardTitleClick = jest.fn();
 
+  const mockEvent = {
+    preventDefault() {}
+  };
+
   const movieCard = shallow(
       <MovieCard
         movie={movie}
+        onCardClick={() => {}}
         onCardTitleClick={onCardTitleClick}
         onCardMouseEnter={() => {}}
         onCardMouseLeave={() => {}}
@@ -27,9 +32,29 @@ it(`Should card title be pressed`, () => {
   );
 
   const movieTitle = movieCard.find(`.small-movie-card__link`);
-  movieTitle.simulate(`click`);
+  movieTitle.simulate(`click`, mockEvent);
 
   expect(onCardTitleClick).toHaveBeenCalledTimes(1);
+});
+
+it(`Should movie card click`, () => {
+  const onCardClick = jest.fn();
+
+  const movieCard = shallow(
+      <MovieCard
+        movie={movie}
+        onCardClick={onCardClick}
+        onCardTitleClick={() => {}}
+        onCardMouseEnter={() => {}}
+        onCardMouseLeave={() => {}}
+      />
+  );
+
+  const movieTitle = movieCard.find(`.small-movie-card`);
+  movieTitle.simulate(`click`);
+
+  expect(onCardClick).toHaveBeenCalledTimes(1);
+  expect(onCardClick).toHaveBeenCalledWith(movie.id);
 });
 
 it(`Should movie card be hover`, () => {
@@ -39,6 +64,7 @@ it(`Should movie card be hover`, () => {
   const movieCard = shallow(
       <MovieCard
         movie={movie}
+        onCardClick={() => {}}
         onCardTitleClick={() => {}}
         onCardMouseEnter={onCardMouseEnter}
         onCardMouseLeave={onCardMouseLeave}
@@ -51,7 +77,7 @@ it(`Should movie card be hover`, () => {
   card.simulate(`mouseleave`);
 
   expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
-  expect(onCardMouseEnter.mock.calls[0][0]).toBe(movie.id);
+  expect(onCardMouseEnter).toHaveBeenCalledWith(movie.id);
 
   expect(onCardMouseLeave).toHaveBeenCalledTimes(1);
 });
