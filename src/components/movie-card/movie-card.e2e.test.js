@@ -54,6 +54,7 @@ it(`Should movie card click`, () => {
   movieTitle.simulate(`click`);
 
   expect(onCardClick).toHaveBeenCalledTimes(1);
+  expect(onCardClick).toHaveBeenCalledWith(movie.id);
 });
 
 it(`Should movie card be hover`, () => {
@@ -76,7 +77,7 @@ it(`Should movie card be hover`, () => {
   card.simulate(`mouseleave`);
 
   expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
-  expect(onCardMouseEnter.mock.calls[0][0]).toBe(movie.id);
+  expect(onCardMouseEnter).toHaveBeenCalledWith(movie.id);
 
   expect(onCardMouseLeave).toHaveBeenCalledTimes(1);
 });
