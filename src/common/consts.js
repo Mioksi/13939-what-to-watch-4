@@ -1,3 +1,5 @@
+export const VIDEO_DELAY = 1000;
+
 export const Movie = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,

@@ -13,6 +13,11 @@ exports[`Should MoviesList render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+      />
       <img
         alt="Fantastic Beasts: The Crimes of Grindelwald"
         height="175"
@@ -41,6 +46,11 @@ exports[`Should MoviesList render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/bohemian-rhapsody.jpg"
+      />
       <img
         alt="Bohemian Rhapsody"
         height="175"
