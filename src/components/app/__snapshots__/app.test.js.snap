@@ -270,6 +270,7 @@ Array [
               className="player__video"
               muted={true}
               poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
             <img
               alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -303,6 +304,7 @@ Array [
               className="player__video"
               muted={true}
               poster="img/bohemian-rhapsody.jpg"
+              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
             <img
               alt="Bohemian Rhapsody"
