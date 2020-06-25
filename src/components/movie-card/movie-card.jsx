@@ -5,10 +5,11 @@ const MovieCard = ({movie, onCardClick, onCardTitleClick, onCardMouseEnter, onCa
   const {id, title, image} = movie;
 
   const handleMouseEnter = () => onCardMouseEnter(id);
+
   const handleCardClick = () => onCardClick(id);
+
   const handleCartTitleClick = (evt) => {
     evt.preventDefault();
-
     onCardTitleClick(id);
   };
 

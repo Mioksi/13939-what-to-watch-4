@@ -4,8 +4,19 @@ import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import {formatRating, getTextRating} from './helpers/utils';
 
-const MoviePage = ({film, movies, onCardClick, onCardTitleClick}) => {
-  const {title, genre, year, backgroundPoster, filmPoster, rating, ratingCount, description, director, starring} = film;
+const MoviePage = (
+    {film: {
+      title,
+      genre,
+      year,
+      backgroundPoster,
+      filmPoster,
+      rating,
+      ratingCount,
+      description,
+      director,
+      starring
+    }, movies, onCardClick, onCardTitleClick}) => {
 
   return (
     <>
