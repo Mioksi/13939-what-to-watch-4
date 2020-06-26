@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
+import Tabs from '../tabs/tabs.jsx';
 import {formatRating, getTextRating} from './helpers/utils';
 
 const MoviePage = (
@@ -72,19 +73,7 @@ const MoviePage = (
                 height="327"/>
             </div>
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+              <Tabs/>
               <div className="movie-rating">
                 <div className="movie-rating__score">{formatRating(rating)}</div>
                 <p className="movie-rating__meta">
