@@ -1,12 +1,13 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import React from 'react';
+import renderer from 'react-test-renderer';
 
-import MovieCard from './movie-card';
+import MovieCard from './movie-card.jsx';
 
 const movie = {
   id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
 
 it(`Should MovieCard render correctly`, () => {
@@ -17,8 +18,11 @@ it(`Should MovieCard render correctly`, () => {
       onCardTitleClick={() => {}}
       onCardMouseEnter={() => {}}
       onCardMouseLeave={() => {}}
-    />)
-    .toJSON();
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
