@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import {Switch, Route, BrowserRouter} from "react-router-dom";
-import PropTypes from "prop-types";
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';

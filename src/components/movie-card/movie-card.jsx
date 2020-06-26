@@ -18,46 +18,57 @@ class MovieCard extends PureComponent {
     this._handleCardClick = this._handleCardClick.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
+    this._startPlaying = this._startPlaying.bind(this);
   }
 
-  _handleCartTitleClick(evt) {
-    const {movie, onCardTitleClick} = this.props;
-    const {id} = movie;
-
-    evt.preventDefault();
-    onCardTitleClick(id);
+  _startPlaying() {
+    this.setState({
+      isPlaying: true
+    });
   }
 
-  _handleCardClick() {
-    const {movie, onCardClick} = this.props;
-    const {id} = movie;
+  _stopPlaying() {
+    clearTimeout(this._timeout);
 
-    onCardClick(id);
+    this.setState({
+      isPlaying: false
+    });
+
+    this._timeout = null;
   }
 
-  _handleMouseEnter() {
-    const {movie, onCardMouseEnter} = this.props;
-    const {id} = movie;
+  _handleCartTitleClick(id) {
+    return (evt) => {
+      const {onCardTitleClick} = this.props;
 
-    this._timeout = setTimeout(() =>
-      this.setState({
-        isPlaying: true
-      }), VIDEO_DELAY);
+      evt.preventDefault();
+      onCardTitleClick(id);
+    };
+  }
 
-    onCardMouseEnter(id);
+  _handleCardClick(id) {
+    return () => {
+      const {onCardClick} = this.props;
+
+      onCardClick(id);
+    };
+  }
+
+  _handleMouseEnter(id) {
+    return () => {
+      const {onCardMouseEnter} = this.props;
+
+      this._timeout = setTimeout(this._startPlaying, VIDEO_DELAY);
+
+      onCardMouseEnter(id);
+    };
   }
 
   _handleMouseLeave() {
     const {onCardMouseLeave} = this.props;
 
     if (this._timeout) {
-      clearTimeout(this._timeout);
-
-      this.setState({
-        isPlaying: false
-      });
-
-      this._timeout = null;
+      this._stopPlaying();
     }
 
     onCardMouseLeave();
@@ -66,13 +77,13 @@ class MovieCard extends PureComponent {
   render() {
     const {isPlaying} = this.state;
     const {movie} = this.props;
-    const {title, image, preview} = movie;
+    const {id, title, image, preview} = movie;
 
     return (
       <article
         className="small-movie-card catalog__movies-card"
-        onClick={this._handleCardClick}
-        onMouseEnter={this._handleMouseEnter}
+        onClick={this._handleCardClick(id)}
+        onMouseEnter={this._handleMouseEnter(id)}
         onMouseLeave={this._handleMouseLeave}
       >
         <div className="small-movie-card__image">
@@ -85,7 +96,7 @@ class MovieCard extends PureComponent {
           <img src={image} alt={title} width="280" height="175"/>
         </div>
         <h3 className="small-movie-card__title">
-          <a onClick={this._handleCartTitleClick} className="small-movie-card__link" href="movie-page.html">{title}</a>
+          <a onClick={this._handleCartTitleClick(id)} className="small-movie-card__link" href="movie-page.html">{title}</a>
         </h3>
       </article>
     );

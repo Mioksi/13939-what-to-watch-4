@@ -11,6 +11,7 @@ class MoviesList extends PureComponent {
       activeCard: null,
     };
 
+    this._getMovie = this._getMovie.bind(this);
     this._onCardMouseEnter = this._onCardMouseEnter.bind(this);
     this._onCardMouseLeave = this._onCardMouseLeave.bind(this);
   }
@@ -27,7 +28,9 @@ class MoviesList extends PureComponent {
     });
   }
 
-  _getMovie(movie, index, onCardTitleClick, onCardClick) {
+  _getMovie(movie, index) {
+    const {onCardTitleClick, onCardClick} = this.props;
+
     return (
       <MovieCard
         key={`${movie.title}-${index}`}
@@ -40,16 +43,16 @@ class MoviesList extends PureComponent {
     );
   }
 
-  _getMovies() {
-    const {movies, onCardTitleClick, onCardClick} = this.props;
-
-    return movies.map((movie, index) => this._getMovie(movie, index, onCardTitleClick, onCardClick));
+  _getMovies(movies) {
+    return movies.map(this._getMovie);
   }
 
   render() {
+    const {movies} = this.props;
+
     return (
       <div className="catalog__movies-list">
-        {this._getMovies()}
+        {this._getMovies(movies)}
       </div>
     );
   }

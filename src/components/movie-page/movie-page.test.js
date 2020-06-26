@@ -1,7 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import React from 'react';
+import renderer from 'react-test-renderer';
 
-import MoviePage from './movie-page';
+import MoviePage from './movie-page.jsx';
 import {MOVIES} from '../../common/consts';
 
 const film = {
