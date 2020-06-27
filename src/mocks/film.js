@@ -1,6 +1,7 @@
 export default {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
+  runTime: `1h 39m`,
   year: 2014,
   backgroundPoster: `img/bg-the-grand-budapest-hotel.jpg`,
   filmPoster: `img/the-grand-budapest-hotel-poster.jpg`,

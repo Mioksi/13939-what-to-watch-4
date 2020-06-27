@@ -8,6 +8,7 @@ const MoviePage = (
     {film: {
       title,
       genre,
+      runTime,
       year,
       backgroundPoster,
       filmPoster,
@@ -16,7 +17,7 @@ const MoviePage = (
       description,
       director,
       starring
-    }, movies, onCardClick, onCardTitleClick}) => {
+    }, movies, reviews, onCardClick, onCardTitleClick}) => {
 
   return (
     <>
@@ -107,6 +108,7 @@ MoviePage.propTypes = {
   film: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
+    runTime: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     backgroundPoster: PropTypes.string.isRequired,
     filmPoster: PropTypes.string.isRequired,
@@ -125,6 +127,15 @@ MoviePage.propTypes = {
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
 };
 
 export default MoviePage;

@@ -38,12 +38,13 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {movies, film} = this.props;
+    const {movies, film, reviews} = this.props;
 
     return (
       <MoviePage
         film={film}
         movies={movies}
+        reviews={reviews}
         onCardClick={this._handleMovieCardClick}
         onCardTitleClick={this._handleMovieCardClick}
       />
@@ -90,6 +91,7 @@ App.propTypes = {
   film: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
+    runTime: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     backgroundPoster: PropTypes.string.isRequired,
     filmPoster: PropTypes.string.isRequired,
@@ -99,6 +101,15 @@ App.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.string.isRequired,
   }).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
 };
 
 export default App;
