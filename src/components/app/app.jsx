@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
+import withTabs from '../../hocs/with-tabs/with-tabs';
+
+const MoviePageWrapped = withTabs(MoviePage);
 
 class App extends PureComponent {
   constructor(props) {
@@ -41,7 +44,7 @@ class App extends PureComponent {
     const {movies, film, reviews} = this.props;
 
     return (
-      <MoviePage
+      <MoviePageWrapped
         film={film}
         movies={movies}
         reviews={reviews}

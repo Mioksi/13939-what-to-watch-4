@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
-import Tabs from '../tabs/tabs.jsx';
+import MovieDetails from './components/movie-details/movie-details.jsx';
+import MovieOverview from './components/movie-overview/movie-overview.jsx';
+import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
+import {TabType} from '../../common/consts';
 
 const MoviePage = (
     {film: {
@@ -17,7 +20,34 @@ const MoviePage = (
       description,
       director,
       starring
-    }, movies, reviews, onCardClick, onCardTitleClick}) => {
+    }, movies, reviews, onCardClick, onCardTitleClick, renderTabs, activeTab}) => {
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case TabType.OVERVIEW:
+        return <MovieOverview
+          rating={rating}
+          ratingCount={ratingCount}
+          description={description}
+          director={director}
+          starring={starring}
+        />;
+      case TabType.DETAILS:
+        return <MovieDetails
+          director={director}
+          genre={genre}
+          runTime={runTime}
+          starring={starring}
+          year={year}
+        />;
+      case TabType.REVIEWS:
+        return <MovieReviews
+          reviews={reviews}
+        />;
+      default:
+        return ``;
+    }
+  };
 
   return (
     <>
@@ -69,11 +99,11 @@ const MoviePage = (
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={filmPoster} alt={`${title} poster`} width="218"
-                height="327"/>
+              <img src={filmPoster} alt={`${title} poster`} width="218" height="327"/>
             </div>
             <div className="movie-card__desc">
-              <Tabs/>
+              {renderTabs()}
+              {renderActiveTab()}
             </div>
           </div>
         </div>
@@ -136,6 +166,8 @@ MoviePage.propTypes = {
         text: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default MoviePage;
