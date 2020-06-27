@@ -6,6 +6,7 @@ import MovieDetails from './components/movie-details/movie-details.jsx';
 import MovieOverview from './components/movie-overview/movie-overview.jsx';
 import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
 import {TabType} from '../../common/consts';
+import {getSimilarMovies} from './helpers/utils';
 
 const MoviePage = (
     {film: {
@@ -21,6 +22,8 @@ const MoviePage = (
       director,
       starring
     }, movies, reviews, onCardClick, onCardTitleClick, renderTabs, activeTab}) => {
+
+  const similarMovies = getSimilarMovies(movies, genre);
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -112,7 +115,7 @@ const MoviePage = (
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            movies={movies}
+            movies={similarMovies}
             onCardClick={onCardClick}
             onCardTitleClick={onCardTitleClick}
           />
