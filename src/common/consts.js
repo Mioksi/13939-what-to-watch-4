@@ -43,3 +43,5 @@ export const TabType = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`
 };
+
+export const TABS = Object.values(TabType);

@@ -1,10 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TabType} from '../../common/consts';
+import {TABS} from '../../common/consts';
 
 const Tabs = ({activeTab, onTabClick}) => {
-  const toggleActiveClass = (tab) => activeTab === tab ? `movie-nav__item--active` : ``;
+  const setActiveClass = (tab) => activeTab === tab ? `movie-nav__item--active` : ``;
+
+  const getTab = (tab, i) => {
+    const navClass = `movie-nav__item ${setActiveClass(tab)}`;
+    const key = `${tab} + ${i}`;
+
+    return (
+      <li
+        className={navClass}
+        key={key}
+      >
+        <a onClick={handleTabClick(tab)} href="#" className="movie-nav__link">{tab}</a>
+      </li>
+    );
+  };
+
+  const renderTabs = () => TABS.map(getTab);
 
   const handleTabClick = (tab) => {
     return (evt) => {
@@ -16,15 +32,7 @@ const Tabs = ({activeTab, onTabClick}) => {
   return (
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
-        <li className={`movie-nav__item ${toggleActiveClass(TabType.OVERVIEW)}`}>
-          <a onClick={handleTabClick(TabType.OVERVIEW)} href="#" className="movie-nav__link">Overview</a>
-        </li>
-        <li className={`movie-nav__item ${toggleActiveClass(TabType.DETAILS)}`}>
-          <a onClick={handleTabClick(TabType.DETAILS)} href="#" className="movie-nav__link">Details</a>
-        </li>
-        <li className={`movie-nav__item ${toggleActiveClass(TabType.REVIEWS)}`}>
-          <a onClick={handleTabClick(TabType.REVIEWS)} href="#" className="movie-nav__link">Reviews</a>
-        </li>
+        {renderTabs()}
       </ul>
     </nav>
   );
