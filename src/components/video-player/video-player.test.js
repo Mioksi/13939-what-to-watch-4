@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import VideoPlayer from "./video-player.jsx";
+import VideoPlayer from './video-player.jsx';
 
 const mock = {
   image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,

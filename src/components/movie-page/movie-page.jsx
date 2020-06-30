@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
-import {formatRating, getTextRating} from './helpers/utils';
+import MovieDetails from './components/movie-details/movie-details.jsx';
+import MovieOverview from './components/movie-overview/movie-overview.jsx';
+import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
+import {TabType} from '../../common/consts';
+import {getSimilarMovies} from './helpers/utils';
 
 const MoviePage = (
     {film: {
       title,
       genre,
+      runTime,
       year,
       backgroundPoster,
       filmPoster,
@@ -16,7 +21,36 @@ const MoviePage = (
       description,
       director,
       starring
-    }, movies, onCardClick, onCardTitleClick}) => {
+    }, movies, reviews, onCardClick, onCardTitleClick, renderTabs, activeTab}) => {
+
+  const similarMovies = getSimilarMovies(movies, genre);
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case TabType.OVERVIEW:
+        return <MovieOverview
+          rating={rating}
+          ratingCount={ratingCount}
+          description={description}
+          director={director}
+          starring={starring}
+        />;
+      case TabType.DETAILS:
+        return <MovieDetails
+          director={director}
+          genre={genre}
+          runTime={runTime}
+          starring={starring}
+          year={year}
+        />;
+      case TabType.REVIEWS:
+        return <MovieReviews
+          reviews={reviews}
+        />;
+      default:
+        return ``;
+    }
+  };
 
   return (
     <>
@@ -68,35 +102,11 @@ const MoviePage = (
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={filmPoster} alt={`${title} poster`} width="218"
-                height="327"/>
+              <img src={filmPoster} alt={`${title} poster`} width="218" height="327"/>
             </div>
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-              <div className="movie-rating">
-                <div className="movie-rating__score">{formatRating(rating)}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{getTextRating(rating)}</span>
-                  <span className="movie-rating__count">{ratingCount} ratings</span>
-                </p>
-              </div>
-              <div className="movie-card__text">
-                <p>{description}</p>
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-                <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
-              </div>
+              {renderTabs()}
+              {renderActiveTab()}
             </div>
           </div>
         </div>
@@ -105,7 +115,7 @@ const MoviePage = (
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            movies={movies}
+            movies={similarMovies}
             onCardClick={onCardClick}
             onCardTitleClick={onCardTitleClick}
           />
@@ -131,6 +141,7 @@ MoviePage.propTypes = {
   film: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
+    runTime: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     backgroundPoster: PropTypes.string.isRequired,
     filmPoster: PropTypes.string.isRequired,
@@ -149,6 +160,17 @@ MoviePage.propTypes = {
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default MoviePage;

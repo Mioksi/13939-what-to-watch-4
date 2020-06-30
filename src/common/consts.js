@@ -1,4 +1,5 @@
 export const VIDEO_DELAY = 1000;
+export const MAX_SIMILAR_MOVIES = 4;
 
 export const Movie = {
   TITLE: `The Grand Budapest Hotel`,
@@ -36,3 +37,11 @@ export const RatingType = {
   VERY_GOOD: `Very good`,
   AWESOME: `Awesome`,
 };
+
+export const TabType = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`
+};
+
+export const TABS = Object.values(TabType);

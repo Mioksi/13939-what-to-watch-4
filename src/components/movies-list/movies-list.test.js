@@ -1,7 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import React from 'react';
+import renderer from 'react-test-renderer';
 
-import MoviesList from './movies-list';
+import MoviesList from './movies-list.jsx';
 import {MOVIES} from '../../common/consts';
 
 it(`Should MoviesList render correctly`, () => {
