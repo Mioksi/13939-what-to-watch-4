@@ -45,3 +45,4 @@ export const TabType = {
 };
 
 export const TABS = Object.values(TabType);
+export const ALL_GENRES = `All genres`;
