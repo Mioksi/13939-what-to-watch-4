@@ -1,10 +1,14 @@
 import {extend} from './common/utils';
 import {movies} from './mocks/films';
+import film from './mocks/film';
+import reviews from './mocks/reviews';
 import {ALL_GENRES} from './common/consts';
 
 const initialState = {
   genre: ALL_GENRES,
   movies,
+  film,
+  reviews,
 };
 
 const ActionType = {
