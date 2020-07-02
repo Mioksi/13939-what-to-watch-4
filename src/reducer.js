@@ -1,4 +1,4 @@
-import {extend} from './common/utils';
+import {extend, getGenresList} from './common/utils';
 import {movies} from './mocks/films';
 import film from './mocks/film';
 import reviews from './mocks/reviews';
@@ -9,6 +9,7 @@ const initialState = {
   movies,
   film,
   reviews,
+  genresList: getGenresList(movies),
 };
 
 const ActionType = {
@@ -37,7 +38,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE:
       return extend(state, {
-        activeGenre: action.payload
+        genre: action.payload
       });
     case ActionType.GET_MOVIES_BY_GENRE:
       return extend(state, {

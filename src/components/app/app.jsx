@@ -28,7 +28,7 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {film, movies, activeGenre, onGenreClick} = this.props;
+    const {film, movies, allGenres, activeGenre, onGenreClick} = this.props;
     const {title, genre, year} = film;
 
     return (
@@ -37,6 +37,7 @@ class App extends PureComponent {
         movieGenre={genre}
         movieYear={year}
         movies={movies}
+        allGenres={allGenres}
         activeGenre={activeGenre}
         onGenreClick={onGenreClick}
         onCardTitleClick={this._handleMovieCardClick}
@@ -115,12 +116,16 @@ App.propTypes = {
         text: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
+  allGenres: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
   activeGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   activeGenre: state.genre,
+  allGenres: state.genresList,
   movies: state.movies,
   film: state.film,
   reviews: state.reviews,
