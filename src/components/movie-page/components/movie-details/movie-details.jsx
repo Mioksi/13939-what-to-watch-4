@@ -1,5 +1,17 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+
+const getStarring = (starringItem, i) => {
+  const key = `${starringItem} + ${i}`;
+
+  return (
+    <Fragment key={key}>
+      {starringItem} <br />
+    </Fragment>
+  );
+};
+
+const renderStarring = (starring) => starring.split(`,`).map(getStarring);
 
 const MovieDetails = ({director, starring, genre, runTime, year}) => {
   return (
@@ -11,7 +23,7 @@ const MovieDetails = ({director, starring, genre, runTime, year}) => {
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Starring</strong>
-          <span className="movie-card__details-value">{starring}</span>
+          <span className="movie-card__details-value">{renderStarring(starring)}</span>
         </p>
       </div>
       <div className="movie-card__text-col">
