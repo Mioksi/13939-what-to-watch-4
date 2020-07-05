@@ -22,7 +22,7 @@ const getGenre = (genre, i, activeGenre, onGenreClick) => {
       className={genreClass}
       key={key}
     >
-      <a onClick={handleGenreClick(genre)} href="#" className="catalog__genres-link">{genre}</a>
+      <a onClick={handleGenreClick()} href="#" className="catalog__genres-link">{genre}</a>
     </li>
   );
 };

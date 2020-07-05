@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
+import ShowMore from '../show-more/show-more.jsx';
 
 const Main = ({
   movieTitle,
@@ -79,9 +80,7 @@ const Main = ({
             onCardTitleClick={onCardTitleClick}
             onCardClick={onCardClick}
           />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMore />
         </section>
         <footer className="page-footer">
           <div className="logo">
