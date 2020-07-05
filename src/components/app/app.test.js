@@ -60,7 +60,9 @@ it(`Render App`, () => {
             reviews={reviews}
             activeGenre={activeGenre}
             allGenres={genres}
+            shownMoviesCount={8}
             onGenreClick={() => {}}
+            onShowMoreButtonClick={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

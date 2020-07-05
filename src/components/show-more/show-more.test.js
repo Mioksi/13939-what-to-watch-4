@@ -6,9 +6,10 @@ import ShowMore from './show-more';
 it(`Should ShowMore render correctly`, () => {
   const tree = renderer
     .create(
-        <ShowMore/>
-    )
-    .toJSON();
+        <ShowMore
+          onShowMoreButtonClick={() => {}}
+        />
+    ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

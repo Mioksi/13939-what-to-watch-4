@@ -20,9 +20,11 @@ it(`Should Main render correctly`, () => {
       movies={MOVIES}
       activeGenre={activeGenre}
       allGenres={genres}
+      shownMoviesCount={8}
       onGenreClick={() => {}}
       onCardClick={() => {}}
       onCardTitleClick={() => {}}
+      onShowMoreButtonClick={() => {}}
     />)
     .toJSON();
 
