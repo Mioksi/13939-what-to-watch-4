@@ -10,11 +10,16 @@ const Main = ({
   movieGenre,
   movieYear,
   movies,
+  shownMoviesCount,
   allGenres,
   activeGenre,
   onGenreClick,
   onCardTitleClick,
-  onCardClick}) => {
+  onCardClick,
+  onShowMoreButtonClick}) => {
+
+  const shownMovies = movies.slice(0, shownMoviesCount);
+  const isShowMoreButtonHide = shownMoviesCount < movies.length;
 
   return (
     <>
@@ -76,11 +81,13 @@ const Main = ({
             onGenreClick={onGenreClick}
           />
           <MoviesList
-            movies={movies}
+            movies={shownMovies}
             onCardTitleClick={onCardTitleClick}
             onCardClick={onCardClick}
           />
-          <ShowMore />
+          {isShowMoreButtonHide && <ShowMore
+            onShowMoreButtonClick={onShowMoreButtonClick}
+          />}
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -115,8 +122,10 @@ Main.propTypes = {
   allGenres: PropTypes.arrayOf(
       PropTypes.string.isRequired
   ).isRequired,
+  shownMoviesCount: PropTypes.number.isRequired,
   activeGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
+  onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
 export default Main;
