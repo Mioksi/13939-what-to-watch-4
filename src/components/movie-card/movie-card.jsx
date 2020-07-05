@@ -21,6 +21,10 @@ class MovieCard extends PureComponent {
     this._startPlaying = this._startPlaying.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._timeout);
+  }
+
   _startPlaying() {
     this.setState({
       isPlaying: true
