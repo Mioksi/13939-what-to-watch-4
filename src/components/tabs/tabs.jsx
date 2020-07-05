@@ -3,30 +3,34 @@ import PropTypes from 'prop-types';
 
 import {TABS} from '../../common/consts';
 
-const Tabs = ({activeTab, onTabClick}) => {
-  const setActiveClass = (tab) => activeTab === tab ? `movie-nav__item--active` : ``;
+const setActiveClass = (activeTab, tab) => {
+  return activeTab === tab ? `movie-nav__item--active` : ``;
+};
 
-  const getTab = (tab, i) => {
-    const navClass = `movie-nav__item ${setActiveClass(tab)}`;
-    const key = `${tab} + ${i}`;
+const getTab = (tab, i, activeTab, onTabClick) => {
+  const navClass = `movie-nav__item ${setActiveClass(activeTab, tab)}`;
+  const key = `${tab} + ${i}`;
 
-    return (
-      <li
-        className={navClass}
-        key={key}
-      >
-        <a onClick={handleTabClick(tab)} href="#" className="movie-nav__link">{tab}</a>
-      </li>
-    );
-  };
-
-  const renderTabs = () => TABS.map(getTab);
-
-  const handleTabClick = (tab) => {
+  const handleTabClick = () => {
     return (evt) => {
       evt.preventDefault();
       onTabClick(tab);
     };
+  };
+
+  return (
+    <li
+      className={navClass}
+      key={key}
+    >
+      <a onClick={handleTabClick(tab)} href="#" className="movie-nav__link">{tab}</a>
+    </li>
+  );
+};
+
+const Tabs = ({activeTab, onTabClick}) => {
+  const renderTabs = () => {
+    return TABS.map((tab, i) => getTab(tab, i, activeTab, onTabClick));
   };
 
   return (

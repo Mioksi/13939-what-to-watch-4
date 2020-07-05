@@ -3,24 +3,31 @@ import PropTypes from 'prop-types';
 
 import MovieReview from './components/movie-review.jsx';
 
+const getReview = (review, index) => {
+  const key = `${review.id}-${index}`;
+
+  return (
+    <MovieReview
+      key={key}
+      review={review}
+    />
+  );
+};
+
 const MovieReviews = ({reviews}) => {
-  const getReview = (review, index) => {
-    const key = `${review.id}-${index}`;
+  const halfReviews = reviews.length / 2;
+  const firstColumn = reviews.slice(0, halfReviews);
+  const secondColumn = reviews.slice(halfReviews);
 
-    return (
-      <MovieReview
-        key={key}
-        review={review}
-      />
-    );
-  };
-
-  const renderReviews = () => reviews.map(getReview);
+  const renderReviews = (columnReviews) => columnReviews.map(getReview);
 
   return (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {renderReviews()}
+        {renderReviews(firstColumn)}
+      </div>
+      <div className="movie-card__reviews-col">
+        {renderReviews(secondColumn)}
       </div>
     </div>
   );

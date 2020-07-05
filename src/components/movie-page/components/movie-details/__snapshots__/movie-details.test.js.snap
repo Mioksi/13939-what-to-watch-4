@@ -32,7 +32,18 @@ exports[`Should MovieDetails render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
+        Bill Murray
+         
+        <br />
+         Edward Norton
+         
+        <br />
+         Jude Law
+         
+        <br />
+         Willem Dafoe and other
+         
+        <br />
       </span>
     </p>
   </div>
