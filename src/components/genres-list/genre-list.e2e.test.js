@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import GenresList from './genres-list.jsx';
+import {GenresList} from './genres-list.jsx';
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -22,7 +22,7 @@ it(`Should genre be pressed`, () => {
     preventDefault() {}
   };
 
-  const tabs = shallow(
+  const genresList = shallow(
       <GenresList
         allGenres={genres}
         activeGenre={activeGenre}
@@ -30,7 +30,7 @@ it(`Should genre be pressed`, () => {
       />
   );
 
-  const genreLinks = tabs.find(`.catalog__genres-link`);
+  const genreLinks = genresList.find(`.catalog__genres-link`);
 
   genreLinks.forEach((tabLink) => tabLink.simulate(`click`, mockEvent));
 

@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
 import PropTypes from 'prop-types';
 
 import Main from '../main/main.jsx';
@@ -28,7 +27,7 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {film, movies, shownMoviesCount, allGenres, activeGenre, onGenreClick, onShowMoreButtonClick} = this.props;
+    const {film, movies} = this.props;
     const {title, genre, year} = film;
 
     return (
@@ -37,25 +36,19 @@ class App extends PureComponent {
         movieGenre={genre}
         movieYear={year}
         movies={movies}
-        shownMoviesCount={shownMoviesCount}
-        allGenres={allGenres}
-        activeGenre={activeGenre}
-        onGenreClick={onGenreClick}
         onCardTitleClick={this._handleMovieCardClick}
         onCardClick={this._handleMovieCardClick}
-        onShowMoreButtonClick={onShowMoreButtonClick}
       />
     );
   }
 
   _renderMoviePage() {
-    const {movies, film, reviews} = this.props;
+    const {movies, film} = this.props;
 
     return (
       <MoviePageWrapped
         film={film}
         movies={movies}
-        reviews={reviews}
         onCardClick={this._handleMovieCardClick}
         onCardTitleClick={this._handleMovieCardClick}
       />
@@ -109,43 +102,12 @@ App.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.string.isRequired,
   }).isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        author: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  allGenres: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
-  shownMoviesCount: PropTypes.number.isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
-  onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeGenre: state.genre,
-  allGenres: state.genresList,
-  movies: state.movies,
   film: state.film,
-  reviews: state.reviews,
-  shownMoviesCount: state.shownMoviesCount,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.getMoviesByGenre(genre));
-    dispatch(ActionCreator.resetShownMovies());
-  },
-  onShowMoreButtonClick() {
-    dispatch(ActionCreator.showMoreMovies());
-  }
+  movies: state.movies
 });
 
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

@@ -21,7 +21,7 @@ const MoviePage = (
       description,
       director,
       starring
-    }, movies, reviews, onCardClick, onCardTitleClick, renderTabs, activeTab}) => {
+    }, movies, onCardClick, onCardTitleClick, renderTabs, activeTab}) => {
 
   const similarMovies = getSimilarMovies(movies, genre);
 
@@ -44,9 +44,7 @@ const MoviePage = (
           year={year}
         />;
       case TabType.REVIEWS:
-        return <MovieReviews
-          reviews={reviews}
-        />;
+        return <MovieReviews/>;
       default:
         return ``;
     }
@@ -160,15 +158,6 @@ MoviePage.propTypes = {
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        author: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };

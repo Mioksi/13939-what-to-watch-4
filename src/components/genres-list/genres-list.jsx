@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
+
 import {MAX_GENRES} from '../../common/consts';
 
 const setActiveClass = (activeGenre, genre) => {
@@ -47,4 +50,18 @@ GenresList.propTypes = {
   onGenreClick: PropTypes.func.isRequired,
 };
 
-export default GenresList;
+const mapStateToProps = (state) => ({
+  activeGenre: state.genre,
+  allGenres: state.genresList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreClick(genre) {
+    dispatch(ActionCreator.changeGenre(genre));
+    dispatch(ActionCreator.getMoviesByGenre(genre));
+    dispatch(ActionCreator.resetShownMovies());
+  },
+});
+
+export {GenresList};
+export default connect(mapStateToProps, mapDispatchToProps)(GenresList);

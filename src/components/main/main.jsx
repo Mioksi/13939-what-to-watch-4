@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import ShowMore from '../show-more/show-more.jsx';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 
 const Main = ({
   movieTitle,
@@ -11,9 +13,6 @@ const Main = ({
   movieYear,
   movies,
   shownMoviesCount,
-  allGenres,
-  activeGenre,
-  onGenreClick,
   onCardTitleClick,
   onCardClick,
   onShowMoreButtonClick}) => {
@@ -75,11 +74,7 @@ const Main = ({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList
-            allGenres={allGenres}
-            activeGenre={activeGenre}
-            onGenreClick={onGenreClick}
-          />
+          <GenresList/>
           <MoviesList
             movies={shownMovies}
             onCardTitleClick={onCardTitleClick}
@@ -119,13 +114,19 @@ Main.propTypes = {
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
-  allGenres: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
   shownMoviesCount: PropTypes.number.isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  shownMoviesCount: state.shownMoviesCount,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onShowMoreButtonClick() {
+    dispatch(ActionCreator.showMoreMovies());
+  }
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

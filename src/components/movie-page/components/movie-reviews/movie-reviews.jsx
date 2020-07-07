@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MovieReview from './components/movie-review.jsx';
@@ -45,4 +46,9 @@ MovieReviews.propTypes = {
   ).isRequired,
 };
 
-export default MovieReviews;
+const mapStateToProps = (state) => ({
+  reviews: state.reviews,
+});
+
+export {MovieReviews};
+export default connect(mapStateToProps)(MovieReviews);
