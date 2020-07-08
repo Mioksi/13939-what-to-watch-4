@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 
-import {App} from './app.jsx';
+import App from './app.jsx';
 import {MOVIES} from '../../common/consts';
 
 const mockStore = configureStore([]);
@@ -31,18 +31,17 @@ it(`Render App`, () => {
   const {activeGenre, genres} = mock;
 
   const store = mockStore({
+    film,
+    movies: MOVIES,
+    shownMoviesCount: 8,
     genre: activeGenre,
     genresList: genres,
-    shownMoviesCount: 8,
   });
 
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App
-            movies={MOVIES}
-            film={film}
-          />
+          <App/>
         </Provider>, {
           createNodeMock: () => {
             return {};

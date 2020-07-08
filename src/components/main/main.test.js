@@ -4,9 +4,15 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 
 import {Main} from './main.jsx';
-import {Movie, MOVIES} from '../../common/consts';
+import {MOVIES} from '../../common/consts';
 
 const mockStore = configureStore([]);
+
+const film = {
+  title: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  year: 2014,
+};
 
 const mock = {
   activeGenre: `All genres`,
@@ -25,9 +31,7 @@ it(`Should Main render correctly`, () => {
     .create(
         <Provider store={store}>
           <Main
-            movieTitle={Movie.TITLE}
-            movieGenre={Movie.GENRE}
-            movieYear={Movie.YEAR}
+            film={film}
             movies={MOVIES}
             shownMoviesCount={8}
             onCardClick={() => {}}

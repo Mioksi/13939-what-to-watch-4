@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
@@ -162,4 +163,10 @@ MoviePage.propTypes = {
   activeTab: PropTypes.string.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  film: state.film,
+  movies: state.movies,
+});
+
+export {MoviePage};
+export default connect(mapStateToProps)(MoviePage);

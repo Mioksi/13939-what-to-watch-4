@@ -8,9 +8,11 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer';
 
 const Main = ({
-  movieTitle,
-  movieGenre,
-  movieYear,
+  film: {
+    title,
+    genre,
+    year
+  },
   movies,
   shownMoviesCount,
   onCardTitleClick,
@@ -48,10 +50,10 @@ const Main = ({
                 height="327"/>
             </div>
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{movieTitle}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{movieGenre}</span>
-                <span className="movie-card__year">{movieYear}</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{year}</span>
               </p>
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button">
@@ -102,9 +104,11 @@ const Main = ({
 };
 
 Main.propTypes = {
-  movieTitle: PropTypes.string.isRequired,
-  movieGenre: PropTypes.string.isRequired,
-  movieYear: PropTypes.number.isRequired,
+  film: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+  }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -119,6 +123,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  film: state.film,
+  movies: state.movies,
   shownMoviesCount: state.shownMoviesCount,
 });
 
