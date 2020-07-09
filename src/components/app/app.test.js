@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 
-import {App} from './app.jsx';
+import App from './app.jsx';
 import {MOVIES} from '../../common/consts';
 
 const mockStore = configureStore([]);
@@ -22,23 +22,6 @@ const film = {
   starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`
 };
 
-const reviews = [
-  {
-    id: 1,
-    author: `Kate Muir`,
-    date: `December 24, 2016`,
-    rating: 8.9,
-    text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years`,
-  },
-  {
-    id: 2,
-    author: `Bill Goodykoontz`,
-    date: `November 18, 2015`,
-    rating: 8.0,
-    text: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
-  },
-];
-
 const mock = {
   activeGenre: `All genres`,
   genres: [`Family`, `Comedian`, `Drama`],
@@ -48,20 +31,17 @@ it(`Render App`, () => {
   const {activeGenre, genres} = mock;
 
   const store = mockStore({
+    film,
+    movies: MOVIES,
+    shownMoviesCount: 8,
     genre: activeGenre,
+    genresList: genres,
   });
 
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App
-            movies={MOVIES}
-            film={film}
-            reviews={reviews}
-            activeGenre={activeGenre}
-            allGenres={genres}
-            onGenreClick={() => {}}
-          />
+          <App/>
         </Provider>, {
           createNodeMock: () => {
             return {};

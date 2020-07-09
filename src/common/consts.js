@@ -1,6 +1,7 @@
 export const VIDEO_DELAY = 1000;
 export const MAX_SIMILAR_MOVIES = 4;
 export const MAX_GENRES = 10;
+export const MAX_MOVIES = 8;
 
 export const Movie = {
   TITLE: `The Grand Budapest Hotel`,

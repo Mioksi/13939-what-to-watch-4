@@ -3,17 +3,24 @@ import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
+import ShowMore from '../show-more/show-more.jsx';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 
 const Main = ({
-  movieTitle,
-  movieGenre,
-  movieYear,
+  film: {
+    title,
+    genre,
+    year
+  },
   movies,
-  allGenres,
-  activeGenre,
-  onGenreClick,
+  shownMoviesCount,
   onCardTitleClick,
-  onCardClick}) => {
+  onCardClick,
+  onShowMoreButtonClick}) => {
+
+  const shownMovies = movies.slice(0, shownMoviesCount);
+  const isShowMoreButtonHide = shownMoviesCount < movies.length;
 
   return (
     <>
@@ -43,10 +50,10 @@ const Main = ({
                 height="327"/>
             </div>
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{movieTitle}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{movieGenre}</span>
-                <span className="movie-card__year">{movieYear}</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{year}</span>
               </p>
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button">
@@ -69,19 +76,15 @@ const Main = ({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList
-            allGenres={allGenres}
-            activeGenre={activeGenre}
-            onGenreClick={onGenreClick}
-          />
+          <GenresList/>
           <MoviesList
-            movies={movies}
+            movies={shownMovies}
             onCardTitleClick={onCardTitleClick}
             onCardClick={onCardClick}
           />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {isShowMoreButtonHide && <ShowMore
+            onShowMoreButtonClick={onShowMoreButtonClick}
+          />}
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -101,9 +104,11 @@ const Main = ({
 };
 
 Main.propTypes = {
-  movieTitle: PropTypes.string.isRequired,
-  movieGenre: PropTypes.string.isRequired,
-  movieYear: PropTypes.number.isRequired,
+  film: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+  }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -113,11 +118,21 @@ Main.propTypes = {
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
-  allGenres: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
+  shownMoviesCount: PropTypes.number.isRequired,
+  onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  film: state.film,
+  movies: state.movies,
+  shownMoviesCount: state.shownMoviesCount,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onShowMoreButtonClick() {
+    dispatch(ActionCreator.showMoreMovies());
+  }
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

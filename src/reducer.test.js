@@ -1,5 +1,5 @@
-import {reducer, ActionCreator, ActionType} from './reducer.js';
-import {ALL_GENRES} from './common/consts.js';
+import {reducer, ActionCreator, ActionType} from './reducer';
+import {ALL_GENRES, MAX_MOVIES} from './common/consts';
 
 const film = {
   title: `The Grand Budapest Hotel`,
@@ -133,6 +133,7 @@ describe(`Reducer work correctly`, () => {
       film,
       reviews,
       genresList: getGenresList(movies),
+      shownMoviesCount: MAX_MOVIES,
     });
   });
 

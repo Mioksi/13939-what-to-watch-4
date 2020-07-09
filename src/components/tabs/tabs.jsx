@@ -23,7 +23,7 @@ const getTab = (tab, i, activeTab, onTabClick) => {
       className={navClass}
       key={key}
     >
-      <a onClick={handleTabClick(tab)} href="#" className="movie-nav__link">{tab}</a>
+      <a onClick={handleTabClick()} href="#" className="movie-nav__link">{tab}</a>
     </li>
   );
 };
