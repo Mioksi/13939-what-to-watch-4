@@ -17,6 +17,16 @@ class MovieCard extends PureComponent {
     clearTimeout(this._timeout);
   }
 
+  _stopPlaying() {
+    const {onStopPlaying} = this.props;
+
+    clearTimeout(this._timeout);
+
+    this._timeout = null;
+
+    onStopPlaying();
+  }
+
   _handleCartTitleClick(id) {
     return (evt) => {
       const {onCardTitleClick} = this.props;
@@ -45,12 +55,10 @@ class MovieCard extends PureComponent {
   }
 
   _handleMouseLeave() {
-    const {onCardMouseLeave, onStopPlaying} = this.props;
+    const {onCardMouseLeave} = this.props;
 
     if (this._timeout) {
-      onStopPlaying();
-
-      this._timeout = null;
+      this._stopPlaying();
     }
 
     onCardMouseLeave();
