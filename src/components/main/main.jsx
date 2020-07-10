@@ -1,11 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 import PropTypes from 'prop-types';
 
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import ShowMore from '../show-more/show-more.jsx';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import withActiveCard from '../../hocs/with-active-card/with-active-card';
+
+const MoviesListWrapped = withActiveCard(MoviesList);
 
 const Main = ({
   film: {
@@ -77,7 +80,7 @@ const Main = ({
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList/>
-          <MoviesList
+          <MoviesListWrapped
             movies={shownMovies}
             onCardTitleClick={onCardTitleClick}
             onCardClick={onCardClick}
