@@ -2,6 +2,9 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import MovieCard from '../movie-card/movie-card.jsx';
+import withVideoPlayer from '../../hocs/with-video-player/with-video-player';
+
+const MovieCardWrapper = withVideoPlayer(MovieCard);
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -32,7 +35,7 @@ class MoviesList extends PureComponent {
     const {onCardTitleClick, onCardClick} = this.props;
 
     return (
-      <MovieCard
+      <MovieCardWrapper
         key={`${movie.title}-${index}`}
         movie={movie}
         onCardClick={onCardClick}
