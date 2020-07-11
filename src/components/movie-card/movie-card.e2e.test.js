@@ -25,10 +25,13 @@ it(`Should card title be pressed`, () => {
   const movieCard = shallow(
       <MovieCard
         movie={movie}
+        isPlaying={false}
         onCardClick={() => {}}
         onCardTitleClick={onCardTitleClick}
         onCardMouseEnter={() => {}}
         onCardMouseLeave={() => {}}
+        onStartPlaying={() => {}}
+        onStopPlaying={() => {}}
       />
   );
 
@@ -44,10 +47,13 @@ it(`Should movie card click`, () => {
   const movieCard = shallow(
       <MovieCard
         movie={movie}
+        isPlaying={false}
         onCardClick={onCardClick}
         onCardTitleClick={() => {}}
         onCardMouseEnter={() => {}}
         onCardMouseLeave={() => {}}
+        onStartPlaying={() => {}}
+        onStopPlaying={() => {}}
       />
   );
 
@@ -65,10 +71,13 @@ it(`Should movie card be hover`, () => {
   const movieCard = shallow(
       <MovieCard
         movie={movie}
+        isPlaying={false}
         onCardClick={() => {}}
         onCardTitleClick={() => {}}
         onCardMouseEnter={onCardMouseEnter}
         onCardMouseLeave={onCardMouseLeave}
+        onStartPlaying={() => {}}
+        onStopPlaying={() => {}}
       />
   );
 

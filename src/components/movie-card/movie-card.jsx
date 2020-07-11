@@ -8,37 +8,23 @@ class MovieCard extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isPlaying: false,
-    };
-
     this._timeout = null;
 
-    this._handleCartTitleClick = this._handleCartTitleClick.bind(this);
-    this._handleCardClick = this._handleCardClick.bind(this);
-    this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
-    this._startPlaying = this._startPlaying.bind(this);
   }
 
   componentWillUnmount() {
     clearTimeout(this._timeout);
   }
 
-  _startPlaying() {
-    this.setState({
-      isPlaying: true
-    });
-  }
-
   _stopPlaying() {
+    const {onStopPlaying} = this.props;
+
     clearTimeout(this._timeout);
 
-    this.setState({
-      isPlaying: false
-    });
-
     this._timeout = null;
+
+    onStopPlaying();
   }
 
   _handleCartTitleClick(id) {
@@ -60,9 +46,9 @@ class MovieCard extends PureComponent {
 
   _handleMouseEnter(id) {
     return () => {
-      const {onCardMouseEnter} = this.props;
+      const {onCardMouseEnter, onStartPlaying} = this.props;
 
-      this._timeout = setTimeout(this._startPlaying, VIDEO_DELAY);
+      this._timeout = setTimeout(onStartPlaying, VIDEO_DELAY);
 
       onCardMouseEnter(id);
     };
@@ -79,8 +65,7 @@ class MovieCard extends PureComponent {
   }
 
   render() {
-    const {isPlaying} = this.state;
-    const {movie} = this.props;
+    const {movie, isPlaying} = this.props;
     const {id, title, image, preview} = movie;
 
     return (
@@ -118,6 +103,9 @@ MovieCard.propTypes = {
   onCardTitleClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  onStartPlaying: PropTypes.func.isRequired,
+  onStopPlaying: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

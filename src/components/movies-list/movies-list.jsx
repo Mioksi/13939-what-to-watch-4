@@ -1,62 +1,33 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import MovieCard from '../movie-card/movie-card.jsx';
+import withVideoPlayer from '../../hocs/with-video-player/with-video-player';
 
-class MoviesList extends PureComponent {
-  constructor(props) {
-    super(props);
+const MovieCardWrapper = withVideoPlayer(MovieCard);
 
-    this.state = {
-      activeCard: null,
-    };
-
-    this._getMovie = this._getMovie.bind(this);
-    this._onCardMouseEnter = this._onCardMouseEnter.bind(this);
-    this._onCardMouseLeave = this._onCardMouseLeave.bind(this);
-  }
-
-  _onCardMouseEnter(id) {
-    this.setState({
-      activeCard: id,
-    });
-  }
-
-  _onCardMouseLeave() {
-    this.setState({
-      activeCard: null,
-    });
-  }
-
-  _getMovie(movie, index) {
-    const {onCardTitleClick, onCardClick} = this.props;
-
+const MoviesList = ({movies, onCardTitleClick, onCardMouseEnter, onCardMouseLeave, onCardClick}) => {
+  const getMovie = (movie, index) => {
     return (
-      <MovieCard
+      <MovieCardWrapper
         key={`${movie.title}-${index}`}
         movie={movie}
         onCardClick={onCardClick}
         onCardTitleClick={onCardTitleClick}
-        onCardMouseEnter={this._onCardMouseEnter}
-        onCardMouseLeave={this._onCardMouseLeave}
+        onCardMouseEnter={onCardMouseEnter}
+        onCardMouseLeave={onCardMouseLeave}
       />
     );
-  }
+  };
 
-  _getMovies(movies) {
-    return movies.map(this._getMovie);
-  }
+  const getMovies = () => movies.map(getMovie);
 
-  render() {
-    const {movies} = this.props;
-
-    return (
-      <div className="catalog__movies-list">
-        {this._getMovies(movies)}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {getMovies(movies)}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
@@ -67,6 +38,8 @@ MoviesList.propTypes = {
       }).isRequired
   ).isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
+  onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
 

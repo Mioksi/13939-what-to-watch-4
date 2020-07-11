@@ -14,10 +14,13 @@ it(`Should MovieCard render correctly`, () => {
   const tree = renderer
     .create(<MovieCard
       movie={movie}
+      isPlaying={false}
       onCardClick={() => {}}
       onCardTitleClick={() => {}}
       onCardMouseEnter={() => {}}
       onCardMouseLeave={() => {}}
+      onStartPlaying={() => {}}
+      onStopPlaying={() => {}}
     />, {
       createNodeMock: () => {
         return {};

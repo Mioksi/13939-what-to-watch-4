@@ -10,6 +10,8 @@ it(`Should MoviesList render correctly`, () => {
       movies={MOVIES}
       onCardClick={() => {}}
       onCardTitleClick={() => {}}
+      onCardMouseEnter={() => {}}
+      onCardMouseLeave={() => {}}
     />)
     .toJSON();
 

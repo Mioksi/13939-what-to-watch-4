@@ -6,8 +6,12 @@ import MoviesList from '../movies-list/movies-list.jsx';
 import MovieDetails from './components/movie-details/movie-details.jsx';
 import MovieOverview from './components/movie-overview/movie-overview.jsx';
 import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
+import withActiveCard from '../../hocs/with-active-card/with-active-card';
+
 import {TabType} from '../../common/consts';
 import {getSimilarMovies} from './helpers/utils';
+
+const MoviesListWrapped = withActiveCard(MoviesList);
 
 const MoviePage = (
     {film: {
@@ -113,7 +117,7 @@ const MoviePage = (
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList
+          <MoviesListWrapped
             movies={similarMovies}
             onCardClick={onCardClick}
             onCardTitleClick={onCardTitleClick}
