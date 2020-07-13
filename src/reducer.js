@@ -11,13 +11,15 @@ const initialState = {
   reviews,
   genresList: getGenresList(movies),
   shownMoviesCount: MAX_MOVIES,
+  isPlayerActive: false,
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   GET_MOVIES_BY_GENRE: `GET_MOVIES_BY_GENRE`,
   SHOW_MORE_MOVIES: `SHOW_MORE_MOVIES`,
-  RESET_SHOWN_MOVIES: `RESET_SHOWN_MOVIES`
+  RESET_SHOWN_MOVIES: `RESET_SHOWN_MOVIES`,
+  SET_FULLSCREEN_PLAYER: `SET_FULLSCREEN_PLAYER`,
 };
 
 const getFilteredMovies = (genre) => movies.filter((movie) => movie.genre === genre);
@@ -42,6 +44,10 @@ const ActionCreator = {
   resetShownMovies: () => ({
     type: ActionType.RESET_SHOWN_MOVIES,
     payload: null
+  }),
+  setFullscreenPlayer: (state) => ({
+    type: ActionType.SET_FULLSCREEN_PLAYER,
+    payload: state
   })
 };
 
@@ -62,6 +68,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.RESET_SHOWN_MOVIES:
       return extend(state, {
         shownMoviesCount: MAX_MOVIES
+      });
+    case ActionType.SET_FULLSCREEN_PLAYER:
+      return extend(state, {
+        isPlayerActive: action.payload
       });
   }
 
