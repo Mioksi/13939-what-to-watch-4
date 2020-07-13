@@ -12,6 +12,8 @@ const film = {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
   year: 2014,
+  backgroundPoster: `img/bg-the-grand-budapest-hotel.jpg`,
+  src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
 const mock = {
@@ -34,6 +36,8 @@ it(`Should Main render correctly`, () => {
             film={film}
             movies={MOVIES}
             shownMoviesCount={8}
+            isPlayerActive={false}
+            setFullscreenPlayer={() => {}}
             onCardClick={() => {}}
             onCardTitleClick={() => {}}
             onShowMoreButtonClick={() => {}}
