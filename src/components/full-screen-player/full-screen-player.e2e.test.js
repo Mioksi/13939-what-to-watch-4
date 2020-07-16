@@ -3,7 +3,7 @@ import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import FullScreenPlayer from './full-screen-player';
+import {FullScreenPlayer} from './full-screen-player';
 
 configure({
   adapter: new Adapter(),
@@ -11,13 +11,16 @@ configure({
 
 const mock = {
   isPlaying: false,
-  title: `The Grand Budapest Hotel`,
   progress: 0,
   duration: 0,
 };
 
+const film = {
+  title: `The Grand Budapest Hotel`,
+};
+
 it(`Click by Play button calls callback`, () => {
-  const {isPlaying, title, progress, duration} = mock;
+  const {isPlaying, progress, duration} = mock;
 
   const handlePlayButtonClick = jest.fn();
 
@@ -26,7 +29,7 @@ it(`Click by Play button calls callback`, () => {
         isPlaying={isPlaying}
         progress={progress}
         duration={duration}
-        title={title}
+        film={film}
         onFullScreenButtonClick={() => {}}
         onFullscreenToggle={() => {}}
         onPlayButtonClick={handlePlayButtonClick}>

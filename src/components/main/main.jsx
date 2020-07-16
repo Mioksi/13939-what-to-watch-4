@@ -17,9 +17,7 @@ const Main = ({
   film: {
     title,
     genre,
-    year,
-    backgroundPoster,
-    src
+    year
   },
   movies,
   shownMoviesCount,
@@ -27,21 +25,14 @@ const Main = ({
   onCardClick,
   onShowMoreButtonClick,
   isPlayerActive,
-  setFullscreenPlayer}) => {
+  onFullscreenToggle}) => {
 
   const shownMovies = movies.slice(0, shownMoviesCount);
   const isShowMoreButtonHide = shownMoviesCount < movies.length;
 
-  const onFullscreenToggle = () => setFullscreenPlayer(!isPlayerActive);
-
   return (
     isPlayerActive ? (
-      <FullScreenPlayerWrapped
-        src={src}
-        poster={backgroundPoster}
-        title={title}
-        onFullscreenToggle={onFullscreenToggle}
-      />
+      <FullScreenPlayerWrapped />
     ) : (
       <>
         <section className="movie-card">
@@ -129,8 +120,6 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
-    backgroundPoster: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -144,7 +133,7 @@ Main.propTypes = {
   shownMoviesCount: PropTypes.number.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
   isPlayerActive: PropTypes.bool.isRequired,
-  setFullscreenPlayer: PropTypes.func.isRequired,
+  onFullscreenToggle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -158,8 +147,8 @@ const mapDispatchToProps = (dispatch) => ({
   onShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
   },
-  setFullscreenPlayer(state) {
-    dispatch(ActionCreator.setFullscreenPlayer(state));
+  onFullscreenToggle() {
+    dispatch(ActionCreator.setFullscreenPlayer(true));
   }
 });
 

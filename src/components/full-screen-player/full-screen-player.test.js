@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import FullScreenPlayer from './full-screen-player.jsx';
+import {FullScreenPlayer} from './full-screen-player.jsx';
 
 const mock = {
   isPlaying: false,
@@ -10,8 +10,12 @@ const mock = {
   duration: 0,
 };
 
+const film = {
+  title: `The Grand Budapest Hotel`,
+};
+
 it(`Should FullScreenPlayer render correctly`, () => {
-  const {isPlaying, title, progress, duration} = mock;
+  const {isPlaying, progress, duration} = mock;
 
   const tree = renderer
     .create(
@@ -19,7 +23,7 @@ it(`Should FullScreenPlayer render correctly`, () => {
           isPlaying={isPlaying}
           progress={progress}
           duration={duration}
-          title={title}
+          film={film}
           onFullScreenButtonClick={() => {}}
           onFullscreenToggle={() => {}}
           onPlayButtonClick={() => {}}

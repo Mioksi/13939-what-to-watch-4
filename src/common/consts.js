@@ -3,6 +3,7 @@ export const MAX_SIMILAR_MOVIES = 4;
 export const MAX_GENRES = 10;
 export const MAX_MOVIES = 8;
 
+
 export const Movie = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,
@@ -48,3 +49,4 @@ export const TabType = {
 
 export const TABS = Object.values(TabType);
 export const ALL_GENRES = `All genres`;
+export const VIDEO_CLASS = `player__video`;

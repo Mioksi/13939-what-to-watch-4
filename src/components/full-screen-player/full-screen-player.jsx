@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {ActionCreator} from '../../reducer';
+import {connect} from 'react-redux';
 
 const FullScreenPlayer = (
     {isPlaying,
@@ -9,7 +11,7 @@ const FullScreenPlayer = (
       onFullScreenButtonClick,
       onFullscreenToggle,
       children,
-      title}) => {
+      film: {title}}) => {
 
   return (
     <div className="player">
@@ -62,7 +64,20 @@ FullScreenPlayer.propTypes = {
   onFullScreenButtonClick: PropTypes.func.isRequired,
   onFullscreenToggle: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
-  title: PropTypes.string.isRequired,
+  film: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default FullScreenPlayer;
+const mapStateToProps = (state) => ({
+  film: state.film,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFullscreenToggle() {
+    dispatch(ActionCreator.setFullscreenPlayer(false));
+  }
+});
+
+export {FullScreenPlayer};
+export default connect(mapStateToProps, mapDispatchToProps)(FullScreenPlayer);
