@@ -1,6 +1,8 @@
 import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 
+import {VIDEO_CLASS} from '../../common/consts';
+
 class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
@@ -44,12 +46,11 @@ class VideoPlayer extends PureComponent {
 
   render() {
     const {src, poster, muted} = this.props;
-    const videoClass = `player__video`;
 
     return (
       <video
         ref={this._videoRef}
-        className={videoClass}
+        className={VIDEO_CLASS}
         src={src}
         poster={poster}
         muted={muted}

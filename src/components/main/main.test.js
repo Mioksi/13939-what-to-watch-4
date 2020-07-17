@@ -34,6 +34,8 @@ it(`Should Main render correctly`, () => {
             film={film}
             movies={MOVIES}
             shownMoviesCount={8}
+            isPlayerActive={false}
+            onFullscreenToggle={() => {}}
             onCardClick={() => {}}
             onCardTitleClick={() => {}}
             onShowMoreButtonClick={() => {}}
