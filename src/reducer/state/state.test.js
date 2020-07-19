@@ -1,5 +1,5 @@
-import {reducer, ActionCreator, ActionType} from './reducer';
-import {ALL_GENRES, MAX_MOVIES} from './common/consts';
+import {state, ActionCreator, ActionType} from './state';
+import {ALL_GENRES, MAX_MOVIES} from '../../common/consts';
 
 const film = {
   title: `The Grand Budapest Hotel`,
@@ -128,7 +128,7 @@ const getFilteredMovies = (genre) => movies.filter((movie) => movie.genre === ge
 
 describe(`Reducer work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
-    expect(reducer(void 0, {})).toEqual({
+    expect(state(void 0, {})).toEqual({
       genre: ALL_GENRES,
       movies,
       film,
@@ -140,7 +140,7 @@ describe(`Reducer work correctly`, () => {
   });
 
   it(`Reducer should change current genre by a given value`, () => {
-    expect(reducer({
+    expect(state({
       genre: ALL_GENRES,
     }, {
       type: ActionType.CHANGE_GENRE,
@@ -151,7 +151,7 @@ describe(`Reducer work correctly`, () => {
   });
 
   it(`Reducer should change current movies by a given value`, () => {
-    expect(reducer({
+    expect(state({
       movies,
     }, {
       type: ActionType.GET_MOVIES_BY_GENRE,
