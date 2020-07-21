@@ -5,10 +5,10 @@ import MovieDetails from './movie-details.jsx';
 
 const film = {
   genre: `Drama`,
-  runTime: `1h 39m`,
+  runTime: 99,
   year: 2014,
   director: `Wes Andreson`,
-  starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`
+  starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 };
 
 it(`Should MovieDetails render correctly`, () => {

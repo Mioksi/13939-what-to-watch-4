@@ -35,13 +35,13 @@ exports[`Should MovieDetails render correctly 1`] = `
         Bill Murray
          
         <br />
-         Edward Norton
+        Edward Norton
          
         <br />
-         Jude Law
+        Jude Law
          
         <br />
-         Willem Dafoe and other
+        Willem Dafoe
          
         <br />
       </span>
@@ -61,7 +61,7 @@ exports[`Should MovieDetails render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        1h 39m
+        99
       </span>
     </p>
     <p

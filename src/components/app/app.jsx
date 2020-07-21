@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
 import {getSelectedMovie} from '../../reducer/state/selectors';
@@ -45,6 +46,30 @@ const App = ({activeFilm}) => {
       </Switch>
     </BrowserRouter>
   );
+};
+
+App.propTypes = {
+  activeFilm: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    filmPoster: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    backgroundPoster: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    isFavoriteFilm: PropTypes.bool.isRequired
+  })
 };
 
 const mapStateToProps = (state) => ({

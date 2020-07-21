@@ -4,21 +4,6 @@ export const MAX_GENRES = 10;
 export const MAX_MOVIES = 8;
 export const TIMEOUT = 5000;
 
-export const MOVIES = [
-  {
-    id: 1,
-    title: `Fantastic Beasts: The Crimes of Grindelwald`,
-    image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-  {
-    id: 2,
-    title: `Bohemian Rhapsody`,
-    image: `img/bohemian-rhapsody.jpg`,
-    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-];
-
 export const MovieRating = {
   BAD: 0,
   NORMAL: 3,

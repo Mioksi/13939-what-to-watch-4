@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import MovieCard from './movie-card.jsx';
+import {MovieCard} from './movie-card.jsx';
 
 const movie = {
   id: 1,
@@ -15,32 +15,6 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should card title be pressed`, () => {
-  const onCardTitleClick = jest.fn();
-
-  const mockEvent = {
-    preventDefault() {}
-  };
-
-  const movieCard = shallow(
-      <MovieCard
-        movie={movie}
-        isPlaying={false}
-        onCardClick={() => {}}
-        onCardTitleClick={onCardTitleClick}
-        onCardMouseEnter={() => {}}
-        onCardMouseLeave={() => {}}
-        onStartPlaying={() => {}}
-        onStopPlaying={() => {}}
-      />
-  );
-
-  const movieTitle = movieCard.find(`.small-movie-card__link`);
-  movieTitle.simulate(`click`, mockEvent);
-
-  expect(onCardTitleClick).toHaveBeenCalledTimes(1);
-});
-
 it(`Should movie card click`, () => {
   const onCardClick = jest.fn();
 
@@ -49,7 +23,6 @@ it(`Should movie card click`, () => {
         movie={movie}
         isPlaying={false}
         onCardClick={onCardClick}
-        onCardTitleClick={() => {}}
         onCardMouseEnter={() => {}}
         onCardMouseLeave={() => {}}
         onStartPlaying={() => {}}
@@ -73,7 +46,6 @@ it(`Should movie card be hover`, () => {
         movie={movie}
         isPlaying={false}
         onCardClick={() => {}}
-        onCardTitleClick={() => {}}
         onCardMouseEnter={onCardMouseEnter}
         onCardMouseLeave={onCardMouseLeave}
         onStartPlaying={() => {}}

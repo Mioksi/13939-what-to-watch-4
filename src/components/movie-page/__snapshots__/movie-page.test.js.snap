@@ -197,8 +197,7 @@ Array [
             >
               <strong>
                 Starring: 
-                Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
-                 and other
+                Bill Murray, Edward Norton, Jude Law, Willem Dafoe
               </strong>
             </p>
           </div>
@@ -219,7 +218,42 @@ Array [
       </h2>
       <div
         className="catalog__movies-list"
-      />
+      >
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <video
+              className="player__video"
+              muted={true}
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+            />
+            <img
+              alt="The Grand Budapest Hotel"
+              height="175"
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              The Grand Budapest Hotel
+            </a>
+          </h3>
+        </article>
+      </div>
     </section>
     <footer
       className="page-footer"

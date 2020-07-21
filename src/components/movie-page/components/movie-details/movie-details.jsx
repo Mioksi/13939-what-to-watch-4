@@ -50,7 +50,7 @@ MovieDetails.propTypes = {
       PropTypes.string.isRequired
   ).isRequired,
   genre: PropTypes.string.isRequired,
-  runTime: PropTypes.string.isRequired,
+  runTime: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
 };
 

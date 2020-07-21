@@ -27,7 +27,9 @@ MovieOverview.propTypes = {
   ratingCount: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.array.isRequired,
+  starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
 };
 
 export default MovieOverview;

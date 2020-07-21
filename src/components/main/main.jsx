@@ -30,7 +30,6 @@ const Main = ({
   isPlayerActive,
   onFullscreenToggle}) => {
 
-  const shownMovies = movies.slice(0, shownMoviesCount);
   const isShowMoreButtonHide = shownMoviesCount < movies.length;
 
   return (
@@ -90,9 +89,7 @@ const Main = ({
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
             <GenresList/>
-            <MoviesListWrapped
-              movies={shownMovies}
-            />
+            <MoviesListWrapped />
             {isShowMoreButtonHide && <ShowMore
               onShowMoreButtonClick={onShowMoreButtonClick}
             />}
