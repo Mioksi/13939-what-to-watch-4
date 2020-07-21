@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/state/state';
+
+import {getAllGenres} from '../../reducer/data/selectors';
+import {getCurrentGenre} from '../../reducer/state/selectors';
 
 import {MAX_GENRES} from '../../common/consts';
 
-const setActiveClass = (activeGenre, genre) => {
-  return activeGenre === genre ? `catalog__genres-item--active` : ``;
-};
+const setActiveClass = (activeGenre, genre) => activeGenre === genre ? `catalog__genres-item--active` : ``;
 
 const getGenre = (genre, i, activeGenre, onGenreClick) => {
   const genreClass = `catalog__genres-item ${setActiveClass(activeGenre, genre)}`;
@@ -51,14 +52,13 @@ GenresList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeGenre: state.genre,
-  allGenres: state.genresList,
+  activeGenre: getCurrentGenre(state),
+  allGenres: getAllGenres(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.getMoviesByGenre(genre));
     dispatch(ActionCreator.resetShownMovies());
   },
 });

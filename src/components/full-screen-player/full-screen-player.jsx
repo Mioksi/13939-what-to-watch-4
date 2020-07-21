@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../reducer';
 import {connect} from 'react-redux';
+
+import {ActionCreator} from '../../reducer/state/state';
+import {getFilms} from '../../reducer/data/selectors';
 
 const FullScreenPlayer = (
     {isPlaying,
@@ -70,7 +72,7 @@ FullScreenPlayer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  film: state.film,
+  film: getFilms(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

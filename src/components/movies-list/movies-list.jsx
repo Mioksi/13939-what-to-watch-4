@@ -6,14 +6,12 @@ import withVideoPlayer from '../../hocs/with-video-player/with-video-player';
 
 const MovieCardWrapper = withVideoPlayer(MovieCard);
 
-const MoviesList = ({movies, onCardTitleClick, onCardMouseEnter, onCardMouseLeave, onCardClick}) => {
+const MoviesList = ({movies, onCardMouseEnter, onCardMouseLeave}) => {
   const getMovie = (movie, index) => {
     return (
       <MovieCardWrapper
         key={`${movie.title}-${index}`}
         movie={movie}
-        onCardClick={onCardClick}
-        onCardTitleClick={onCardTitleClick}
         onCardMouseEnter={onCardMouseEnter}
         onCardMouseLeave={onCardMouseLeave}
       />
@@ -37,10 +35,8 @@ MoviesList.propTypes = {
         image: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default MoviesList;

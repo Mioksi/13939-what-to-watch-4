@@ -1,12 +1,11 @@
 import {extend} from '../../common/utils';
-import reviews from '../../mocks/reviews';
 import {ALL_GENRES, MAX_MOVIES} from '../../common/consts';
 
 const initialState = {
   genre: ALL_GENRES,
-  reviews,
   shownMoviesCount: MAX_MOVIES,
   isPlayerActive: false,
+  activeFilm: -1,
 };
 
 const ActionType = {
@@ -14,6 +13,7 @@ const ActionType = {
   SHOW_MORE_MOVIES: `SHOW_MORE_MOVIES`,
   RESET_SHOWN_MOVIES: `RESET_SHOWN_MOVIES`,
   SET_FULLSCREEN_PLAYER: `SET_FULLSCREEN_PLAYER`,
+  GET_ACTIVE_FILM_ID: `GET_ACTIVE_FILM_ID`,
 };
 
 const ActionCreator = {
@@ -32,7 +32,11 @@ const ActionCreator = {
   setFullscreenPlayer: (state) => ({
     type: ActionType.SET_FULLSCREEN_PLAYER,
     payload: state
-  })
+  }),
+  getActiveFilmId: (id) => ({
+    type: ActionType.GET_ACTIVE_FILM_ID,
+    payload: id
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +56,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_FULLSCREEN_PLAYER:
       return extend(state, {
         isPlayerActive: action.payload
+      });
+    case ActionType.GET_ACTIVE_FILM_ID:
+      return extend(state, {
+        activeFilm: action.payload
       });
   }
 

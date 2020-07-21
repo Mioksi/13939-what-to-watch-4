@@ -1,7 +1,11 @@
 import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {ActionCreator} from '../../reducer/state/state';
+
 import VideoPlayer from '../video-player/video-player.jsx';
+
 import {VIDEO_DELAY} from '../../common/consts';
 
 class MovieCard extends PureComponent {
@@ -29,10 +33,10 @@ class MovieCard extends PureComponent {
 
   _handleCartTitleClick(id) {
     return (evt) => {
-      const {onCardTitleClick} = this.props;
+      const {onCardClick} = this.props;
 
       evt.preventDefault();
-      onCardTitleClick(id);
+      onCardClick(id);
     };
   }
 
@@ -100,7 +104,6 @@ MovieCard.propTypes = {
     preview: PropTypes.string.isRequired,
   }).isRequired,
   onCardClick: PropTypes.func.isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
@@ -108,4 +111,11 @@ MovieCard.propTypes = {
   onStopPlaying: PropTypes.func.isRequired,
 };
 
-export default MovieCard;
+const mapDispatchToProps = (dispatch) => ({
+  onCardClick(id) {
+    dispatch(ActionCreator.getActiveFilmId(id));
+  },
+});
+
+export {MovieCard};
+export default connect(null, mapDispatchToProps)(MovieCard);

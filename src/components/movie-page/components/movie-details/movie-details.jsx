@@ -11,7 +11,7 @@ const getStarring = (starringItem, i) => {
   );
 };
 
-const renderStarring = (starring) => starring.split(`,`).map(getStarring);
+const renderStarring = (starring) => starring.map(getStarring);
 
 const MovieDetails = ({director, starring, genre, runTime, year}) => {
   return (
@@ -46,7 +46,9 @@ const MovieDetails = ({director, starring, genre, runTime, year}) => {
 
 MovieDetails.propTypes = {
   director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
+  starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
   genre: PropTypes.string.isRequired,
   runTime: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,

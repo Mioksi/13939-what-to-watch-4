@@ -1,7 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/state/state';
 import PropTypes from 'prop-types';
+
+import {getPromoFilm} from '../../reducer/data/selectors';
+import {getShownMovies, getFilmsByGenre, getPlayerState} from '../../reducer/state/selectors';
 
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
@@ -17,12 +20,12 @@ const Main = ({
   film: {
     title,
     genre,
-    year
+    year,
+    backgroundPoster,
+    filmPoster
   },
   movies,
   shownMoviesCount,
-  onCardTitleClick,
-  onCardClick,
   onShowMoreButtonClick,
   isPlayerActive,
   onFullscreenToggle}) => {
@@ -37,7 +40,7 @@ const Main = ({
       <>
         <section className="movie-card">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={backgroundPoster} alt={title}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
@@ -57,8 +60,7 @@ const Main = ({
           <div className="movie-card__wrap">
             <div className="movie-card__info">
               <div className="movie-card__poster">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                  height="327"/>
+                <img src={filmPoster} alt={title} width="218" height="327"/>
               </div>
               <div className="movie-card__desc">
                 <h2 className="movie-card__title">{title}</h2>
@@ -90,8 +92,6 @@ const Main = ({
             <GenresList/>
             <MoviesListWrapped
               movies={shownMovies}
-              onCardTitleClick={onCardTitleClick}
-              onCardClick={onCardClick}
             />
             {isShowMoreButtonHide && <ShowMore
               onShowMoreButtonClick={onShowMoreButtonClick}
@@ -120,6 +120,8 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
+    backgroundPoster: PropTypes.string.isRequired,
+    filmPoster: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -128,8 +130,6 @@ Main.propTypes = {
         image: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
   shownMoviesCount: PropTypes.number.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
   isPlayerActive: PropTypes.bool.isRequired,
@@ -137,10 +137,10 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  film: state.film,
-  movies: state.movies,
-  shownMoviesCount: state.shownMoviesCount,
-  isPlayerActive: state.isPlayerActive,
+  film: getPromoFilm(state),
+  movies: getFilmsByGenre(state),
+  shownMoviesCount: getShownMovies(state),
+  isPlayerActive: getPlayerState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
