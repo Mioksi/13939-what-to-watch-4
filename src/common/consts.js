@@ -2,28 +2,7 @@ export const VIDEO_DELAY = 1000;
 export const MAX_SIMILAR_MOVIES = 4;
 export const MAX_GENRES = 10;
 export const MAX_MOVIES = 8;
-
-
-export const Movie = {
-  TITLE: `The Grand Budapest Hotel`,
-  GENRE: `Drama`,
-  YEAR: 2014,
-};
-
-export const MOVIES = [
-  {
-    id: 1,
-    title: `Fantastic Beasts: The Crimes of Grindelwald`,
-    image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-  {
-    id: 2,
-    title: `Bohemian Rhapsody`,
-    image: `img/bohemian-rhapsody.jpg`,
-    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  },
-];
+export const TIMEOUT = 5000;
 
 export const MovieRating = {
   BAD: 0,
@@ -47,6 +26,12 @@ export const TabType = {
   REVIEWS: `Reviews`
 };
 
+export const Error = {
+  UNAUTHORIZED: 401
+};
+
 export const TABS = Object.values(TabType);
 export const ALL_GENRES = `All genres`;
 export const VIDEO_CLASS = `player__video`;
+
+export const URL = `https://4.react.pages.academy/wtw`;

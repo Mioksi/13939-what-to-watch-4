@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {getComments} from '../../../../reducer/data/selectors';
+
 import MovieReview from './components/movie-review.jsx';
 
 const getReview = (review, index) => {
@@ -47,7 +49,7 @@ MovieReviews.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  reviews: state.reviews,
+  reviews: getComments(state),
 });
 
 export {MovieReviews};

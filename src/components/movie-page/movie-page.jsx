@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {getFilms} from '../../reducer/data/selectors';
+
 import MoviesList from '../movies-list/movies-list.jsx';
 import MovieDetails from './components/movie-details/movie-details.jsx';
 import MovieOverview from './components/movie-overview/movie-overview.jsx';
@@ -26,7 +28,7 @@ const MoviePage = (
       description,
       director,
       starring
-    }, movies, onCardClick, onCardTitleClick, renderTabs, activeTab}) => {
+    }, movies, renderTabs, activeTab}) => {
 
   const similarMovies = getSimilarMovies(movies, genre);
 
@@ -119,8 +121,6 @@ const MoviePage = (
           <h2 className="catalog__title">More like this</h2>
           <MoviesListWrapped
             movies={similarMovies}
-            onCardClick={onCardClick}
-            onCardTitleClick={onCardTitleClick}
           />
         </section>
         <footer className="page-footer">
@@ -144,7 +144,7 @@ MoviePage.propTypes = {
   film: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    runTime: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
     year: PropTypes.number.isRequired,
     backgroundPoster: PropTypes.string.isRequired,
     filmPoster: PropTypes.string.isRequired,
@@ -152,7 +152,9 @@ MoviePage.propTypes = {
     ratingCount: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
-    starring: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -161,15 +163,12 @@ MoviePage.propTypes = {
         image: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  film: state.film,
-  movies: state.movies,
+  movies: getFilms(state),
 });
 
 export {MoviePage};

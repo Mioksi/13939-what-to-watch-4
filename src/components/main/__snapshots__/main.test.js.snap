@@ -69,7 +69,7 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="The Grand Budapest Hotel"
             height="327"
             src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
@@ -155,25 +155,14 @@ Array [
         className="catalog__genres-list"
       >
         <li
-          className="catalog__genres-item "
+          className="catalog__genres-item catalog__genres-item--active"
         >
           <a
             className="catalog__genres-link"
             href="#"
             onClick={[Function]}
           >
-            Family
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Comedian
+            All genres
           </a>
         </li>
         <li
@@ -207,7 +196,7 @@ Array [
               src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
             <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
+              alt="The Grand Budapest Hotel"
               height="175"
               src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
@@ -221,41 +210,7 @@ Array [
               href="movie-page.html"
               onClick={[Function]}
             >
-              Fantastic Beasts: The Crimes of Grindelwald
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              className="player__video"
-              muted={true}
-              poster="img/bohemian-rhapsody.jpg"
-              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-            />
-            <img
-              alt="Bohemian Rhapsody"
-              height="175"
-              src="img/bohemian-rhapsody.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
-            >
-              Bohemian Rhapsody
+              The Grand Budapest Hotel
             </a>
           </h3>
         </article>

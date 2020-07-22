@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {VIDEO_CLASS} from '../../common/consts';
+import {getPromoFilm} from '../../reducer/data/selectors';
 
 const withFullScreenPlayer = (Component) => {
   class WithFullScreenPlayer extends PureComponent {
@@ -14,9 +15,13 @@ const withFullScreenPlayer = (Component) => {
       this.state = {
         isPlaying: false,
         duration: 0,
-        progress: 0,
+        progress: 0
       };
 
+      this._handleTimeUpdate = this._handleTimeUpdate.bind(this);
+      this._handlePause = this._handlePause.bind(this);
+      this._handlePlay = this._handlePlay.bind(this);
+      this._handleCanPlayThrough = this._handleCanPlayThrough.bind(this);
       this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
       this._handleFullScreenSet = this._handleFullScreenSet.bind(this);
     }
@@ -30,10 +35,10 @@ const withFullScreenPlayer = (Component) => {
 
         video.play();
 
-        this._handleCanPlayThrough(video);
-        this._handlePlay(video);
-        this._handlePause(video);
-        this._handleTimeUpdate(video);
+        video.oncanplaythrough = this._handleCanPlayThrough;
+        video.onplay = this._handlePlay;
+        video.onpause = this._handlePause;
+        video.ontimeupdate = this._handleTimeUpdate;
       }
     }
 
@@ -62,38 +67,38 @@ const withFullScreenPlayer = (Component) => {
       }
     }
 
-    _handleCanPlayThrough(video) {
-      video.oncanplaythrough = () => {
+    _handleCanPlayThrough() {
+      const video = this._videoRef.current;
+
+      if (video) {
         this.setState({
           duration: video.duration,
         });
-      };
+      }
     }
 
-    _handlePlay(video) {
-      video.onplay = () => {
-        this.setState({
-          isPlaying: true,
-        });
-      };
+    _handlePlay() {
+      this.setState({
+        isPlaying: true,
+      });
     }
 
-    _handlePause(video) {
-      video.onpause = () => {
-        this.setState({
-          isPlaying: false,
-        });
-      };
+    _handlePause() {
+      this.setState({
+        sPlaying: false,
+      });
     }
 
     _handleTimeUpdate() {
       const video = this._videoRef.current;
 
-      video.ontimeupdate = () => {
-        this.setState({
-          progress: Math.floor(video.currentTime)
-        });
-      };
+      if (video) {
+        video.ontimeupdate = () => {
+          this.setState({
+            progress: Math.floor(video.currentTime)
+          });
+        };
+      }
     }
 
     _handlePlayButtonClick() {
@@ -146,7 +151,7 @@ const withFullScreenPlayer = (Component) => {
   };
 
   const mapStateToProps = (state) => ({
-    film: state.film,
+    film: getPromoFilm(state),
   });
 
   return connect(mapStateToProps)(WithFullScreenPlayer);

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import MovieCard from './movie-card.jsx';
+import {MovieCard} from './movie-card.jsx';
 
 const movie = {
   id: 1,
@@ -16,7 +16,6 @@ it(`Should MovieCard render correctly`, () => {
       movie={movie}
       isPlaying={false}
       onCardClick={() => {}}
-      onCardTitleClick={() => {}}
       onCardMouseEnter={() => {}}
       onCardMouseLeave={() => {}}
       onStartPlaying={() => {}}

@@ -16,7 +16,7 @@ const MovieOverview = ({rating, ratingCount, description, director, starring}) =
       <div className="movie-card__text">
         <p>{description}</p>
         <p className="movie-card__director"><strong>Director: {director}</strong></p>
-        <p className="movie-card__starring"><strong>Starring: {starring} and other</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)}</strong></p>
       </div>
     </>
   );
@@ -27,7 +27,9 @@ MovieOverview.propTypes = {
   ratingCount: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
+  starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
 };
 
 export default MovieOverview;
