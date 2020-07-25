@@ -6,6 +6,7 @@ import {getSelectedFilm} from '../../reducer/state/selectors';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import withTabs from '../../hocs/with-tabs/with-tabs';
 import {connect} from 'react-redux';
 
@@ -40,6 +41,11 @@ const App = ({activeFilm: id}) => {
         </Route>
         <Route exact path="/dev-film">
           {renderMoviePage()}
+        </Route>
+        <Route exact path="/auth">
+          <SignIn
+            onSubmit={() => {}}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
