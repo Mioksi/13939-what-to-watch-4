@@ -1,6 +1,26 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Header = () => {
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
+
+import {AuthorizationStatus} from '../../common/consts';
+
+const Header = ({authorizationStatus}) => {
+  const renderUserBlock = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      return (
+        <a href="sign-in.html" className="user-block__link">Sign in</a>
+      );
+    }
+
+    return (
+      <div className="user-block__avatar">
+        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+      </div>
+    );
+  };
+
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
@@ -11,12 +31,19 @@ const Header = () => {
         </a>
       </div>
       <div className="user-block">
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-        </div>
+        {renderUserBlock()}
       </div>
     </header>
   );
 };
 
-export default Header;
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state)
+});
+
+export {Header};
+export default connect(mapStateToProps)(Header);

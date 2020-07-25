@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {getActiveFilmId} from '../../reducer/state/selectors';
+import {Operation as UserOperation} from '../../reducer/user/user';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
@@ -12,10 +13,10 @@ import withTabs from '../../hocs/with-tabs/with-tabs';
 
 const MoviePageWrapped = withTabs(MoviePage);
 
-const App = ({activeFilmId}) => {
+const App = ({activeFilmId, login}) => {
   const renderMain = () => {
     return (
-      <Main/>
+      <Main />
     );
   };
 
@@ -44,7 +45,7 @@ const App = ({activeFilmId}) => {
         </Route>
         <Route exact path="/auth">
           <SignIn
-            onSubmit={() => {}}
+            onSubmit={login}
           />
         </Route>
       </Switch>
@@ -53,12 +54,19 @@ const App = ({activeFilmId}) => {
 };
 
 App.propTypes = {
-  activeFilmId: PropTypes.number
+  activeFilmId: PropTypes.number,
+  login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   activeFilmId: getActiveFilmId(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  }
+});
+
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

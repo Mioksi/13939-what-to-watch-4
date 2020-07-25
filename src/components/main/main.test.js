@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 
 import {Main} from './main.jsx';
 
-import {ALL_GENRES} from '../../common/consts';
+import {ALL_GENRES, AuthorizationStatus} from '../../common/consts';
 import NameSpace from '../../reducer/name-space';
 
 const mockStore = configureStore([]);
@@ -59,6 +59,9 @@ it(`Should Main render correctly`, () => {
       genre: ALL_GENRES,
       shownMoviesCount: 8,
       isPlayerActive: false
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH
     }
   });
 

@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import {App} from './app.jsx';
 
 import NameSpace from '../../reducer/name-space';
-import {ALL_GENRES} from '../../common/consts';
+import {ALL_GENRES, AuthorizationStatus} from '../../common/consts';
 
 const mockStore = configureStore([]);
 
@@ -60,13 +60,18 @@ it(`Render App`, () => {
       genre: ALL_GENRES,
       shownMoviesCount: 8,
       isPlayerActive: false
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH
     }
   });
 
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App/>
+          <App
+            login={() => {}}
+          />
         </Provider>, {
           createNodeMock: () => {
             return {};

@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer';
 import {MoviePage} from './movie-page.jsx';
 
 import NameSpace from '../../reducer/name-space';
-import {ALL_GENRES} from '../../common/consts';
+import {ALL_GENRES, AuthorizationStatus} from '../../common/consts';
 
 const mockStore = configureStore([]);
 
@@ -60,6 +60,9 @@ it(`Should MovieCard render correctly`, () => {
     [NameSpace.STATE]: {
       genre: ALL_GENRES,
       shownMoviesCount: 8,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH
     }
   });
 
