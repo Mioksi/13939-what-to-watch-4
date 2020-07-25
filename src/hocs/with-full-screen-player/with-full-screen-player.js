@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {VIDEO_CLASS} from '../../common/consts';
-import {getPromoFilm} from '../../reducer/data/selectors';
+import {getPromoFilm} from '../../reducer/films/selectors';
 
 const withFullScreenPlayer = (Component) => {
   class WithFullScreenPlayer extends PureComponent {
@@ -31,7 +31,7 @@ const withFullScreenPlayer = (Component) => {
       const {film} = this.props;
 
       if (video) {
-        video.src = film.src;
+        video.src = film[`video_link`];
 
         video.play();
 
@@ -135,8 +135,8 @@ const withFullScreenPlayer = (Component) => {
           <video
             ref={this._videoRef}
             className={VIDEO_CLASS}
-            src={film.src}
-            poster={film.backgroundPoster}
+            src={film[`video_link`]}
+            poster={film[`background_image`]}
           />
         </Component>
       );
@@ -145,8 +145,8 @@ const withFullScreenPlayer = (Component) => {
 
   WithFullScreenPlayer.propTypes = {
     film: PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      backgroundPoster: PropTypes.string.isRequired,
+      [`video_link`]: PropTypes.string.isRequired,
+      [`background_image`]: PropTypes.string.isRequired,
     }).isRequired,
   };
 

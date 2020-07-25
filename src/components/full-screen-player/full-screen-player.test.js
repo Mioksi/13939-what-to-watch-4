@@ -5,13 +5,13 @@ import {FullScreenPlayer} from './full-screen-player.jsx';
 
 const mock = {
   isPlaying: false,
-  title: `The Grand Budapest Hotel`,
+  name: `The Grand Budapest Hotel`,
   progress: 0,
   duration: 0,
 };
 
 const film = {
-  title: `The Grand Budapest Hotel`,
+  name: `The Grand Budapest Hotel`,
 };
 
 it(`Should FullScreenPlayer render correctly`, () => {

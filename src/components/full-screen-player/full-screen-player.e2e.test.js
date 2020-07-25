@@ -16,7 +16,7 @@ const mock = {
 };
 
 const film = {
-  title: `The Grand Budapest Hotel`,
+  name: `The Grand Budapest Hotel`,
 };
 
 it(`Click by Play button calls callback`, () => {

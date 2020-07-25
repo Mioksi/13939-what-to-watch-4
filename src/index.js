@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
 import reducer from './reducer/reducer';
-import {Operation as DataOperation} from './reducer/data/data';
+import {Operation as DataOperation} from './reducer/films/films';
 import {createAPI} from './api';
 
 import App from './components/app/app.jsx';

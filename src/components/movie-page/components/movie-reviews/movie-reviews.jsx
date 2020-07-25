@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getComments} from '../../../../reducer/data/selectors';
+import {getComments} from '../../../../reducer/films/selectors';
 
 import MovieReview from './components/movie-review.jsx';
 

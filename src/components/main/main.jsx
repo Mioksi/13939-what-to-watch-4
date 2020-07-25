@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/state/state';
 import PropTypes from 'prop-types';
 
-import {getPromoFilm} from '../../reducer/data/selectors';
+import {getPromoFilm} from '../../reducer/films/selectors';
 import {getShownMovies, getFilmsByGenre, getPlayerState} from '../../reducer/state/selectors';
 
 import MoviesList from '../movies-list/movies-list.jsx';
@@ -18,19 +18,19 @@ const MoviesListWrapped = withActiveCard(MoviesList);
 
 const Main = ({
   film: {
-    title,
+    name,
     genre,
-    year,
-    backgroundPoster,
-    filmPoster
+    released,
+    [`background_image`]: backgroundPoster,
+    [`poster_image`]: filmPoster
   },
-  movies,
+  films,
   shownMoviesCount,
   onShowMoreButtonClick,
   isPlayerActive,
   onFullscreenToggle}) => {
 
-  const isShowMoreButtonHide = shownMoviesCount < movies.length;
+  const isShowMoreButtonHide = shownMoviesCount < films.length;
 
   return (
     isPlayerActive ? (
@@ -39,7 +39,7 @@ const Main = ({
       <>
         <section className="movie-card">
           <div className="movie-card__bg">
-            <img src={backgroundPoster} alt={title}/>
+            <img src={backgroundPoster} alt={name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
@@ -59,13 +59,13 @@ const Main = ({
           <div className="movie-card__wrap">
             <div className="movie-card__info">
               <div className="movie-card__poster">
-                <img src={filmPoster} alt={title} width="218" height="327"/>
+                <img src={filmPoster} alt={name} width="218" height="327"/>
               </div>
               <div className="movie-card__desc">
-                <h2 className="movie-card__title">{title}</h2>
+                <h2 className="movie-card__title">{name}</h2>
                 <p className="movie-card__meta">
                   <span className="movie-card__genre">{genre}</span>
-                  <span className="movie-card__year">{year}</span>
+                  <span className="movie-card__year">{released}</span>
                 </p>
                 <div className="movie-card__buttons">
                   <button onClick={onFullscreenToggle} className="btn btn--play movie-card__button" type="button">
@@ -114,17 +114,17 @@ const Main = ({
 
 Main.propTypes = {
   film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    backgroundPoster: PropTypes.string.isRequired,
-    filmPoster: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    [`background_image`]: PropTypes.string.isRequired,
+    [`poster_image`]: PropTypes.string.isRequired,
   }).isRequired,
-  movies: PropTypes.arrayOf(
+  films: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        [`preview_image`]: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
   shownMoviesCount: PropTypes.number.isRequired,
@@ -135,7 +135,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   film: getPromoFilm(state),
-  movies: getFilmsByGenre(state),
+  films: getFilmsByGenre(state),
   shownMoviesCount: getShownMovies(state),
   isPlayerActive: getPlayerState(state),
 });

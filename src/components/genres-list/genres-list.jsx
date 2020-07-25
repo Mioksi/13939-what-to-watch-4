@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/state/state';
 
-import {getAllGenres} from '../../reducer/data/selectors';
+import {getAllGenres} from '../../reducer/films/selectors';
 import {getCurrentGenre} from '../../reducer/state/selectors';
 
 import {MAX_GENRES} from '../../common/consts';

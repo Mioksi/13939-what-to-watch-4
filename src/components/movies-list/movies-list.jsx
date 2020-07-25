@@ -36,8 +36,8 @@ MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        [`preview_image`]: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
   shownMoviesCount: PropTypes.number.isRequired,

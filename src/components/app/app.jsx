@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
-import {getSelectedMovie} from '../../reducer/state/selectors';
+import {getSelectedFilm} from '../../reducer/state/selectors';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
@@ -11,23 +11,21 @@ import {connect} from 'react-redux';
 
 const MoviePageWrapped = withTabs(MoviePage);
 
-const App = ({activeFilm}) => {
+const App = ({activeFilm: id}) => {
   const renderMain = () => {
     return (
-      <Main />
+      <Main/>
     );
   };
 
   const renderMoviePage = () => {
     return (
-      <MoviePageWrapped
-        film={activeFilm}
-      />
+      <MoviePageWrapped />
     );
   };
 
   const renderApp = () => {
-    if (activeFilm) {
+    if (id) {
       return renderMoviePage();
     }
 
@@ -50,30 +48,12 @@ const App = ({activeFilm}) => {
 
 App.propTypes = {
   activeFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    filmPoster: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    backgroundPoster: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    isFavoriteFilm: PropTypes.bool.isRequired
+    id: PropTypes.number.isRequired
   })
 };
 
 const mapStateToProps = (state) => ({
-  activeFilm: getSelectedMovie(state),
+  activeFilm: getSelectedFilm(state),
 });
 
 export {App};
