@@ -9,6 +9,7 @@ import {getShownMovies, getFilmsByGenre, getPlayerState} from '../../reducer/sta
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import ShowMore from '../show-more/show-more.jsx';
+import Header from '../header/header.jsx';
 import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 import withFullScreenPlayer from '../../hocs/with-full-screen-player/with-full-screen-player';
@@ -42,20 +43,7 @@ const Main = ({
             <img src={backgroundPoster} alt={name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </div>
-          </header>
+          <Header />
           <div className="movie-card__wrap">
             <div className="movie-card__info">
               <div className="movie-card__poster">

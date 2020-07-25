@@ -9,6 +9,7 @@ import MoviesList from '../movies-list/movies-list.jsx';
 import MovieDetails from './components/movie-details/movie-details.jsx';
 import MovieOverview from './components/movie-overview/movie-overview.jsx';
 import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
+import Header from '../header/header.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 
 import {TabType} from '../../common/consts';
@@ -66,20 +67,7 @@ const MoviePage = (
             <img src={backgroundPoster} alt={name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </div>
-          </header>
+          <Header />
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{name}</h2>
