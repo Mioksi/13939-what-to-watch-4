@@ -54,7 +54,7 @@ const activeTab = `Overview`;
 
 it(`Should MovieCard render correctly`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    [NameSpace.FILMS]: {
       films
     },
     [NameSpace.STATE]: {

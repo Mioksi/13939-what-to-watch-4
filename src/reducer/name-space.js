@@ -1,6 +1,7 @@
 const NameSpace = {
-  DATA: `DATA`,
+  FILMS: `FILMS`,
   STATE: `STATE`,
+  USER: `USER`
 };
 
 export default NameSpace;

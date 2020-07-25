@@ -52,7 +52,7 @@ const film = {
 
 it(`Render App`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    [NameSpace.FILMS]: {
       films,
       promoFilm: film
     },

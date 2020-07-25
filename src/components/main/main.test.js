@@ -52,7 +52,7 @@ const films = [
 
 it(`Should Main render correctly`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    [NameSpace.FILMS]: {
       films,
     },
     [NameSpace.STATE]: {

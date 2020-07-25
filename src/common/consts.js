@@ -30,6 +30,11 @@ export const Error = {
   UNAUTHORIZED: 401
 };
 
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
 export const TABS = Object.values(TabType);
 export const ALL_GENRES = `All genres`;
 export const VIDEO_CLASS = `player__video`;

@@ -31,7 +31,7 @@ const films = [
 
 it(`Should MoviesList render correctly`, () => {
   const store = mockStore({
-    [NameSpace.DATA]: {
+    [NameSpace.FILMS]: {
       films
     }
   });
