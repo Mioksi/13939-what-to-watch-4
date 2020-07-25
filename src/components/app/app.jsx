@@ -1,18 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import {getSelectedFilm} from '../../reducer/state/selectors';
+import {getActiveFilmId} from '../../reducer/state/selectors';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import withTabs from '../../hocs/with-tabs/with-tabs';
-import {connect} from 'react-redux';
 
 const MoviePageWrapped = withTabs(MoviePage);
 
-const App = ({activeFilm: id}) => {
+const App = ({activeFilmId}) => {
   const renderMain = () => {
     return (
       <Main/>
@@ -26,7 +26,7 @@ const App = ({activeFilm: id}) => {
   };
 
   const renderApp = () => {
-    if (id) {
+    if (activeFilmId) {
       return renderMoviePage();
     }
 
@@ -53,13 +53,11 @@ const App = ({activeFilm: id}) => {
 };
 
 App.propTypes = {
-  activeFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired
-  })
+  activeFilmId: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
-  activeFilm: getSelectedFilm(state),
+  activeFilmId: getActiveFilmId(state),
 });
 
 export {App};
