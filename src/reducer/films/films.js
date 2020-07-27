@@ -1,15 +1,15 @@
 import {extend} from '../../common/utils';
-import reviews from '../../mocks/reviews';
 
 const initialState = {
   films: [],
   promoFilm: {},
-  reviews
+  reviews: []
 };
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
-  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  LOAD_FILM_COMMENTS: `LOAD_COMMENTS`
 };
 
 const ActionCreator = {
@@ -23,6 +23,12 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_PROMO_FILM,
       payload: promoFilm
+    };
+  },
+  loadFilmComments: (comments) => {
+    return {
+      type: ActionType.LOAD_FILM_COMMENTS,
+      payload: comments
     };
   }
 };
@@ -40,7 +46,14 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.loadPromoFilm(response.data));
       });
-  }
+  },
+
+  loadFilmComments: (filmId) => (dispatch, getState, api) => {
+    return api.get(`/comments/${filmId}`)
+      .then((response) => {
+        dispatch(ActionCreator.loadFilmComments(response.data));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +65,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROMO_FILM:
       return extend(state, {
         promoFilm: action.payload
+      });
+    case ActionType.LOAD_FILM_COMMENTS:
+      return extend(state, {
+        reviews: action.payload
       });
   }
 
