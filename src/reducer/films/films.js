@@ -1,5 +1,4 @@
 import {extend} from '../../common/utils';
-import filmAdapter from '../../adapters/film-adapter';
 import reviews from '../../mocks/reviews';
 
 const initialState = {
@@ -32,14 +31,14 @@ const Operation = {
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
-        dispatch(ActionCreator.loadFilms(response.data.map((film) => filmAdapter(film))));
+        dispatch(ActionCreator.loadFilms(response.data));
       });
   },
 
   loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
-        dispatch(ActionCreator.loadPromoFilm(filmAdapter(response.data)));
+        dispatch(ActionCreator.loadPromoFilm(response.data));
       });
   }
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../reducer/state/state';
-import {getFilms} from '../../reducer/data/selectors';
+import {getFilms} from '../../reducer/films/selectors';
 
 const FullScreenPlayer = (
     {isPlaying,
@@ -13,7 +13,7 @@ const FullScreenPlayer = (
       onFullScreenButtonClick,
       onFullscreenToggle,
       children,
-      film: {title}}) => {
+      film: {name}}) => {
 
   return (
     <div className="player">
@@ -45,7 +45,7 @@ const FullScreenPlayer = (
               </>
             )}
           </button>
-          <div className="player__name">{title}</div>
+          <div className="player__name">{name}</div>
           <button onClick={onFullScreenButtonClick} type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"/>
@@ -67,7 +67,7 @@ FullScreenPlayer.propTypes = {
   onFullscreenToggle: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
   film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
 };
 

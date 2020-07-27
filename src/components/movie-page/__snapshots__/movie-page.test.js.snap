@@ -29,7 +29,6 @@ Array [
         >
           <a
             className="logo__link"
-            href="main.html"
           >
             <span
               className="logo__letter logo__letter--1"
@@ -232,7 +231,7 @@ Array [
               className="player__video"
               muted={true}
               poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
             <img
               alt="The Grand Budapest Hotel"

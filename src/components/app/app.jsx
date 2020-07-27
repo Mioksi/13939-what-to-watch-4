@@ -1,17 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import {getSelectedMovie} from '../../reducer/state/selectors';
+import {getActiveFilmId} from '../../reducer/state/selectors';
+import {Operation as UserOperation} from '../../reducer/user/user';
 
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import withTabs from '../../hocs/with-tabs/with-tabs';
-import {connect} from 'react-redux';
 
 const MoviePageWrapped = withTabs(MoviePage);
 
-const App = ({activeFilm}) => {
+const App = ({activeFilmId, login}) => {
   const renderMain = () => {
     return (
       <Main />
@@ -20,14 +22,12 @@ const App = ({activeFilm}) => {
 
   const renderMoviePage = () => {
     return (
-      <MoviePageWrapped
-        film={activeFilm}
-      />
+      <MoviePageWrapped />
     );
   };
 
   const renderApp = () => {
-    if (activeFilm) {
+    if (activeFilmId) {
       return renderMoviePage();
     }
 
@@ -43,38 +43,30 @@ const App = ({activeFilm}) => {
         <Route exact path="/dev-film">
           {renderMoviePage()}
         </Route>
+        <Route exact path="/auth">
+          <SignIn
+            onSubmit={login}
+          />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
 };
 
 App.propTypes = {
-  activeFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    filmPoster: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    backgroundPoster: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    isFavoriteFilm: PropTypes.bool.isRequired
-  })
+  activeFilmId: PropTypes.number,
+  login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  activeFilm: getSelectedMovie(state),
+  activeFilmId: getActiveFilmId(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

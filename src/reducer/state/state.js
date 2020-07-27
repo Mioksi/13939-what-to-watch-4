@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_ACTIVE_FILM_ID:
       return extend(state, {
-        activeFilm: action.payload
+        activeFilmId: action.payload
       });
   }
 
