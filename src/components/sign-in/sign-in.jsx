@@ -14,18 +14,18 @@ class SignIn extends PureComponent {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
+  _getErrorMessage() {
+    return (
+      <div className="sign-in__message">
+        <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
+      </div>
+    );
+  }
+
   _renderErrorMessage() {
     const {isErrorAuth} = this.props;
 
-    if (isErrorAuth) {
-      return (
-        <div className="sign-in__message">
-          <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
-        </div>
-      );
-    }
-
-    return ``;
+    return isErrorAuth ? this._getErrorMessage() : null;
   }
 
   _handleSubmit(evt) {
