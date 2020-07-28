@@ -55,16 +55,18 @@ class MovieReviews extends React.PureComponent {
 }
 
 MovieReviews.propTypes = {
-  reviews: PropTypes.arrayOf({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  }).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        rating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired,
   activeFilmId: PropTypes.number.isRequired,
   getFilmComments: PropTypes.func.isRequired
 };

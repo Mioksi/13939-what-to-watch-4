@@ -158,7 +158,7 @@ MoviePage.propTypes = {
   ).isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.bool.isRequired
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

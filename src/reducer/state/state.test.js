@@ -10,6 +10,7 @@ describe(`Reducer work correctly`, () => {
       shownMoviesCount: MAX_MOVIES,
       isPlayerActive: false,
       activeFilm: -1,
+      isFormDisabled: false
     });
   });
 
