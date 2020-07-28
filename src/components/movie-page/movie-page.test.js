@@ -73,6 +73,7 @@ it(`Should MovieCard render correctly`, () => {
             film={film}
             movies={films}
             activeTab={activeTab}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
             onCardClick={() => {}}
             onCardTitleClick={() => {}}
             renderTabs={() => {}}

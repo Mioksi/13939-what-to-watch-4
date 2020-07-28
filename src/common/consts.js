@@ -3,6 +3,7 @@ export const MAX_SIMILAR_MOVIES = 4;
 export const MAX_GENRES = 10;
 export const MAX_MOVIES = 8;
 export const TIMEOUT = 5000;
+export const RATING_COUNT = 5;
 
 export const MovieRating = {
   BAD: 0,
@@ -33,6 +34,11 @@ export const Error = {
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
+};
+
+export const ReviewLength = {
+  MIN: 50,
+  MAX: 400
 };
 
 export const TABS = Object.values(TabType);

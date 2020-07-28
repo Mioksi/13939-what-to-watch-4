@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import {getFilms} from '../../reducer/films/selectors';
 import {getSelectedFilm} from '../../reducer/state/selectors';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
 import MoviesList from '../movies-list/movies-list.jsx';
 import MovieDetails from './components/movie-details/movie-details.jsx';
@@ -12,7 +13,7 @@ import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
 import Header from '../header/header.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 
-import {TabType} from '../../common/consts';
+import {AuthorizationStatus, TabType} from '../../common/consts';
 import {getSimilarMovies} from './helpers/utils';
 
 const MoviesListWrapped = withActiveCard(MoviesList);
@@ -30,7 +31,7 @@ const MoviePage = (
       description,
       director,
       starring
-    }, movies, renderTabs, activeTab}) => {
+    }, movies, renderTabs, activeTab, authorizationStatus}) => {
 
   const similarMovies = getSimilarMovies(movies, genre);
 
@@ -88,7 +89,10 @@ const MoviePage = (
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  : null
+                }
               </div>
             </div>
           </div>
@@ -154,11 +158,13 @@ MoviePage.propTypes = {
   ).isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   film: getSelectedFilm(state),
   movies: getFilms(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 export {MoviePage};

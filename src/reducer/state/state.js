@@ -6,6 +6,7 @@ const initialState = {
   shownMoviesCount: MAX_MOVIES,
   isPlayerActive: false,
   activeFilm: -1,
+  isFormDisabled: false
 };
 
 const ActionType = {
@@ -14,6 +15,7 @@ const ActionType = {
   RESET_SHOWN_MOVIES: `RESET_SHOWN_MOVIES`,
   SET_FULLSCREEN_PLAYER: `SET_FULLSCREEN_PLAYER`,
   GET_ACTIVE_FILM_ID: `GET_ACTIVE_FILM_ID`,
+  SET_FORM_DISABLED: `SET_FORM_DISABLED`
 };
 
 const ActionCreator = {
@@ -37,6 +39,10 @@ const ActionCreator = {
     type: ActionType.GET_ACTIVE_FILM_ID,
     payload: id
   }),
+  setFormDisabled: (bool) => ({
+    type: ActionType.SET_FORM_DISABLED,
+    payload: bool
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -60,6 +66,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_ACTIVE_FILM_ID:
       return extend(state, {
         activeFilmId: action.payload
+      });
+    case ActionType.SET_FORM_DISABLED:
+      return extend(state, {
+        isFormDisabled: action.payload
       });
   }
 

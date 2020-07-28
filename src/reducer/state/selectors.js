@@ -14,6 +14,8 @@ export const getShownMovies = (state) => state[NameSpace.STATE].shownMoviesCount
 
 export const getPlayerState = (state) => state[NameSpace.STATE].isPlayerActive;
 
+export const getFormState = (state) => state[NameSpace.STATE].isFormDisabled;
+
 export const getFilmsByGenre = createSelector(
     getFilms,
     getCurrentGenre,

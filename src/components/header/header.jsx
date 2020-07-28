@@ -6,21 +6,25 @@ import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
 import {AuthorizationStatus} from '../../common/consts';
 
+const getSingInLink = () => {
+  return (
+    <a href="sign-in.html" className="user-block__link">Sign in</a>
+  );
+};
+
+const getUserBlock = () => {
+  return (
+    <div className="user-block__avatar">
+      <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+    </div>
+  );
+};
+
+const renderUserBlock = (status) => {
+  return (status === AuthorizationStatus.AUTH) ? getUserBlock() : getSingInLink();
+};
+
 const Header = ({authorizationStatus}) => {
-  const renderUserBlock = () => {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return (
-        <a href="sign-in.html" className="user-block__link">Sign in</a>
-      );
-    }
-
-    return (
-      <div className="user-block__avatar">
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-      </div>
-    );
-  };
-
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
@@ -31,7 +35,7 @@ const Header = ({authorizationStatus}) => {
         </a>
       </div>
       <div className="user-block">
-        {renderUserBlock()}
+        {renderUserBlock(authorizationStatus)}
       </div>
     </header>
   );
