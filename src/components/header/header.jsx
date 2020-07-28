@@ -21,7 +21,7 @@ const getUserBlock = () => {
 };
 
 const renderUserBlock = (status) => {
-  return (status === AuthorizationStatus.AUTH) ? getSingInLink() : getUserBlock();
+  return (status === AuthorizationStatus.AUTH) ? getUserBlock() : getSingInLink();
 };
 
 const Header = ({authorizationStatus}) => {

@@ -11,8 +11,10 @@ import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import withTabs from '../../hocs/with-tabs/with-tabs';
+import withReview from '../../hocs/with-review/with-review';
 
 const MoviePageWrapped = withTabs(MoviePage);
+const AddReviewWrapped = withReview(AddReview);
 
 const App = ({activeFilmId, login}) => {
   const renderMain = () => {
@@ -50,7 +52,7 @@ const App = ({activeFilmId, login}) => {
           />
         </Route>
         <Route exact path={`/dev-review`}>
-          <AddReview />
+          <AddReviewWrapped />
         </Route>
       </Switch>
     </BrowserRouter>

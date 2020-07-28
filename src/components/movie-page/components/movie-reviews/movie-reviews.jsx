@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {getComments} from '../../../../reducer/films/selectors';
 
 import MovieReview from './components/movie-review.jsx';
-import {Operation as DataOperation} from '../../../../reducer/films/films';
+import {Operation as FilmsOperation} from '../../../../reducer/films/films';
 import {getActiveFilmId} from '../../../../reducer/state/selectors';
 
 class MovieReviews extends React.PureComponent {
@@ -76,7 +76,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getFilmComments(id) {
-    dispatch(DataOperation.loadFilmComments(id));
+    dispatch(FilmsOperation.loadFilmComments(id));
   }
 });
 

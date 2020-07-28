@@ -6,7 +6,13 @@ import {getSelectedFilm} from '../../reducer/state/selectors';
 
 import {ReviewLength, RATING_COUNT} from '../../common/consts';
 
-const AddReview = ({film: {name, [`background_image`]: backgroundImage, [`poster_image`]: posterImage}}) => {
+const AddReview = (
+    {film: {
+      name,
+      [`background_image`]: backgroundImage,
+      [`poster_image`]: posterImage
+    }, onChangeHandler, onSubmitHandler
+    }) => {
 
   const getRatingItem = (item, index) => {
     const id = `star-${index + 1}`;
@@ -14,7 +20,7 @@ const AddReview = ({film: {name, [`background_image`]: backgroundImage, [`poster
     return (
       <Fragment key={id}>
         <input
-          onChange={() => {}}
+          onChange={onChangeHandler}
           className="rating__input"
           id={id}
           type="radio"
@@ -74,7 +80,7 @@ const AddReview = ({film: {name, [`background_image`]: backgroundImage, [`poster
           </div>
           <div className="add-review__text">
             <textarea
-              onChange={() => {}}
+              onChange={onSubmitHandler}
               className="add-review__textarea"
               name="review-text"
               id="review-text"
@@ -98,7 +104,9 @@ AddReview.propTypes = {
     name: PropTypes.string.isRequired,
     [`background_image`]: PropTypes.string.isRequired,
     [`poster_image`]: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  onChangeHandler: PropTypes.func.isRequired,
+  onSubmitHandler: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
