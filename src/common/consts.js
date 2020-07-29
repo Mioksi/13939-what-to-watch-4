@@ -18,7 +18,7 @@ export const RatingType = {
   NORMAL: `Normal`,
   GOOD: `Good`,
   VERY_GOOD: `Very good`,
-  AWESOME: `Awesome`,
+  AWESOME: `Awesome`
 };
 
 export const TabType = {
@@ -33,12 +33,21 @@ export const Error = {
 
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
+  NO_AUTH: `NO_AUTH`
 };
 
 export const ReviewLength = {
   MIN: 50,
   MAX: 400
+};
+
+export const AppRoute = {
+  ADD_REVIEW: `/review`,
+  FILM: `/films`,
+  LOGIN: `/login`,
+  MY_LIST: `/mylist`,
+  PLAYER: `/player`,
+  ROOT: `/`
 };
 
 export const TABS = Object.values(TabType);
