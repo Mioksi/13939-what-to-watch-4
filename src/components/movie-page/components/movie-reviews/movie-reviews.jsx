@@ -22,15 +22,21 @@ class MovieReviews extends React.PureComponent {
   _getReview(review, index) {
     const key = `${review.id}-${index}`;
 
+    const {user, date, rating, comment} = review;
+    const {name} = user;
+
     return (
       <MovieReview
         key={key}
-        review={review}
+        name={name}
+        date={date}
+        rating={rating}
+        comment={comment}
       />
     );
   }
 
-  renderReviews(columnReviews) {
+  _renderReviews(columnReviews) {
     return columnReviews.map(this._getReview);
   }
 
@@ -44,10 +50,10 @@ class MovieReviews extends React.PureComponent {
     return (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {this.renderReviews(firstColumn)}
+          {this._renderReviews(firstColumn)}
         </div>
         <div className="movie-card__reviews-col">
-          {this.renderReviews(secondColumn)}
+          {this._renderReviews(secondColumn)}
         </div>
       </div>
     );

@@ -34,7 +34,7 @@ const AddReview = (
 
   const ratingStars = new Array(RATING_COUNT).fill(``);
 
-  const renderRatingMarkup = () => ratingStars.map(getRatingItem);
+  const renderRatingMarkup = ratingStars.map(getRatingItem);
 
   return (
     <section className="movie-card movie-card--full">
@@ -75,7 +75,7 @@ const AddReview = (
         <form action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
-              {renderRatingMarkup()}
+              {renderRatingMarkup}
             </div>
           </div>
           <div className="add-review__text">

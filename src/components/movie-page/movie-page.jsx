@@ -18,6 +18,12 @@ import {getSimilarMovies} from './helpers/utils';
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
+const renderAddReviewButton = (status) => {
+  return status === AuthorizationStatus.AUTH ?
+    <a href="add-review.html" className="btn movie-card__button">Add review</a>
+    : null;
+};
+
 const MoviePage = (
     {film: {
       name,
@@ -89,10 +95,7 @@ const MoviePage = (
                   </svg>
                   <span>My list</span>
                 </button>
-                {authorizationStatus === AuthorizationStatus.AUTH ?
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
-                  : null
-                }
+                {renderAddReviewButton(authorizationStatus)}
               </div>
             </div>
           </div>

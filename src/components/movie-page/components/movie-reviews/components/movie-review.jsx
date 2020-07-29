@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MovieReview = ({review: {user: {name}, date, rating, comment}}) => {
+const MovieReview = ({name, date, rating, comment}) => {
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -17,16 +17,10 @@ const MovieReview = ({review: {user: {name}, date, rating, comment}}) => {
 };
 
 MovieReview.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  }).isRequired
+  name: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
 };
 
 export default MovieReview;
