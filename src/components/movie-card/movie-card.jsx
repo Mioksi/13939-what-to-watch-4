@@ -1,12 +1,10 @@
 import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
-import {ActionCreator} from '../../reducer/state/state';
+import {Link} from 'react-router-dom';
 
 import VideoPlayer from '../video-player/video-player.jsx';
 
-import {VIDEO_DELAY} from '../../common/consts';
+import {AppRoute, VIDEO_DELAY} from '../../common/consts';
 
 class MovieCard extends PureComponent {
   constructor(props) {
@@ -29,23 +27,6 @@ class MovieCard extends PureComponent {
     this._timeout = null;
 
     onStopPlaying();
-  }
-
-  _handleCartTitleClick(id) {
-    return (evt) => {
-      const {onCardClick} = this.props;
-
-      evt.preventDefault();
-      onCardClick(id);
-    };
-  }
-
-  _handleCardClick(id) {
-    return () => {
-      const {onCardClick} = this.props;
-
-      onCardClick(id);
-    };
   }
 
   _handleMouseEnter(id) {
@@ -75,21 +56,22 @@ class MovieCard extends PureComponent {
     return (
       <article
         className="small-movie-card catalog__movies-card"
-        onClick={this._handleCardClick(id)}
         onMouseEnter={this._handleMouseEnter(id)}
         onMouseLeave={this._handleMouseLeave}
       >
-        <div className="small-movie-card__image">
-          <VideoPlayer
-            isPlaying={isPlaying}
-            src={preview}
-            poster={image}
-            muted={true}
-          />
-          <img src={image} alt={name} width="280" height="175"/>
-        </div>
+        <Link to={`${AppRoute.FILM}/${id}`}>
+          <div className="small-movie-card__image">
+            <VideoPlayer
+              isPlaying={isPlaying}
+              src={preview}
+              poster={image}
+              muted={true}
+            />
+            <img src={image} alt={name} width="280" height="175"/>
+          </div>
+        </Link>
         <h3 className="small-movie-card__title">
-          <a onClick={this._handleCartTitleClick(id)} className="small-movie-card__link" href="movie-page.html">{name}</a>
+          <Link to={`${AppRoute.FILM}/${id}`} className="small-movie-card__link">{name}</Link>
         </h3>
       </article>
     );
@@ -103,7 +85,6 @@ MovieCard.propTypes = {
     [`preview_image`]: PropTypes.string.isRequired,
     [`preview_video_link`]: PropTypes.string.isRequired,
   }).isRequired,
-  onCardClick: PropTypes.func.isRequired,
   onCardMouseEnter: PropTypes.func.isRequired,
   onCardMouseLeave: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
@@ -111,11 +92,4 @@ MovieCard.propTypes = {
   onStopPlaying: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onCardClick(id) {
-    dispatch(ActionCreator.getActiveFilmId(id));
-  },
-});
-
-export {MovieCard};
-export default connect(null, mapDispatchToProps)(MovieCard);
+export default MovieCard;

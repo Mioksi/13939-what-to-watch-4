@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {VIDEO_CLASS} from '../../common/consts';
-import {getPromoFilm} from '../../reducer/films/selectors';
+import {getSelectedFilm} from '../../reducer/state/selectors';
 
 const withFullScreenPlayer = (Component) => {
   class WithFullScreenPlayer extends PureComponent {
@@ -151,7 +151,7 @@ const withFullScreenPlayer = (Component) => {
   };
 
   const mapStateToProps = (state) => ({
-    film: getPromoFilm(state),
+    film: getSelectedFilm(state),
   });
 
   return connect(mapStateToProps)(WithFullScreenPlayer);

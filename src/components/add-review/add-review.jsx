@@ -1,33 +1,34 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {getSelectedFilm} from '../../reducer/state/selectors';
 
-import {ReviewLength, RATING_COUNT} from '../../common/consts';
+import {ReviewLength, RATING_COUNT, AppRoute} from '../../common/consts';
 
 const AddReview = (
     {film: {
+      id,
       name,
       [`background_image`]: backgroundImage,
       [`poster_image`]: posterImage
-    }, onChangeHandler, onSubmitHandler
-    }) => {
+    }, onRatingChange, onCommentChange, onSubmit}) => {
 
   const getRatingItem = (item, index) => {
-    const id = `star-${index + 1}`;
+    const key = `star-${index + 1}`;
 
     return (
-      <Fragment key={id}>
+      <Fragment key={key}>
         <input
-          onChange={onChangeHandler}
+          onChange={onRatingChange}
           className="rating__input"
-          id={id}
+          id={key}
           type="radio"
           name="rating"
-          value={index}
+          value={index + 1}
         />
-        <label className="rating__label" htmlFor={id}>Rating {index}</label>
+        <label className="rating__label" htmlFor={key}>Rating {index}</label>
       </Fragment>
     );
   };
@@ -45,16 +46,16 @@ const AddReview = (
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to={AppRoute.ROOT} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">{name}</a>
+                <Link to={`${AppRoute.FILM}/${id}`} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -72,7 +73,7 @@ const AddReview = (
         </div>
       </div>
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form onSubmit={onSubmit} action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
               {renderRatingMarkup}
@@ -80,7 +81,7 @@ const AddReview = (
           </div>
           <div className="add-review__text">
             <textarea
-              onChange={onSubmitHandler}
+              onChange={onCommentChange}
               className="add-review__textarea"
               name="review-text"
               id="review-text"
@@ -101,12 +102,14 @@ const AddReview = (
 
 AddReview.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     [`background_image`]: PropTypes.string.isRequired,
     [`poster_image`]: PropTypes.string.isRequired
   }).isRequired,
-  onChangeHandler: PropTypes.func.isRequired,
-  onSubmitHandler: PropTypes.func.isRequired
+  onRatingChange: PropTypes.func.isRequired,
+  onCommentChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

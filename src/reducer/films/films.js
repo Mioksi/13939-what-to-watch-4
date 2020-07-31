@@ -2,6 +2,9 @@ import {extend} from '../../common/utils';
 
 import {ActionCreator as ActionCreatorState} from "../state/state";
 
+import history from '../../history';
+import {AppRoute} from '../../common/consts';
+
 const initialState = {
   films: [],
   promoFilm: {},
@@ -37,23 +40,38 @@ const ActionCreator = {
 
 const Operation = {
   loadFilms: () => (dispatch, getState, api) => {
+    dispatch(ActionCreatorState.loadingFilms(true));
     return api.get(`/films`)
       .then((response) => {
         dispatch(ActionCreator.loadFilms(response.data));
+        dispatch(ActionCreatorState.loadingFilms(false));
+      })
+      .catch((err) => {
+        throw err;
       });
   },
 
   loadPromoFilm: () => (dispatch, getState, api) => {
+    dispatch(ActionCreatorState.loadingPromoFilm(true));
     return api.get(`/films/promo`)
       .then((response) => {
         dispatch(ActionCreator.loadPromoFilm(response.data));
+        dispatch(ActionCreatorState.loadingPromoFilm(false));
+      })
+      .catch((err) => {
+        throw err;
       });
   },
 
-  loadFilmComments: (filmId) => (dispatch, getState, api) => {
-    return api.get(`/comments/${filmId}`)
+  loadFilmComments: (id) => (dispatch, getState, api) => {
+    dispatch(ActionCreatorState.loadingComments(true));
+    return api.get(`/comments/${id}`)
       .then((response) => {
         dispatch(ActionCreator.loadFilmComments(response.data));
+        dispatch(ActionCreatorState.loadingComments(true));
+      })
+      .catch((err) => {
+        throw err;
       });
   },
 
@@ -64,6 +82,7 @@ const Operation = {
     })
       .then(() => {
         dispatch(ActionCreatorState.setFormDisabled(false));
+        history.push(`${AppRoute.FILM}/${id}`);
       })
       .catch((err) => {
         dispatch(ActionCreatorState.setFormDisabled(false));

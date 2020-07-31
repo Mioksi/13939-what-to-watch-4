@@ -16,6 +16,12 @@ export const getPlayerState = (state) => state[NameSpace.STATE].isPlayerActive;
 
 export const getFormState = (state) => state[NameSpace.STATE].isFormDisabled;
 
+export const getLoadingFilmsState = (state) => state[NameSpace.STATE].isLoadingFilms;
+
+export const getLoadingPromoFilmState = (state) => state[NameSpace.STATE].isLoadingPromoFilm;
+
+export const getLoadingCommentsState = (state) => state[NameSpace.STATE].isLoadingComments;
+
 export const getFilmsByGenre = createSelector(
     getFilms,
     getCurrentGenre,
@@ -28,6 +34,6 @@ export const getSelectedFilm = createSelector(
     getFilms,
     getActiveFilmId,
     (films, id) => {
-      return films.find((movie) => movie.id === id);
+      return films.find((film) => film.id === id);
     }
 );

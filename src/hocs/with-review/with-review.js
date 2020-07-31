@@ -11,19 +11,28 @@ const withReview = (Component) => {
       super(props);
 
       this.state = {
-        rating: 1,
+        rating: 0,
         comment: ``,
       };
 
       this._handleSubmit = this._handleSubmit.bind(this);
       this._handleRatingChange = this._handleRatingChange.bind(this);
+      this._handleCommentChange = this._handleCommentChange.bind(this);
     }
 
     _handleRatingChange(evt) {
-      const value = evt.target;
+      const {name, value} = evt.target;
 
       this.setState({
         [name]: value,
+      });
+    }
+
+    _handleCommentChange(evt) {
+      const comment = evt.target.value;
+
+      this.setState({
+        comment,
       });
     }
 
@@ -42,8 +51,9 @@ const withReview = (Component) => {
     render() {
       return <Component
         {...this.props}
-        onChangeHandler={this._handleRatingChange}
-        onSubmitHandler={this._handleSubmit}
+        onRatingChange={this._handleRatingChange}
+        onCommentChange={this._handleCommentChange}
+        onSubmit={this._handleSubmit}
       />;
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {MovieCard} from './movie-card.jsx';
+import MovieCard from './movie-card.jsx';
 
 const film = {
   id: 1,

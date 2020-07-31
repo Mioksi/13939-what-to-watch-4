@@ -13,8 +13,9 @@ it(`AddReview component render correctly`, () => {
   const tree = renderer.create(
       <AddReview
         film={film}
-        onChangeHandler={() => {}}
-        onSubmitHandler={() => {}}
+        onRatingChange={() => {}}
+        onCommentChange={() => {}}
+        onSubmit={() => {}}
       />
   ).toJSON();
 

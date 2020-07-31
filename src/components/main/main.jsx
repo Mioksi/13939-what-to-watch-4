@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/state/state';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import {ActionCreator} from '../../reducer/state/state';
 import {getPromoFilm} from '../../reducer/films/selectors';
 import {getShownMovies, getFilmsByGenre, getPlayerState} from '../../reducer/state/selectors';
 
@@ -14,11 +15,14 @@ import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 import withFullScreenPlayer from '../../hocs/with-full-screen-player/with-full-screen-player';
 
+import {AppRoute} from '../../common/consts';
+
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 const MoviesListWrapped = withActiveCard(MoviesList);
 
 const Main = ({
   film: {
+    id,
     name,
     genre,
     released,
@@ -28,8 +32,7 @@ const Main = ({
   films,
   shownMoviesCount,
   onShowMoreButtonClick,
-  isPlayerActive,
-  onFullscreenToggle}) => {
+  isPlayerActive}) => {
 
   const isShowMoreButtonHide = shownMoviesCount < films.length;
 
@@ -56,12 +59,12 @@ const Main = ({
                   <span className="movie-card__year">{released}</span>
                 </p>
                 <div className="movie-card__buttons">
-                  <button onClick={onFullscreenToggle} className="btn btn--play movie-card__button" type="button">
+                  <Link to={`${AppRoute.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"/>
                     </svg>
                     <span>Play</span>
-                  </button>
+                  </Link>
                   <button className="btn btn--list movie-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#add"/>
@@ -102,6 +105,7 @@ const Main = ({
 
 Main.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
@@ -131,9 +135,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
-  },
-  onFullscreenToggle() {
-    dispatch(ActionCreator.setFullscreenPlayer(true));
   }
 });
 

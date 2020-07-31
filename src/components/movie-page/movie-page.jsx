@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {getFilms} from '../../reducer/films/selectors';
@@ -13,19 +14,20 @@ import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
 import Header from '../header/header.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 
-import {AuthorizationStatus, TabType} from '../../common/consts';
+import {AppRoute, AuthorizationStatus, TabType} from '../../common/consts';
 import {getSimilarMovies} from './helpers/utils';
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
-const renderAddReviewButton = (status) => {
+const renderAddReviewButton = (status, id) => {
   return status === AuthorizationStatus.AUTH ?
-    <a href="add-review.html" className="btn movie-card__button">Add review</a>
+    <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
     : null;
 };
 
 const MoviePage = (
     {film: {
+      id,
       name,
       genre,
       [`run_time`]: runTime,
@@ -83,19 +85,19 @@ const MoviePage = (
                 <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <Link to={`${AppRoute.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"/>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"/>
                   </svg>
                   <span>My list</span>
                 </button>
-                {renderAddReviewButton(authorizationStatus)}
+                {renderAddReviewButton(authorizationStatus, id)}
               </div>
             </div>
           </div>
@@ -138,6 +140,7 @@ const MoviePage = (
 
 MoviePage.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     [`run_time`]: PropTypes.number.isRequired,
