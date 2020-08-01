@@ -4,9 +4,11 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {getErrorAuthorizationStatus} from '../../reducer/user/selectors';
+import {Operation as UserOperation} from '../../reducer/user/user';
+
+import Footer from '../footer/footer.jsx';
 
 import {AppRoute} from '../../common/consts';
-import {Operation as UserOperation} from '../../reducer/user/user';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -90,18 +92,7 @@ class SignIn extends PureComponent {
             </div>
           </form>
         </div>
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     );
   }
