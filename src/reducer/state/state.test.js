@@ -8,9 +8,11 @@ describe(`Reducer work correctly`, () => {
     expect(reducer(void 0, {})).toEqual({
       genre: ALL_GENRES,
       shownMoviesCount: MAX_MOVIES,
-      isPlayerActive: false,
-      activeFilm: -1,
-      isFormDisabled: false
+      activeFilm: null,
+      isFormDisabled: false,
+      isLoadingFilms: false,
+      isLoadingPromoFilm: false,
+      isLoadingComments: false
     });
   });
 

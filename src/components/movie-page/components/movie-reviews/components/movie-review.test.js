@@ -11,7 +11,7 @@ const review = {
 };
 
 it(`Should MovieReview render correctly`, () => {
-  const {name, rating, comment, date} = review
+  const {name, rating, comment, date} = review;
 
   const tree = renderer
     .create(

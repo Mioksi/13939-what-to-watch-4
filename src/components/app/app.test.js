@@ -71,6 +71,8 @@ it(`Render App`, () => {
         <Provider store={store}>
           <App
             setActiveFilmId={() => {}}
+            isLoadingFilms={false}
+            isLoadingPromoFilm={false}
           />
         </Provider>, {
           createNodeMock: () => {

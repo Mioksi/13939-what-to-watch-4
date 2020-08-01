@@ -15,28 +15,6 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should movie card click`, () => {
-  const onCardClick = jest.fn();
-
-  const movieCard = shallow(
-      <MovieCard
-        movie={movie}
-        isPlaying={false}
-        onCardClick={onCardClick}
-        onCardMouseEnter={() => {}}
-        onCardMouseLeave={() => {}}
-        onStartPlaying={() => {}}
-        onStopPlaying={() => {}}
-      />
-  );
-
-  const movieTitle = movieCard.find(`.small-movie-card`);
-  movieTitle.simulate(`click`);
-
-  expect(onCardClick).toHaveBeenCalledTimes(1);
-  expect(onCardClick).toHaveBeenCalledWith(movie.id);
-});
-
 it(`Should movie card be hover`, () => {
   const onCardMouseEnter = jest.fn();
   const onCardMouseLeave = jest.fn();
@@ -45,7 +23,6 @@ it(`Should movie card be hover`, () => {
       <MovieCard
         movie={movie}
         isPlaying={false}
-        onCardClick={() => {}}
         onCardMouseEnter={onCardMouseEnter}
         onCardMouseLeave={onCardMouseLeave}
         onStartPlaying={() => {}}

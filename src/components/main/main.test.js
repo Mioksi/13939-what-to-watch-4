@@ -2,6 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+
+import history from '../../history';
 
 import {Main} from './main.jsx';
 
@@ -67,16 +70,18 @@ it(`Should Main render correctly`, () => {
 
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <Main
-            film={film}
-            films={films}
-            shownMoviesCount={8}
-            isPlayerActive={false}
-            onFullscreenToggle={() => {}}
-            onShowMoreButtonClick={() => {}}
-          />
-        </Provider>
+        <Router
+          history={history}
+        >
+          <Provider store={store}>
+            <Main
+              film={film}
+              films={films}
+              shownMoviesCount={8}
+              onShowMoreButtonClick={() => {}}
+            />
+          </Provider>
+        </Router>
     )
     .toJSON();
 
