@@ -10,6 +10,7 @@ import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
+import Preloader from '../preloader/preloader.jsx';
 import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
 
 import withTabs from '../../hocs/with-tabs/with-tabs';
@@ -25,11 +26,16 @@ const MoviePageWrapped = withTabs(MoviePage);
 const AddReviewWrapped = withReview(AddReview);
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
-const App = ({setActiveFilmId}) => {
+const App = ({setActiveFilmId, isLoadingFilms, isLoadingPromoFilm}) => {
   const setFilmId = (match) => {
     const filmId = Number(match.params.id);
+
     setActiveFilmId(filmId);
   };
+
+  if (isLoadingFilms || isLoadingPromoFilm) {
+    return <Preloader />;
+  }
 
   return (
     <Router history={history}>
@@ -61,7 +67,9 @@ const App = ({setActiveFilmId}) => {
 };
 
 App.propTypes = {
-  setActiveFilmId: PropTypes.func.isRequired
+  setActiveFilmId: PropTypes.func.isRequired,
+  isLoadingFilms: PropTypes.bool.isRequired,
+  isLoadingPromoFilm: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
