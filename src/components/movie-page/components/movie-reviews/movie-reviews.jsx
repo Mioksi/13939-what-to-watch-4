@@ -6,17 +6,21 @@ import {getComments} from '../../../../reducer/films/selectors';
 
 import MovieReview from './components/movie-review.jsx';
 import {Operation as FilmsOperation} from '../../../../reducer/films/films';
-import {getActiveFilmId} from '../../../../reducer/state/selectors';
+import {getActiveFilm} from '../../../../reducer/state/selectors';
 
 class MovieReviews extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this._loadComments();
   }
 
   _loadComments() {
-    const {getFilmComments, activeFilmId} = this.props;
+    const {getFilmComments, film} = this.props;
 
-    getFilmComments(activeFilmId);
+    getFilmComments(film.id);
   }
 
   _getReview(review, index) {
@@ -73,13 +77,15 @@ MovieReviews.propTypes = {
         date: PropTypes.string.isRequired
       }).isRequired
   ).isRequired,
-  activeFilmId: PropTypes.number.isRequired,
+  film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }).isRequired,
   getFilmComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   reviews: getComments(state),
-  activeFilmId: getActiveFilmId(state)
+  film: getActiveFilm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

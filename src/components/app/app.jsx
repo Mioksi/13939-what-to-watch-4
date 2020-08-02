@@ -20,19 +20,12 @@ import withReview from '../../hocs/with-review/with-review';
 import history from '../../history';
 
 import {AppRoute} from '../../common/consts';
-import {ActionCreator} from '../../reducer/state/state';
 
 const MoviePageWrapped = withTabs(MoviePage);
 const AddReviewWrapped = withReview(AddReview);
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
-const App = ({setActiveFilmId, isLoadingFilms, isLoadingPromoFilm}) => {
-  const setFilmId = (match) => {
-    const filmId = Number(match.params.id);
-
-    setActiveFilmId(filmId);
-  };
-
+const App = ({isLoadingFilms, isLoadingPromoFilm}) => {
   if (isLoadingFilms || isLoadingPromoFilm) {
     return <Preloader />;
   }
@@ -46,20 +39,20 @@ const App = ({setActiveFilmId, isLoadingFilms, isLoadingPromoFilm}) => {
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path={`${AppRoute.FILM}/:id`} render={({match}) => {
-          setFilmId(match);
+        <Route exact path={`${AppRoute.FILM}/:id`} render={(routeProps) => {
+          const id = Number(routeProps.match.params.id);
 
-          return <MoviePageWrapped />;
+          return <MoviePageWrapped id={id} />;
         }}/>
-        <Route exact path={`${AppRoute.PLAYER}/:id`} render={({match}) => {
-          setFilmId(match);
+        <Route exact path={`${AppRoute.PLAYER}/:id`} render={(routeProps) => {
+          const id = Number(routeProps.match.params.id);
 
-          return <FullScreenPlayerWrapped />;
+          return <FullScreenPlayerWrapped id={id} />;
         }}/>
-        <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={(match) => {
-          setFilmId(match);
+        <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={(routeProps) => {
+          const id = Number(routeProps.match.params.id);
 
-          return <AddReviewWrapped />;
+          return <AddReviewWrapped id={id} />;
         }}/>
       </Switch>
     </Router>
@@ -67,7 +60,6 @@ const App = ({setActiveFilmId, isLoadingFilms, isLoadingPromoFilm}) => {
 };
 
 App.propTypes = {
-  setActiveFilmId: PropTypes.func.isRequired,
   isLoadingFilms: PropTypes.bool.isRequired,
   isLoadingPromoFilm: PropTypes.bool.isRequired
 };
@@ -77,11 +69,5 @@ const mapStateToProps = (state) => ({
   isLoadingPromoFilm: getLoadingPromoFilmState(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setActiveFilmId(id) {
-    dispatch(ActionCreator.getActiveFilmId(id));
-  }
-});
-
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

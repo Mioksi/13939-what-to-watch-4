@@ -64,7 +64,7 @@ const AddReview = (
           </nav>
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>
           </div>
         </header>
@@ -112,8 +112,8 @@ AddReview.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  film: getSelectedFilm(state)
+const mapStateToProps = (state, props) => ({
+  film: getSelectedFilm(state, props.id)
 });
 
 export {AddReview};

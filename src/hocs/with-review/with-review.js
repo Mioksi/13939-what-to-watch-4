@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
 import {Operation as FilmsOperations} from '../../reducer/films/films';
-import {getActiveFilmId} from '../../reducer/state/selectors';
+import {getActiveFilm} from '../../reducer/state/selectors';
 
 const withReview = (Component) => {
   class WithReview extends PureComponent {
@@ -37,12 +37,12 @@ const withReview = (Component) => {
     }
 
     _handleSubmit(evt) {
-      const {onSubmit, activeFilmId} = this.props;
+      const {onSubmit, film} = this.props;
       const {rating, comment} = this.state;
 
       evt.preventDefault();
 
-      onSubmit(activeFilmId, {
+      onSubmit(film.id, {
         rating,
         comment
       });
@@ -60,11 +60,13 @@ const withReview = (Component) => {
 
   WithReview.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    activeFilmId: PropTypes.number.isRequired
+    film: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired
   };
 
   const mapStateToProps = (state) => ({
-    activeFilmId: getActiveFilmId(state),
+    film: getActiveFilm(state),
   });
 
   const mapDispatchToProps = (dispatch) => ({

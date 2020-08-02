@@ -129,6 +129,7 @@ const withFullScreenPlayer = (Component) => {
           isPlaying={isPlaying}
           progress={progress}
           duration={duration}
+          name={film.name}
           onPlayButtonClick={this._handlePlayButtonClick}
           onFullScreenButtonClick={this._handleFullScreenSet}
         >
@@ -145,13 +146,14 @@ const withFullScreenPlayer = (Component) => {
 
   WithFullScreenPlayer.propTypes = {
     film: PropTypes.shape({
+      name: PropTypes.string.isRequired,
       [`video_link`]: PropTypes.string.isRequired,
       [`background_image`]: PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  const mapStateToProps = (state) => ({
-    film: getSelectedFilm(state),
+  const mapStateToProps = (state, props) => ({
+    film: getSelectedFilm(state, props.id)
   });
 
   return connect(mapStateToProps)(WithFullScreenPlayer);

@@ -10,10 +10,10 @@ import {AuthorizationStatus, AppRoute} from '../../common/consts';
 const PrivateRoute = (props) => {
   const {render, path, exact, authorizationStatus} = props;
 
-  const getStatus = (match) => {
+  const getStatus = (routeProps) => {
     return (
       authorizationStatus === AuthorizationStatus.AUTH
-        ? render(match)
+        ? render(routeProps)
         : <Redirect to={AppRoute.LOGIN} />
     );
   };
@@ -22,7 +22,7 @@ const PrivateRoute = (props) => {
     <Route
       path={path}
       exact={exact}
-      render={({match}) => getStatus(match)}
+      render={getStatus}
     />
   );
 };

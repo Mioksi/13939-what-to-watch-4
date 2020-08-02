@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getFilmsByGenre, getShownMovies} from '../../reducer/state/selectors';
+import {getShownMovies} from '../../reducer/state/selectors';
 
 import MovieCard from '../movie-card/movie-card.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player';
@@ -46,7 +46,6 @@ MoviesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getFilmsByGenre(state),
   shownMoviesCount: getShownMovies(state),
 });
 
