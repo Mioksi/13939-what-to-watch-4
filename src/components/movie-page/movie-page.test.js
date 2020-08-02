@@ -81,6 +81,7 @@ it(`Should MovieCard render correctly`, () => {
               activeTab={activeTab}
               authorizationStatus={AuthorizationStatus.NO_AUTH}
               renderTabs={() => {}}
+              setActiveFilm={() => {}}
             />
           </Provider>
         </Router>

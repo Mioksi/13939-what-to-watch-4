@@ -8,7 +8,7 @@ describe(`Reducer work correctly`, () => {
     expect(reducer(void 0, {})).toEqual({
       genre: ALL_GENRES,
       shownMoviesCount: MAX_MOVIES,
-      activeFilm: null,
+      activeFilm: {},
       isFormDisabled: false,
       isLoadingFilms: false,
       isLoadingPromoFilm: false,
