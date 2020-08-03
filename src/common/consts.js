@@ -50,6 +50,18 @@ export const AppRoute = {
   ROOT: `/`
 };
 
+export const dateOptions = {
+  year: `numeric`,
+  month: `long`,
+  day: `numeric`
+};
+
+export const dateInnerOptions = {
+  year: `numeric`,
+  month: `numeric`,
+  day: `numeric`
+};
+
 export const TABS = Object.values(TabType);
 export const ALL_GENRES = `All genres`;
 export const VIDEO_CLASS = `player__video`;

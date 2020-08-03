@@ -1,6 +1,6 @@
 import {MovieRating, RatingType} from '../../../common/consts';
 
-export const formatRating = (rating) => rating.toString().replace(`.`, `,`);
+export const getFormatRating = (rating) => rating.toString().replace(`.`, `,`);
 
 export const getTextRating = (rating) => {
   let textRating;
@@ -18,4 +18,15 @@ export const getTextRating = (rating) => {
   }
 
   return textRating;
+};
+
+export const getFormatDate = (date, options) => {
+  return new Intl.DateTimeFormat(`en-US`, options).format(new Date(date));
+};
+
+export const getFormatInnerDate = (date, options) => {
+  const newDate = new Intl.DateTimeFormat(`en-US`, options).formatToParts(new Date(date));
+  const [{value: day},, {value: month},, {value: year}] = newDate;
+
+  return `${year}-${month}-${day}`;
 };
