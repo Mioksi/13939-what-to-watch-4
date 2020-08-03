@@ -126,7 +126,7 @@ AddReview.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isFormDisabled: PropTypes.bool.isRequired,
   isErrorLoading: PropTypes.bool.isRequired,
-  rating: PropTypes.bool.isRequired
+  rating: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, props) => ({

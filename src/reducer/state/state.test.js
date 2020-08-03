@@ -12,7 +12,8 @@ describe(`Reducer work correctly`, () => {
       isFormDisabled: false,
       isLoadingFilms: false,
       isLoadingPromoFilm: false,
-      isLoadingComments: false
+      isLoadingComments: false,
+      isErrorLoading: false
     });
   });
 

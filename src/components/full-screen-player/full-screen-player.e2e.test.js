@@ -12,12 +12,13 @@ const mock = {
   isPlaying: false,
   progress: 0,
   duration: 0,
+  elapsedTime: `00:00:00`
 };
 
 const name = `The Grand Budapest Hotel`;
 
 it(`Click by Play button calls callback`, () => {
-  const {isPlaying, progress, duration} = mock;
+  const {isPlaying, progress, duration, elapsedTime} = mock;
 
   const handlePlayButtonClick = jest.fn();
 
@@ -26,6 +27,7 @@ it(`Click by Play button calls callback`, () => {
         isPlaying={isPlaying}
         progress={progress}
         duration={duration}
+        elapsedTime={elapsedTime}
         name={name}
         onFullScreenButtonClick={() => {}}
         onFullscreenToggle={() => {}}

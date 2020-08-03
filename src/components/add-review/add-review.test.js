@@ -23,6 +23,9 @@ it(`AddReview component render correctly`, () => {
           onRatingChange={() => {}}
           onCommentChange={() => {}}
           onSubmit={() => {}}
+          isErrorLoading={false}
+          isFormDisabled={false}
+          rating={0}
         />
       </Router>
   ).toJSON();
