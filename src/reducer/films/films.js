@@ -76,16 +76,19 @@ const Operation = {
   },
 
   postComment: (id, comment) => (dispatch, getState, api) => {
+    dispatch(ActionCreatorState.setFormDisabled(true));
     return api.post(`/comments/${id}`, {
       rating: comment.rating,
       comment: comment.comment
     })
       .then(() => {
         dispatch(ActionCreatorState.setFormDisabled(false));
+        dispatch(ActionCreatorState.getErrorStatus(false));
         history.push(`${AppRoute.FILM}/${id}`);
       })
       .catch((err) => {
         dispatch(ActionCreatorState.setFormDisabled(false));
+        dispatch(ActionCreatorState.getErrorStatus(true));
 
         throw err;
       });

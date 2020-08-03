@@ -20,6 +20,8 @@ export const getLoadingPromoFilmState = (state) => state[NameSpace.STATE].isLoad
 
 export const getLoadingCommentsState = (state) => state[NameSpace.STATE].isLoadingComments;
 
+export const getErrorStatus = (state) => state[NameSpace.STATE].isErrorLoading;
+
 export const getSelectedFilm = (state, id) => {
   const films = getFilms(state);
 

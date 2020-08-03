@@ -49,8 +49,11 @@ const withReview = (Component) => {
     }
 
     render() {
+      const {rating} = this.state;
+
       return <Component
         {...this.props}
+        rating={rating}
         onRatingChange={this._handleRatingChange}
         onCommentChange={this._handleCommentChange}
         onSubmit={this._handleSubmit}
@@ -66,7 +69,7 @@ const withReview = (Component) => {
   };
 
   const mapStateToProps = (state) => ({
-    film: getActiveFilm(state),
+    film: getActiveFilm(state)
   });
 
   const mapDispatchToProps = (dispatch) => ({

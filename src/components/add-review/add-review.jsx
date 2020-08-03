@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {getSelectedFilm} from '../../reducer/state/selectors';
+import {getErrorStatus, getFormState, getSelectedFilm} from '../../reducer/state/selectors';
 
 import {ReviewLength, RATING_COUNT, AppRoute} from '../../common/consts';
 
@@ -13,7 +13,7 @@ const AddReview = (
       name,
       [`background_image`]: backgroundImage,
       [`poster_image`]: posterImage
-    }, onRatingChange, onCommentChange, onSubmit}) => {
+    }, rating, onRatingChange, onCommentChange, onSubmit, isFormDisabled, isErrorLoading}) => {
 
   const getRatingItem = (item, index) => {
     const key = `star-${index + 1}`;
@@ -27,6 +27,7 @@ const AddReview = (
           type="radio"
           name="rating"
           value={index + 1}
+          disabled={isFormDisabled}
         />
         <label className="rating__label" htmlFor={key}>Rating {index}</label>
       </Fragment>
@@ -36,6 +37,12 @@ const AddReview = (
   const ratingStars = new Array(RATING_COUNT).fill(``);
 
   const renderRatingMarkup = ratingStars.map(getRatingItem);
+
+  const getErrorMessage = () => {
+    return isErrorLoading ? (
+      <p style={{color: `red`, textAlign: `center`}}>Sending error. Please, try again.</p>
+    ) : null;
+  };
 
   return (
     <section className="movie-card movie-card--full">
@@ -73,6 +80,7 @@ const AddReview = (
         </div>
       </div>
       <div className="add-review">
+        <p style={{color: `red`, textAlign: `center`}}>{getErrorMessage()}</p>
         <form onSubmit={onSubmit} action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
@@ -89,9 +97,15 @@ const AddReview = (
               minLength={ReviewLength.MIN}
               maxLength={ReviewLength.MAX}
               required
+              disabled={isFormDisabled}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                type="submit"
+                disabled={isFormDisabled || (rating === 0)}>
+              Post
+              </button>
             </div>
           </div>
         </form>
@@ -109,11 +123,16 @@ AddReview.propTypes = {
   }).isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  isFormDisabled: PropTypes.bool.isRequired,
+  isErrorLoading: PropTypes.bool.isRequired,
+  rating: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state, props) => ({
-  film: getSelectedFilm(state, props.id)
+  film: getSelectedFilm(state, props.id),
+  isErrorLoading: getErrorStatus(state),
+  isFormDisabled: getFormState(state)
 });
 
 export {AddReview};

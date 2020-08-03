@@ -8,7 +8,8 @@ const initialState = {
   isFormDisabled: false,
   isLoadingFilms: false,
   isLoadingPromoFilm: false,
-  isLoadingComments: false
+  isLoadingComments: false,
+  isErrorLoading: false,
 };
 
 const ActionType = {
@@ -19,7 +20,8 @@ const ActionType = {
   SET_FORM_DISABLED: `SET_FORM_DISABLED`,
   LOADING_FILMS: `LOADING_FILMS`,
   LOADING_PROMO_FILM: `SET_FORM_DISABLED`,
-  LOADING_COMMENTS: `SET_FORM_DISABLED`
+  LOADING_COMMENTS: `SET_FORM_DISABLED`,
+  GET_ERROR_STATUS: `GET_ERROR_STATUS`
 };
 
 const ActionCreator = {
@@ -53,6 +55,10 @@ const ActionCreator = {
   }),
   loadingComments: (bool) => ({
     type: ActionType.LOADING_COMMENTS,
+    payload: bool
+  }),
+  getErrorStatus: (bool) => ({
+    type: ActionType.GET_ERROR_STATUS,
     payload: bool
   })
 };
@@ -90,6 +96,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOADING_COMMENTS:
       return extend(state, {
         isLoadingComments: action.payload
+      });
+    case ActionType.GET_ERROR_STATUS:
+      return extend(state, {
+        isErrorLoading: action.payload
       });
   }
 
