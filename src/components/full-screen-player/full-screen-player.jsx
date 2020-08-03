@@ -9,7 +9,7 @@ const FullScreenPlayer = (
       duration,
       onPlayButtonClick,
       onFullScreenButtonClick,
-      children, name}) => {
+      children, name, elapsedTime}) => {
 
   return (
     <div className="player">
@@ -21,7 +21,7 @@ const FullScreenPlayer = (
             <progress className="player__progress" value={progress} max={duration}/>
             <div className="player__toggler" style={{left: ((progress / duration) * 100) + `%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{elapsedTime}</div>
         </div>
         <div className="player__controls-row">
           <button onClick={onPlayButtonClick} type="button" className="player__play">
@@ -61,7 +61,8 @@ FullScreenPlayer.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  elapsedTime: PropTypes.string.isRequired
 };
 
 export default FullScreenPlayer;

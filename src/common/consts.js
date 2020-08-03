@@ -62,6 +62,11 @@ export const dateInnerOptions = {
   day: `numeric`
 };
 
+export const Time = {
+  SECONDS_IN_MINUTE: 60,
+  SECONDS_IN_HOUR: 3600
+};
+
 export const TABS = Object.values(TabType);
 export const ALL_GENRES = `All genres`;
 export const VIDEO_CLASS = `player__video`;

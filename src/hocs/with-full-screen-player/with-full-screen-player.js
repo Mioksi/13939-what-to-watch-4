@@ -2,7 +2,7 @@ import React, {PureComponent, createRef} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {VIDEO_CLASS} from '../../common/consts';
+import {Time, VIDEO_CLASS} from '../../common/consts';
 import {getSelectedFilm} from '../../reducer/state/selectors';
 
 const withFullScreenPlayer = (Component) => {
@@ -52,6 +52,7 @@ const withFullScreenPlayer = (Component) => {
         video.onplay = null;
         video.onpause = null;
         video.ontimeupdate = null;
+        video.controls = false;
       }
     }
 
@@ -115,8 +116,25 @@ const withFullScreenPlayer = (Component) => {
       const video = this._videoRef.current;
 
       if (video) {
-        video.requestFullscreen();
+        if (video.webkitEnterFullScreen) {
+          video.webkitEnterFullScreen();
+        } else {
+          video.requestFullscreen();
+          video.controls = true;
+        }
       }
+    }
+
+    _getElapsedTime() {
+      const {progress, duration} = this.state;
+
+      const difference = duration - progress;
+
+      const hours = Math.trunc(difference / Time.SECONDS_IN_HOUR);
+      const minutes = Math.trunc(difference / Time.SECONDS_IN_MINUTE);
+      const seconds = Math.trunc(difference % Time.SECONDS_IN_MINUTE);
+
+      return `${hours}:${minutes}:${seconds}`;
     }
 
     render() {
@@ -129,6 +147,7 @@ const withFullScreenPlayer = (Component) => {
           isPlaying={isPlaying}
           progress={progress}
           duration={duration}
+          elapsedTime={this._getElapsedTime()}
           name={film.name}
           onPlayButtonClick={this._handlePlayButtonClick}
           onFullScreenButtonClick={this._handleFullScreenSet}
@@ -136,9 +155,10 @@ const withFullScreenPlayer = (Component) => {
           <video
             ref={this._videoRef}
             className={VIDEO_CLASS}
-            src={film[`video_link`]}
             poster={film[`background_image`]}
-          />
+          >
+            <source src={film[`video_link`]}/>
+          </video>
         </Component>
       );
     }
