@@ -30,6 +30,12 @@ class MoviePage extends PureComponent {
     setActiveFilm(film);
   }
 
+  componentDidUpdate() {
+    const {film, setActiveFilm} = this.props;
+
+    setActiveFilm(film);
+  }
+
   _renderAddReviewButton(status, id) {
     return status === AuthorizationStatus.AUTH ?
       <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
