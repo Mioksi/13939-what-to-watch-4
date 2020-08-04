@@ -37,7 +37,7 @@ const films = [
     id: 1,
     name: `The Grand Budapest Hotel`,
     genre: `Drama`,
-    [`run_time`]: `1h 39m`,
+    [`run_time`]: 99,
     released: 2014,
     [`preview_image`]: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     [`background_image`]: `img/bg-the-grand-budapest-hotel.jpg`,

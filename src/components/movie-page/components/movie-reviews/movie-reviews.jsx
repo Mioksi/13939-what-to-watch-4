@@ -2,11 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getComments} from '../../../../reducer/films/selectors';
-
-import MovieReview from './components/movie-review.jsx';
 import {Operation as FilmsOperation} from '../../../../reducer/films/films';
 import {getActiveFilm} from '../../../../reducer/state/selectors';
+import {getComments, getLoadingCommentsState} from '../../../../reducer/films/selectors';
+
+import MovieReview from './components/movie-review.jsx';
+import Preloader from '../../../preloader/preloader.jsx';
 
 class MovieReviews extends React.PureComponent {
   constructor(props) {
@@ -14,13 +15,17 @@ class MovieReviews extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._loadComments();
-  }
-
-  _loadComments() {
-    const {getFilmComments, film} = this.props;
+    const {film, getFilmComments} = this.props;
 
     getFilmComments(film.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const {getFilmComments, film} = this.props;
+
+    if (prevProps.film.id !== film.id) {
+      getFilmComments(film.id);
+    }
   }
 
   _getReview(review, index) {
@@ -45,13 +50,13 @@ class MovieReviews extends React.PureComponent {
   }
 
   render() {
-    const {reviews} = this.props;
+    const {reviews, isLoadingComments} = this.props;
 
     const halfReviews = Math.ceil(reviews.length / 2);
     const firstColumn = reviews.slice(0, halfReviews);
     const secondColumn = reviews.slice(halfReviews);
 
-    return (
+    return !isLoadingComments ? (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
           {this._renderReviews(firstColumn)}
@@ -60,7 +65,7 @@ class MovieReviews extends React.PureComponent {
           {this._renderReviews(secondColumn)}
         </div>
       </div>
-    );
+    ) : <Preloader />;
   }
 }
 
@@ -80,12 +85,14 @@ MovieReviews.propTypes = {
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }).isRequired,
-  getFilmComments: PropTypes.func.isRequired
+  getFilmComments: PropTypes.func.isRequired,
+  isLoadingComments: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
   reviews: getComments(state),
-  film: getActiveFilm(state)
+  film: getActiveFilm(state),
+  isLoadingComments: getLoadingCommentsState(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

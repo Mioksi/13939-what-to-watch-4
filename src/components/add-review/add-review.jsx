@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {getErrorStatus, getFormState, getSelectedFilm} from '../../reducer/state/selectors';
+import {getErrorStatus, getFormState} from '../../reducer/films/selectors';
+import {getSelectedFilm} from '../../reducer/state/selectors';
 
 import {ReviewLength, RATING_COUNT, AppRoute} from '../../common/consts';
 

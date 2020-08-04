@@ -3,7 +3,7 @@ import {Switch, Route, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getLoadingFilmsState, getLoadingPromoFilmState} from '../../reducer/state/selectors';
+import {getLoadingFilmsState, getLoadingPromoFilmState} from '../../reducer/films/selectors';
 
 import AddReview from '../add-review/add-review.jsx';
 import Main from '../main/main.jsx';

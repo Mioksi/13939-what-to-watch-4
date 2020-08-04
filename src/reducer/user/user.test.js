@@ -1,4 +1,8 @@
-import {reducer, ActionCreator, ActionType} from './user';
+import {reducer, ActionCreator, ActionType, Operation} from './user';
+import {createAPI} from '../../api';
+import MockAdapter from 'axios-mock-adapter';
+
+const api = createAPI(() => {});
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -61,5 +65,53 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.REQUIRED_AUTHORIZATION,
       payload: AuthorizationStatus.AUTH,
     });
+  });
+});
+
+
+describe(`Operation work correctly`, () => {
+  it(`Should make a correct API call to /login`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const checkAuth = Operation.checkAuth();
+
+    apiMock
+      .onGet(`/login`)
+      .reply(200, [{fake: true}]);
+
+    return checkAuth(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REQUIRED_AUTHORIZATION,
+          payload: `AUTH`,
+        });
+      });
+  });
+
+  it(`Should make a correct send to /login`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const login = Operation.login({
+      email: `test@esample.com`,
+      password: `12345678`,
+    });
+
+    apiMock
+      .onPost(`/login`)
+      .reply(200, [{fake: true}]);
+
+    return login(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REQUIRED_AUTHORIZATION,
+          payload: `AUTH`,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.CHECK_ERROR_AUTHORIZATION,
+          payload: false,
+        });
+      });
   });
 });

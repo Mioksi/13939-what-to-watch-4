@@ -26,6 +26,7 @@ it(`Should MovieReviews render correctly`, () => {
       reviews={reviews}
       film={film}
       getFilmComments={() => {}}
+      isLoadingComments={true}
     />)
     .toJSON();
 
