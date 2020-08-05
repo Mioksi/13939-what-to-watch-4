@@ -56,7 +56,7 @@ class MovieReviews extends React.PureComponent {
     const firstColumn = reviews.slice(0, halfReviews);
     const secondColumn = reviews.slice(halfReviews);
 
-    return !isLoadingComments ? (
+    return isLoadingComments ? <Preloader /> : (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
           {this._renderReviews(firstColumn)}
@@ -65,7 +65,7 @@ class MovieReviews extends React.PureComponent {
           {this._renderReviews(secondColumn)}
         </div>
       </div>
-    ) : <Preloader />;
+    );
   }
 }
 

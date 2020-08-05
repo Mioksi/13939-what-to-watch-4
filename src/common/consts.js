@@ -50,6 +50,12 @@ export const AppRoute = {
   ROOT: `/`
 };
 
+export const RoutePath = {
+  FILM: `${AppRoute.FILM}/:id`,
+  PLAYER: `${AppRoute.PLAYER}/:id`,
+  ADD_REVIEW: `${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`
+};
+
 export const dateOptions = {
   year: `numeric`,
   month: `long`,
