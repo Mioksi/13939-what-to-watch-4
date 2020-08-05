@@ -54,7 +54,8 @@ it(`Render App`, () => {
   const store = mockStore({
     [NameSpace.FILMS]: {
       films,
-      promoFilm: film
+      promoFilm: film,
+      isLoadingFavoriteFilm: false
     },
     [NameSpace.STATE]: {
       genre: ALL_GENRES,

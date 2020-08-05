@@ -10,6 +10,7 @@ import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
+import MyList from '../my-list/my-list.jsx';
 import Preloader from '../preloader/preloader.jsx';
 import FullScreenPlayer from '../full-screen-player/full-screen-player.jsx';
 
@@ -54,6 +55,7 @@ const App = ({isLoadingFilms, isLoadingPromoFilm}) => {
 
           return <AddReviewWrapped id={id} />;
         }}/>
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => <MyList />} />
       </Switch>
     </Router>
   );

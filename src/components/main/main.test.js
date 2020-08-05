@@ -78,6 +78,8 @@ it(`Should Main render correctly`, () => {
               film={film}
               films={films}
               shownMoviesCount={8}
+              isLoadingFavoriteFilm={false}
+              loadPromoFilm={() => {}}
               onShowMoreButtonClick={() => {}}
             />
           </Provider>

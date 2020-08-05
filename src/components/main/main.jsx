@@ -4,9 +4,11 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {ActionCreator} from '../../reducer/state/state';
-import {getPromoFilm} from '../../reducer/films/selectors';
+import {getLoadingFavoriteFilm, getPromoFilm} from '../../reducer/films/selectors';
 import {getShownMovies, getFilmsByGenre} from '../../reducer/state/selectors';
+import {Operation as FilmsOperation} from '../../reducer/films/films';
 
+import AddMyList from '../add-my-list/add-my-list.jsx';
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import ShowMore from '../show-more/show-more.jsx';
@@ -25,13 +27,15 @@ const Main = ({
     genre,
     released,
     [`background_image`]: backgroundPoster,
-    [`poster_image`]: filmPoster
-  },
-  films,
-  shownMoviesCount,
-  onShowMoreButtonClick}) => {
+    [`poster_image`]: filmPoster,
+    [`is_favorite`]: isFavorite,
+  }, films, shownMoviesCount, onShowMoreButtonClick, isLoadingFavoriteFilm, loadPromoFilm}) => {
 
   const isShowMoreButtonHide = shownMoviesCount < films.length;
+
+  if (isLoadingFavoriteFilm) {
+    loadPromoFilm();
+  }
 
   return (
     <>
@@ -59,12 +63,10 @@ const Main = ({
                   </svg>
                   <span>Play</span>
                 </Link>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"/>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <AddMyList
+                  id={id}
+                  isFavorite={isFavorite}
+                />
               </div>
             </div>
           </div>
@@ -95,6 +97,7 @@ Main.propTypes = {
       released: PropTypes.number.isRequired,
       [`background_image`]: PropTypes.string.isRequired,
       [`poster_image`]: PropTypes.string.isRequired,
+      [`is_favorite`]: PropTypes.bool.isRequired
     }).isRequired,
   ]).isRequired,
   films: PropTypes.oneOfType([
@@ -109,17 +112,23 @@ Main.propTypes = {
   ]).isRequired,
   shownMoviesCount: PropTypes.number.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
+  isLoadingFavoriteFilm: PropTypes.bool.isRequired,
+  loadPromoFilm: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   film: getPromoFilm(state),
   films: getFilmsByGenre(state),
   shownMoviesCount: getShownMovies(state),
+  isLoadingFavoriteFilm: getLoadingFavoriteFilm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
+  },
+  loadPromoFilm() {
+    dispatch(FilmsOperation.loadPromoFilm());
   }
 });
 

@@ -7,6 +7,7 @@ import {ActionCreator} from '../../reducer/state/state';
 import {getSelectedFilm, getSimilarFilms} from '../../reducer/state/selectors';
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
+import AddMyList from '../add-my-list/add-my-list.jsx';
 import MoviesList from '../movies-list/movies-list.jsx';
 import MovieDetails from './components/movie-details/movie-details.jsx';
 import MovieOverview from './components/movie-overview/movie-overview.jsx';
@@ -16,6 +17,8 @@ import Footer from '../footer/footer.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 
 import {AppRoute, AuthorizationStatus, TabType} from '../../common/consts';
+import {getLoadingFavoriteFilm} from '../../reducer/films/selectors';
+import {Operation as FilmsOperation} from '../../reducer/films/films';
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
@@ -37,8 +40,8 @@ class MoviePage extends PureComponent {
   }
 
   _renderAddReviewButton(status, id) {
-    return status === AuthorizationStatus.AUTH ?
-      <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
+    return status === AuthorizationStatus.AUTH
+      ? <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
       : null;
   }
 
@@ -99,7 +102,12 @@ class MoviePage extends PureComponent {
       released,
       [`background_image`]: backgroundPoster,
       [`poster_image`]: filmPoster,
-    }, renderTabs, authorizationStatus} = this.props;
+      [`is_favorite`]: isFavorite,
+    }, renderTabs, authorizationStatus, isLoadingFavoriteFilm, loadFilms} = this.props;
+
+    if (isLoadingFavoriteFilm) {
+      loadFilms();
+    }
 
     return (
       <>
@@ -124,12 +132,10 @@ class MoviePage extends PureComponent {
                     </svg>
                     <span>Play</span>
                   </Link>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"/>
-                    </svg>
-                    <span>My list</span>
-                  </button>
+                  <AddMyList
+                    id={id}
+                    isFavorite={isFavorite}
+                  />
                   {this._renderAddReviewButton(authorizationStatus, id)}
                 </div>
               </div>
@@ -169,6 +175,7 @@ MoviePage.propTypes = {
     [`scores_count`]: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
+    [`is_favorite`]: PropTypes.bool.isRequired,
     starring: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ).isRequired,
@@ -183,18 +190,24 @@ MoviePage.propTypes = {
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  setActiveFilm: PropTypes.func.isRequired
+  setActiveFilm: PropTypes.func.isRequired,
+  isLoadingFavoriteFilm: PropTypes.bool.isRequired,
+  loadFilms: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, props) => ({
   film: getSelectedFilm(state, props.id),
   movies: getSimilarFilms(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  isLoadingFavoriteFilm: getLoadingFavoriteFilm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setActiveFilm(film) {
     dispatch(ActionCreator.getActiveFilm(film));
+  },
+  loadFilms() {
+    dispatch(FilmsOperation.loadFilms());
   }
 });
 
