@@ -3,6 +3,10 @@ import renderer from 'react-test-renderer';
 
 import {MovieReviews} from './movie-reviews.jsx';
 
+const film = {
+  id: 1
+};
+
 const reviews = [
   {
     id: 1,
@@ -20,8 +24,9 @@ it(`Should MovieReviews render correctly`, () => {
   const tree = renderer
     .create(<MovieReviews
       reviews={reviews}
-      activeFilmId={1}
+      film={film}
       getFilmComments={() => {}}
+      isLoadingComments={true}
     />)
     .toJSON();
 

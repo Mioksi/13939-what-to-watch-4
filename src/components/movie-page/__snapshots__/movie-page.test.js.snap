@@ -29,6 +29,8 @@ Array [
         >
           <a
             className="logo__link"
+            href="/"
+            onClick={[Function]}
           >
             <span
               className="logo__letter logo__letter--1"
@@ -52,7 +54,8 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
+            onClick={[Function]}
           >
             Sign in
           </a>
@@ -86,8 +89,10 @@ Array [
           <div
             className="movie-card__buttons"
           >
-            <button
+            <a
               className="btn btn--play movie-card__button"
+              href="/player/1"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -102,7 +107,7 @@ Array [
               <span>
                 Play
               </span>
-            </button>
+            </a>
             <button
               className="btn btn--list movie-card__button"
               type="button"
@@ -210,32 +215,36 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/1"
+            onClick={[Function]}
           >
-            <video
-              className="player__video"
-              muted={true}
-              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-            />
-            <img
-              alt="The Grand Budapest Hotel"
-              height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width="280"
-            />
-          </div>
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                className="player__video"
+                muted={true}
+                poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+              />
+              <img
+                alt="The Grand Budapest Hotel"
+                height="175"
+                src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                width="280"
+              />
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/1"
               onClick={[Function]}
             >
               The Grand Budapest Hotel
@@ -252,7 +261,8 @@ Array [
       >
         <a
           className="logo__link logo__link--light"
-          href="main.html"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"

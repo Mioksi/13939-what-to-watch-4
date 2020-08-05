@@ -1,9 +1,8 @@
-
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import {FullScreenPlayer} from './full-screen-player';
+import FullScreenPlayer from './full-screen-player';
 
 configure({
   adapter: new Adapter(),
@@ -13,14 +12,13 @@ const mock = {
   isPlaying: false,
   progress: 0,
   duration: 0,
+  elapsedTime: `00:00:00`
 };
 
-const film = {
-  name: `The Grand Budapest Hotel`,
-};
+const name = `The Grand Budapest Hotel`;
 
 it(`Click by Play button calls callback`, () => {
-  const {isPlaying, progress, duration} = mock;
+  const {isPlaying, progress, duration, elapsedTime} = mock;
 
   const handlePlayButtonClick = jest.fn();
 
@@ -29,7 +27,8 @@ it(`Click by Play button calls callback`, () => {
         isPlaying={isPlaying}
         progress={progress}
         duration={duration}
-        film={film}
+        elapsedTime={elapsedTime}
+        name={name}
         onFullScreenButtonClick={() => {}}
         onFullscreenToggle={() => {}}
         onPlayButtonClick={handlePlayButtonClick}>

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {formatRating, getTextRating} from '../../helpers/utils';
+import {getFormatRating, getTextRating} from '../../helpers/utils';
 
 const MovieOverview = ({rating, ratingCount, description, director, starring}) => {
   return (
     <>
       <div className="movie-rating">
-        <div className="movie-rating__score">{formatRating(rating)}</div>
+        <div className="movie-rating__score">{getFormatRating(rating)}</div>
         <p className="movie-rating__meta">
           <span className="movie-rating__level">{getTextRating(rating)}</span>
           <span className="movie-rating__count">{ratingCount} ratings</span>

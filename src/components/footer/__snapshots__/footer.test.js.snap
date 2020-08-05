@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header component render correctly 1`] = `
-<header
-  className="page-header movie-card__head"
+exports[`Should Footer render correctly 1`] = `
+<footer
+  className="page-footer"
 >
   <div
     className="logo"
   >
     <a
-      className="logo__link"
+      className="logo__link logo__link--light"
       href="/"
       onClick={[Function]}
     >
@@ -30,15 +30,11 @@ exports[`Header component render correctly 1`] = `
     </a>
   </div>
   <div
-    className="user-block"
+    className="copyright"
   >
-    <a
-      className="user-block__link"
-      href="/login"
-      onClick={[Function]}
-    >
-      Sign in
-    </a>
+    <p>
+      © 2019 What to watch Ltd.
+    </p>
   </div>
-</header>
+</footer>
 `;

@@ -2,55 +2,70 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getComments} from '../../../../reducer/films/selectors';
+import {Operation as FilmsOperation} from '../../../../reducer/films/films';
+import {getActiveFilm} from '../../../../reducer/state/selectors';
+import {getComments, getLoadingCommentsState} from '../../../../reducer/films/selectors';
 
 import MovieReview from './components/movie-review.jsx';
-import {Operation as FilmsOperation} from '../../../../reducer/films/films';
-import {getActiveFilmId} from '../../../../reducer/state/selectors';
+import Preloader from '../../../preloader/preloader.jsx';
 
 class MovieReviews extends React.PureComponent {
-  componentDidMount() {
-    this._loadComments();
+  constructor(props) {
+    super(props);
   }
 
-  _loadComments() {
-    const {getFilmComments, activeFilmId} = this.props;
+  componentDidMount() {
+    const {film, getFilmComments} = this.props;
 
-    getFilmComments(activeFilmId);
+    getFilmComments(film.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const {getFilmComments, film} = this.props;
+
+    if (prevProps.film.id !== film.id) {
+      getFilmComments(film.id);
+    }
   }
 
   _getReview(review, index) {
     const key = `${review.id}-${index}`;
 
+    const {user, date, rating, comment} = review;
+    const {name} = user;
+
     return (
       <MovieReview
         key={key}
-        review={review}
+        name={name}
+        date={date}
+        rating={rating}
+        comment={comment}
       />
     );
   }
 
-  renderReviews(columnReviews) {
+  _renderReviews(columnReviews) {
     return columnReviews.map(this._getReview);
   }
 
   render() {
-    const {reviews} = this.props;
+    const {reviews, isLoadingComments} = this.props;
 
     const halfReviews = Math.ceil(reviews.length / 2);
     const firstColumn = reviews.slice(0, halfReviews);
     const secondColumn = reviews.slice(halfReviews);
 
-    return (
+    return !isLoadingComments ? (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {this.renderReviews(firstColumn)}
+          {this._renderReviews(firstColumn)}
         </div>
         <div className="movie-card__reviews-col">
-          {this.renderReviews(secondColumn)}
+          {this._renderReviews(secondColumn)}
         </div>
       </div>
-    );
+    ) : <Preloader />;
   }
 }
 
@@ -67,13 +82,17 @@ MovieReviews.propTypes = {
         date: PropTypes.string.isRequired
       }).isRequired
   ).isRequired,
-  activeFilmId: PropTypes.number.isRequired,
-  getFilmComments: PropTypes.func.isRequired
+  film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  getFilmComments: PropTypes.func.isRequired,
+  isLoadingComments: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
   reviews: getComments(state),
-  activeFilmId: getActiveFilmId(state)
+  film: getActiveFilm(state),
+  isLoadingComments: getLoadingCommentsState(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

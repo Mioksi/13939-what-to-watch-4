@@ -1,7 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
 
-import {MovieCard} from './movie-card.jsx';
+import history from '../../history';
+
+import MovieCard from './movie-card.jsx';
 
 const film = {
   id: 1,
@@ -12,19 +15,24 @@ const film = {
 
 it(`Should MovieCard render correctly`, () => {
   const tree = renderer
-    .create(<MovieCard
-      movie={film}
-      isPlaying={false}
-      onCardClick={() => {}}
-      onCardMouseEnter={() => {}}
-      onCardMouseLeave={() => {}}
-      onStartPlaying={() => {}}
-      onStopPlaying={() => {}}
-    />, {
-      createNodeMock: () => {
-        return {};
-      }
-    }).toJSON();
+    .create(
+        <Router
+          history={history}
+        >
+          <MovieCard
+            movie={film}
+            isPlaying={false}
+            onCardClick={() => {}}
+            onCardMouseEnter={() => {}}
+            onCardMouseLeave={() => {}}
+            onStartPlaying={() => {}}
+            onStopPlaying={() => {}}
+          />
+        </Router>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

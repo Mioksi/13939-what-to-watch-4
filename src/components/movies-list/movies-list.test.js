@@ -2,6 +2,9 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+
+import history from '../../history';
 
 import {MoviesList} from './movies-list.jsx';
 import NameSpace from '../../reducer/name-space';
@@ -38,14 +41,18 @@ it(`Should MoviesList render correctly`, () => {
 
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <MoviesList
-            movies={films}
-            shownMoviesCount={8}
-            onCardMouseEnter={() => {}}
-            onCardMouseLeave={() => {}}
-          />
-        </Provider>, {
+        <Router
+          history={history}
+        >
+          <Provider store={store}>
+            <MoviesList
+              movies={films}
+              shownMoviesCount={8}
+              onCardMouseEnter={() => {}}
+              onCardMouseLeave={() => {}}
+            />
+          </Provider>
+        </Router>, {
           createNodeMock: () => {
             return {};
           }

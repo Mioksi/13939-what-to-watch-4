@@ -2,6 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+
+import history from '../../history';
 
 import {Main} from './main.jsx';
 
@@ -34,7 +37,7 @@ const films = [
     id: 1,
     name: `The Grand Budapest Hotel`,
     genre: `Drama`,
-    [`run_time`]: `1h 39m`,
+    [`run_time`]: 99,
     released: 2014,
     [`preview_image`]: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     [`background_image`]: `img/bg-the-grand-budapest-hotel.jpg`,
@@ -67,16 +70,18 @@ it(`Should Main render correctly`, () => {
 
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <Main
-            film={film}
-            films={films}
-            shownMoviesCount={8}
-            isPlayerActive={false}
-            onFullscreenToggle={() => {}}
-            onShowMoreButtonClick={() => {}}
-          />
-        </Provider>
+        <Router
+          history={history}
+        >
+          <Provider store={store}>
+            <Main
+              film={film}
+              films={films}
+              shownMoviesCount={8}
+              onShowMoreButtonClick={() => {}}
+            />
+          </Provider>
+        </Router>
     )
     .toJSON();
 

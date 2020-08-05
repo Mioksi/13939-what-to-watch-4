@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {getFilms} from '../../reducer/films/selectors';
-import {getSelectedFilm} from '../../reducer/state/selectors';
+import {ActionCreator} from '../../reducer/state/state';
+import {getSelectedFilm, getSimilarFilms} from '../../reducer/state/selectors';
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
 import MoviesList from '../movies-list/movies-list.jsx';
@@ -11,31 +12,48 @@ import MovieDetails from './components/movie-details/movie-details.jsx';
 import MovieOverview from './components/movie-overview/movie-overview.jsx';
 import MovieReviews from './components/movie-reviews/movie-reviews.jsx';
 import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 
-import {AuthorizationStatus, TabType} from '../../common/consts';
-import {getSimilarMovies} from './helpers/utils';
+import {AppRoute, AuthorizationStatus, TabType} from '../../common/consts';
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
-const MoviePage = (
-    {film: {
-      name,
-      genre,
+class MoviePage extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    const {film, setActiveFilm} = this.props;
+
+    setActiveFilm(film);
+  }
+
+  componentDidUpdate() {
+    const {film, setActiveFilm} = this.props;
+
+    setActiveFilm(film);
+  }
+
+  _renderAddReviewButton(status, id) {
+    return status === AuthorizationStatus.AUTH ?
+      <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
+      : null;
+  }
+
+  _renderActiveTab() {
+    const {film, activeTab} = this.props;
+    const {genre,
       [`run_time`]: runTime,
       released,
-      [`background_image`]: backgroundPoster,
-      [`poster_image`]: filmPoster,
       rating,
       [`scores_count`]: ratingCount,
       description,
       director,
       starring
-    }, movies, renderTabs, activeTab, authorizationStatus}) => {
+    } = film;
 
-  const similarMovies = getSimilarMovies(movies, genre);
-
-  const renderActiveTab = () => {
     switch (activeTab) {
       case TabType.OVERVIEW:
         return <MovieOverview
@@ -56,85 +74,91 @@ const MoviePage = (
       case TabType.REVIEWS:
         return <MovieReviews/>;
       default:
-        return ``;
+        return null;
     }
-  };
+  }
 
-  return (
-    <>
-      <section className="movie-card movie-card--full">
-        <div className="movie-card__hero">
-          <div className="movie-card__bg">
-            <img src={backgroundPoster} alt={name}/>
-          </div>
-          <h1 className="visually-hidden">WTW</h1>
-          <Header />
-          <div className="movie-card__wrap">
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{name}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{released}</span>
-              </p>
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"/>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"/>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                {authorizationStatus === AuthorizationStatus.AUTH ?
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
-                  : null
-                }
+  _renderSimilarMovies() {
+    const {movies} = this.props;
+
+    return movies.length > 0 ? (
+      <section className="catalog catalog--like-this">
+        <h2 className="catalog__title">More like this</h2>
+        <MoviesListWrapped
+          movies={movies}
+        />
+      </section>
+    ) : null;
+  }
+
+  render() {
+    const {film: {
+      id,
+      name,
+      genre,
+      released,
+      [`background_image`]: backgroundPoster,
+      [`poster_image`]: filmPoster,
+    }, renderTabs, authorizationStatus} = this.props;
+
+    return (
+      <>
+        <section className="movie-card movie-card--full">
+          <div className="movie-card__hero">
+            <div className="movie-card__bg">
+              <img src={backgroundPoster} alt={name}/>
+            </div>
+            <h1 className="visually-hidden">WTW</h1>
+            <Header />
+            <div className="movie-card__wrap">
+              <div className="movie-card__desc">
+                <h2 className="movie-card__title">{name}</h2>
+                <p className="movie-card__meta">
+                  <span className="movie-card__genre">{genre}</span>
+                  <span className="movie-card__year">{released}</span>
+                </p>
+                <div className="movie-card__buttons">
+                  <Link to={`${AppRoute.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"/>
+                    </svg>
+                    <span>Play</span>
+                  </Link>
+                  <button className="btn btn--list movie-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"/>
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                  {this._renderAddReviewButton(authorizationStatus, id)}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="movie-card__wrap movie-card__translate-top">
-          <div className="movie-card__info">
-            <div className="movie-card__poster movie-card__poster--big">
-              <img src={filmPoster} alt={`${name} poster`} width="218" height="327"/>
-            </div>
-            <div className="movie-card__desc">
-              {renderTabs()}
-              {renderActiveTab()}
+          <div className="movie-card__wrap movie-card__translate-top">
+            <div className="movie-card__info">
+              <div className="movie-card__poster movie-card__poster--big">
+                <img src={filmPoster} alt={`${name} poster`} width="218" height="327"/>
+              </div>
+              <div className="movie-card__desc">
+                {renderTabs()}
+                {this._renderActiveTab()}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <MoviesListWrapped
-            movies={similarMovies}
-          />
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
-      </div>
-    </>
-  );
-};
+        <div className="page-content">
+          {this._renderSimilarMovies()}
+          <Footer />
+        </div>
+      </>
+    );
+  }
+}
 
 MoviePage.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     [`run_time`]: PropTypes.number.isRequired,
@@ -158,14 +182,21 @@ MoviePage.propTypes = {
   ).isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  setActiveFilm: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  film: getSelectedFilm(state),
-  movies: getFilms(state),
+const mapStateToProps = (state, props) => ({
+  film: getSelectedFilm(state, props.id),
+  movies: getSimilarFilms(state),
   authorizationStatus: getAuthorizationStatus(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setActiveFilm(film) {
+    dispatch(ActionCreator.getActiveFilm(film));
+  }
+});
+
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

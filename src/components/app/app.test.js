@@ -70,7 +70,9 @@ it(`Render App`, () => {
     .create(
         <Provider store={store}>
           <App
-            login={() => {}}
+            setActiveFilmId={() => {}}
+            isLoadingFilms={false}
+            isLoadingPromoFilm={false}
           />
         </Provider>, {
           createNodeMock: () => {

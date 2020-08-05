@@ -1,3 +1,5 @@
+import history from '../../history';
+
 import {AuthorizationStatus} from '../../common/consts';
 
 const initialState = {
@@ -59,6 +61,7 @@ const Operation = {
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.checkErrorAuthorization(false));
+        history.goBack();
       })
       .catch((err) => {
         dispatch(ActionCreator.checkErrorAuthorization(true));
