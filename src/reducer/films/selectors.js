@@ -7,6 +7,10 @@ export const getPromoFilm = (state) => state[NameSpace.FILMS].promoFilm;
 
 export const getComments = (state) => state[NameSpace.FILMS].reviews;
 
+export const getFavoriteFilms = (state) => state[NameSpace.FILMS].favoriteFilms;
+
+export const getLoadingFavoriteFilm = (state) => state[NameSpace.FILMS].isLoadingFavoriteFilm;
+
 export const getAllGenres = (state) => getGenresList(state[NameSpace.FILMS].films);
 
 export const getFormState = (state) => state[NameSpace.FILMS].isFormDisabled;

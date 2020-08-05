@@ -64,9 +64,11 @@ describe(`Reducer work correctly`, () => {
       films: [],
       promoFilm: {},
       reviews: [],
+      favoriteFilms: [],
+      isLoadingFavoriteFilm: false,
       isFormDisabled: false,
-      isLoadingFilms: false,
-      isLoadingPromoFilm: false,
+      isLoadingFilms: true,
+      isLoadingPromoFilm: true,
       isLoadingComments: false,
       isErrorLoading: false,
     });
@@ -175,14 +177,10 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOADING_FILMS,
-          payload: true,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_FILMS,
           payload: [{fake: true}],
         });
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOADING_FILMS,
           payload: false,
         });
@@ -202,14 +200,10 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOADING_PROMO_FILM,
-          payload: true,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_PROMO_FILM,
           payload: [{fake: true}],
         });
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOADING_PROMO_FILM,
           payload: false,
         });
@@ -227,7 +221,7 @@ describe(`Operation work correctly`, () => {
 
     return commentsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOADING_COMMENTS,
           payload: true,
