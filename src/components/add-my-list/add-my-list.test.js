@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {AddMyList} from './add-my-list.jsx';
+import {AddMyList} from './add-my-list.tsx';
 
 it(`AddMyList component render correctly`, () => {
   const tree = renderer.create(

@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import {AddMyList} from './add-my-list.jsx';
+import {AddMyList} from './add-my-list.tsx';
 
 Enzyme.configure({
   adapter: new Adapter(),

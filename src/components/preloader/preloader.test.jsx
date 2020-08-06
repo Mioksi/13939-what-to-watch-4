@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Preloader from './preloader.jsx';
+import Preloader from './preloader.tsx';
 
 it(`Should Preloader render correctly`, () => {
   const tree = renderer
