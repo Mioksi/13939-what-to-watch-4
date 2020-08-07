@@ -13,7 +13,7 @@ const withFullScreenPlayer = (Component) => {
   class WithFullScreenPlayer extends React.PureComponent<T, IWithFullScreenPlayerState> {
     private readonly videoRef: React.RefObject<HTMLVideoElement>;
 
-    constructor(props) {
+    constructor(props: T) {
       super(props);
 
       this.videoRef = React.createRef();
@@ -37,7 +37,7 @@ const withFullScreenPlayer = (Component) => {
       const {film} = this.props;
 
       if (video) {
-        video.src = film[`videolink`];
+        video.src = film[`video_link`];
 
         video.play();
 
@@ -136,9 +136,9 @@ const withFullScreenPlayer = (Component) => {
 
       const difference = duration - progress;
 
-      const hours = Math.trunc(difference / Time.SECONDSINHOUR);
-      const minutes = Math.trunc(difference / Time.SECONDSINMINUTE);
-      const seconds = Math.trunc(difference % Time.SECONDSINMINUTE);
+      const hours = Math.trunc(difference / Time.SECONDS_IN_HOUR);
+      const minutes = Math.trunc(difference / Time.SECONDS_IN_MINUTE);
+      const seconds = Math.trunc(difference % Time.SECONDS_IN_MINUTE);
 
       return `${hours}:${minutes}:${seconds}`;
     }

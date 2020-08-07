@@ -24,18 +24,14 @@ class SignIn extends React.PureComponent<SignInProps> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  private getErrorMessage(): React.ReactElement {
-    return (
-      <div className="sign-in__message">
-        <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
-      </div>
-    );
-  }
-
   private renderErrorMessage(): React.ReactElement {
     const {isErrorAuth} = this.props;
 
-    return isErrorAuth ? this.getErrorMessage() : null;
+    return isErrorAuth ? (
+      <div className="sign-in__message">
+        <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
+      </div>
+    ) : null;
   }
 
   private handleSubmit(evt): void {

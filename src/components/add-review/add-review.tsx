@@ -78,9 +78,11 @@ const AddReview: React.FC<AddReviewProps> = (
             </ul>
           </nav>
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
+            <Link to={AppRoute.MY_LIST}>
+              <div className="user-block__avatar">
+                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              </div>
+            </Link>
           </div>
         </header>
         <div className="movie-card__poster movie-card__poster--small">
