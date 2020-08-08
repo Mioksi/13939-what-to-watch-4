@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 
 import {ActionCreator} from '../../reducer/state/state';
 import {getSelectedFilm, getSimilarFilms} from '../../reducer/state/selectors';
-import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
 import AddMyList from '../add-my-list/add-my-list';
 import MoviesList from '../movies-list/movies-list';
@@ -15,7 +14,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 
-import {AppRoute, AuthorizationStatus} from '../../common/consts';
+import {AppRoute} from '../../common/consts';
 import {getLoadingFavoriteFilm} from '../../reducer/films/selectors';
 import {Operation as FilmsOperation} from '../../reducer/films/films';
 
@@ -42,12 +41,6 @@ class MoviePage extends React.PureComponent<MoviePageProps> {
     const {film, setActiveFilm} = this.props;
 
     setActiveFilm(film);
-  }
-
-  private renderAddReviewButton(status: string, id: number): React.ReactElement {
-    return status === AuthorizationStatus.AUTH
-      ? <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
-      : null;
   }
 
   private renderMovieOverview(): React.ReactElement {
@@ -118,7 +111,7 @@ class MoviePage extends React.PureComponent<MoviePageProps> {
       [`background_image`]: backgroundPoster,
       [`poster_image`]: filmPoster,
       [`is_favorite`]: isFavorite,
-    }, renderTabs, authorizationStatus, isLoadingFavoriteFilm, loadFilms} = this.props;
+    }, renderTabs, isLoadingFavoriteFilm, loadFilms} = this.props;
 
     if (isLoadingFavoriteFilm) {
       loadFilms();
@@ -151,7 +144,11 @@ class MoviePage extends React.PureComponent<MoviePageProps> {
                     id={id}
                     isFavorite={isFavorite}
                   />
-                  {this.renderAddReviewButton(authorizationStatus, id)}
+                  <Link
+                    to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`}
+                    className="btn movie-card__button">
+                    Add review
+                  </Link>
                 </div>
               </div>
             </div>
@@ -180,7 +177,6 @@ class MoviePage extends React.PureComponent<MoviePageProps> {
 const mapStateToProps = (state, props): IStateToMoviePageProps => ({
   film: getSelectedFilm(state, props.id),
   movies: getSimilarFilms(state),
-  authorizationStatus: getAuthorizationStatus(state),
   isLoadingFavoriteFilm: getLoadingFavoriteFilm(state)
 });
 

@@ -42,7 +42,6 @@ it(`Should MovieCard render correctly`, () => {
               film={film}
               movies={films}
               activeTab={activeTab}
-              authorizationStatus={AuthorizationStatus.NO_AUTH}
               isLoadingFavoriteFilm={false}
               loadFilms={noop}
               renderTabs={noop}

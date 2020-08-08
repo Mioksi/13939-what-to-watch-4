@@ -122,8 +122,8 @@ const withFullScreenPlayer = (Component) => {
       const video = this.videoRef.current;
 
       if (video) {
-        if (video.webkitEnterFullScreen) {
-          video.webkitEnterFullScreen();
+        if (video[`webkitEnterFullScreen`]) {
+          video[`webkitEnterFullScreen`]();
         } else {
           video.requestFullscreen();
           video.controls = true;

@@ -10,12 +10,13 @@ export interface IWithFullScreenPlayerProps {
   film: Film
 }
 
-export interface InjectedProps {
-  isPlaying: boolean;
-  duration: number;
-  progress: number;
-  elapsedTime: string,
-  film: Film
+interface IWithFullScreenPlayerAllProps {
+  isPlaying: boolean
+  duration: number
+  progress: number
+  elapsedTime: string
   onPlayButtonClick: () => void
   onFullScreenButtonClick: () => void
 }
+
+export type InjectedProps = IWithFullScreenPlayerProps & IWithFullScreenPlayerAllProps

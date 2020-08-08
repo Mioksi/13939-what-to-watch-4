@@ -8,7 +8,6 @@ interface IMoviePageProps {
 export interface IStateToMoviePageProps {
   film: Film
   movies: Films
-  authorizationStatus: string
   isLoadingFavoriteFilm: boolean
 }
 
