@@ -1,6 +1,7 @@
 export interface IAddMyListProps {
-  id: number,
-  isFavorite: boolean,
+  id: number
+  isFavorite: boolean
+  history: any
 }
 
 export interface IStateToAddMyListProps {

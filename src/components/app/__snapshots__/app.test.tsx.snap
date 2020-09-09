@@ -26,7 +26,7 @@ Array [
       >
         <a
           className="logo__link"
-          href="/"
+          href="#/"
           onClick={[Function]}
         >
           <span
@@ -51,7 +51,7 @@ Array [
       >
         <a
           className="user-block__link"
-          href="/login"
+          href="#/login"
           onClick={[Function]}
         >
           Sign in
@@ -101,7 +101,7 @@ Array [
           >
             <a
               className="btn btn--play movie-card__button"
-              href="/player/1"
+              href="#/player/1"
               onClick={[Function]}
               type="button"
             >
@@ -187,7 +187,7 @@ Array [
           onMouseLeave={[Function]}
         >
           <a
-            href="/films/1"
+            href="#/films/1"
             onClick={[Function]}
           >
             <div
@@ -212,7 +212,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/films/1"
+              href="#/films/1"
               onClick={[Function]}
             >
               The Grand Budapest Hotel
@@ -229,7 +229,7 @@ Array [
       >
         <a
           className="logo__link logo__link--light"
-          href="/"
+          href="#/"
           onClick={[Function]}
         >
           <span

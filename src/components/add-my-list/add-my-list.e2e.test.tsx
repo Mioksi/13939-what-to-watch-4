@@ -22,6 +22,7 @@ it(`Should button be pressed`, () => {
         isFavorite={true}
         authorizationStatus={settings.authStatus}
         onFavoriteButtonClick={onMyListButtonClick}
+        history={{}}
       />
   );
 

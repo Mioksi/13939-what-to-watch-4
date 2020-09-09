@@ -40,7 +40,7 @@ class MyList extends React.PureComponent<MyListProps> {
           <div className="user-block">
             <div className="user-block__avatar">
               <Link to={AppRoute.MY_LIST}>
-                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
               </Link>
             </div>
           </div>

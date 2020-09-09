@@ -1,5 +1,9 @@
 import {Film, Films} from '../../common/types';
 
+interface IMainToProps {
+  history: any
+}
+
 export interface IStateToMainProps {
   film: Film
   films: Films
@@ -12,4 +16,4 @@ export interface IDispatchToMainProps {
   loadPromoFilm: () => void
 }
 
-export type MainProps = IStateToMainProps & IDispatchToMainProps
+export type MainProps = IMainToProps & IStateToMainProps & IDispatchToMainProps

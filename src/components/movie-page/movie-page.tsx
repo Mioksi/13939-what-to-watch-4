@@ -111,7 +111,7 @@ class MoviePage extends React.PureComponent<MoviePageProps> {
       [`background_image`]: backgroundPoster,
       [`poster_image`]: filmPoster,
       [`is_favorite`]: isFavorite,
-    }, renderTabs, isLoadingFavoriteFilm, loadFilms} = this.props;
+    }, renderTabs, isLoadingFavoriteFilm, loadFilms, history} = this.props;
 
     if (isLoadingFavoriteFilm) {
       loadFilms();
@@ -143,6 +143,7 @@ class MoviePage extends React.PureComponent<MoviePageProps> {
                   <AddMyList
                     id={id}
                     isFavorite={isFavorite}
+                    history={history}
                   />
                   <Link
                     to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`}

@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import {Operation as FilmsOperation} from '../../reducer/films/films';
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
-import history from '../../history';
-
 import {AddMyListProps, IDispatchToAddMyListProps, IStateToAddMyListProps} from './types';
 
 import {AppRoute, AuthorizationStatus} from '../../common/consts';
@@ -14,7 +12,8 @@ const AddMyList: React.FC<AddMyListProps> = (
     {id,
       isFavorite,
       authorizationStatus,
-      onFavoriteButtonClick
+      onFavoriteButtonClick,
+      history
     }: AddMyListProps) => {
 
   const handleFavoriteButtonClick = (): void => {

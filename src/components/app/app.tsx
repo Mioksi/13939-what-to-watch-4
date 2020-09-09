@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Switch, Route, Router} from 'react-router-dom';
+import {Switch, Route, HashRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {getLoadingFilmsState, getLoadingPromoFilmState} from '../../reducer/films/selectors';
@@ -17,8 +17,6 @@ import withTabs from '../../hocs/with-tabs/with-tabs';
 import withFullScreenPlayer from '../../hocs/with-full-screen-player/with-full-screen-player';
 import withReview from '../../hocs/with-review/with-review';
 
-import history from '../../history';
-
 import {IAppProps} from './types';
 
 import {AppRoute, RoutePath} from '../../common/consts';
@@ -33,10 +31,15 @@ const App: React.FC<IAppProps> = ({isLoadingFilms, isLoadingPromoFilm}: IAppProp
   }
 
   return (
-    <Router history={history}>
+    <HashRouter>
       <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <Main />
+        <Route
+          exact
+          path={AppRoute.ROOT}
+          render={(routeProps) => {
+            return <Main history={routeProps.history} />;
+          }}
+        >
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
@@ -44,7 +47,10 @@ const App: React.FC<IAppProps> = ({isLoadingFilms, isLoadingPromoFilm}: IAppProp
         <Route exact path={RoutePath.FILM} render={(routeProps) => {
           const id = Number(routeProps.match.params.id);
 
-          return <MoviePageWrapped id={id} />;
+          return <MoviePageWrapped
+            id={id}
+            history={routeProps.history}
+          />;
         }}/>
         <Route exact path={RoutePath.PLAYER} render={(routeProps) => {
           const id = Number(routeProps.match.params.id);
@@ -53,12 +59,14 @@ const App: React.FC<IAppProps> = ({isLoadingFilms, isLoadingPromoFilm}: IAppProp
         }}/>
         <PrivateRoute exact path={RoutePath.ADD_REVIEW} render={(routeProps) => {
           const id = Number(routeProps.match.params.id);
-
-          return <AddReviewWrapped id={id} />;
+          return <AddReviewWrapped
+            id={id}
+            history={routeProps.history}
+          />;
         }}/>
         <PrivateRoute exact path={AppRoute.MY_LIST} render={() => <MyList />} />
       </Switch>
-    </Router>
+    </HashRouter>
   );
 };
 

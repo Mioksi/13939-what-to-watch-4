@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import {Operation as FilmsOperations} from '../../reducer/films/films';
 import {getActiveFilm} from '../../reducer/state/selectors';
 
+import {AppRoute} from '../../common/consts';
+
 import {IDispatchToWithReviewProps, InjectedProps, IWithReviewProps, IWithReviewState} from './types';
 
 const withReview = (Component) => {
@@ -42,7 +44,7 @@ const withReview = (Component) => {
     }
 
     private handleSubmit(evt): void {
-      const {onSubmit, film} = this.props;
+      const {onSubmit, film, history} = this.props;
       const {rating, comment} = this.state;
 
       evt.preventDefault();
@@ -50,7 +52,7 @@ const withReview = (Component) => {
       onSubmit(film.id, {
         rating,
         comment
-      });
+      }, history.push(`${AppRoute.FILM}/${film.id}`));
     }
 
     public render(): React.ReactElement {

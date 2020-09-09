@@ -30,7 +30,7 @@ const Main: React.FC<MainProps> = ({
     [`background_image`]: backgroundPoster,
     [`poster_image`]: filmPoster,
     [`is_favorite`]: isFavorite,
-  }, films, shownMoviesCount, onShowMoreButtonClick, isLoadingFavoriteFilm, loadPromoFilm}: MainProps) => {
+  }, films, shownMoviesCount, onShowMoreButtonClick, isLoadingFavoriteFilm, loadPromoFilm, history}: MainProps) => {
 
   const isShowMoreButtonHide = shownMoviesCount < films.length;
 
@@ -67,6 +67,7 @@ const Main: React.FC<MainProps> = ({
                 <AddMyList
                   id={id}
                   isFavorite={isFavorite}
+                  history={history}
                 />
               </div>
             </div>

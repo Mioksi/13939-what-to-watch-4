@@ -1,8 +1,5 @@
 import {extend} from '../../common/utils';
 
-import history from '../../history';
-import {AppRoute} from '../../common/consts';
-
 const initialState = {
   films: [],
   promoFilm: {},
@@ -128,7 +125,6 @@ const Operation = {
       .then(() => {
         dispatch(ActionCreator.setFormDisabled(false));
         dispatch(ActionCreator.getErrorStatus(false));
-        history.push(`${AppRoute.FILM}/${id}`);
       })
       .catch((err) => {
         dispatch(ActionCreator.setFormDisabled(false));

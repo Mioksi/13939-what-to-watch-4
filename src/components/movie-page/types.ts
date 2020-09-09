@@ -1,8 +1,9 @@
 import {Film, Films} from '../../common/types';
 
 interface IMoviePageProps {
-  activeTab: string,
+  activeTab: string
   renderTabs: () => void
+  history: any
 }
 
 export interface IStateToMoviePageProps {

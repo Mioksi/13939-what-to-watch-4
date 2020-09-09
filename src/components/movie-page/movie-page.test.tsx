@@ -46,6 +46,7 @@ it(`Should MovieCard render correctly`, () => {
               loadFilms={noop}
               renderTabs={noop}
               setActiveFilm={noop}
+              history={{}}
             />
           </Provider>
         </Router>

@@ -43,6 +43,7 @@ it(`Should Main render correctly`, () => {
               isLoadingFavoriteFilm={false}
               loadPromoFilm={noop}
               onShowMoreButtonClick={noop}
+              history={{}}
             />
           </Provider>
         </Router>

@@ -17,6 +17,7 @@ it(`AddMyList component render correctly`, () => {
         isFavorite={true}
         authorizationStatus={settings.authStatus}
         onFavoriteButtonClick={noop}
+        history={{}}
       />
   ).toJSON();
 
